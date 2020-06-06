@@ -1,0 +1,172 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/2019/06/15/gauserid/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/2019/06/15/gauserid/" hreflang="en"><link rel="canonical" href="https://iandays.com/2019/06/15/gauserid/"><title>Google Analytics 自訂UserId 追蹤數據 | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Google Analytics 自訂UserId 追蹤數據",
+  "description": "分享一個google analytics滿好用的功能，設定User Id，可以讓你直接在報表上找出這個使用者的flow，包括停留時間等等詳細數據，假設你搭配會員系統給予id的話，你也能夠跨裝置的追蹤數據。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/2019/06/15/gauserid/" 
+  },
+  "datePublished":  "2019-06-15T08:29:52.000Z" ,
+  "dateModified":  "2019-06-15T17:41:34.472Z" ,
+  "image": "https://iandays.com/images/google_analytics.png",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "marketing",
+    "item": "https://iandays.com/categories/marketing/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Google Analytics 自訂UserId 追蹤數據",
+    "item": "https://iandays.com/2019/06/15/gauserid/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="Google Analytics 自訂UserId 追蹤數據 | Ian Chu"><meta name="description" content="分享一個google analytics滿好用的功能，設定User Id，可以讓你直接在報表上找出這個使用者的flow，包括停留時間等等詳細數據，假設你搭配會員系統給予id的話，你也能夠跨裝置的追蹤數據。"><meta property="og:description" content="分享一個google analytics滿好用的功能，設定User Id，可以讓你直接在報表上找出這個使用者的flow，包括停留時間等等詳細數據，假設你搭配會員系統給予id的話，你也能夠跨裝置的追蹤數據。"><meta property="og:url" content="https://iandays.com/2019/06/15/gauserid/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.com/images/logo.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1591433368720"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Google Analytics 自訂UserId 追蹤數據</h1><div class="post-meta">Jun 16, 2019<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/marketing/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">marketing</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/2019/06/15/gauserid/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">Google Analytics 自訂UserId 追蹤數據</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: a year ago</div></div><a class="disqus-comment-count" data-disqus-identifier="2019/06/15/gauserid/" href="/2019/06/15/gauserid/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#GA-設定-User-ID"><span class="toc-text">GA 設定 User ID</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#針對使用者設定-UserId"><span class="toc-text">針對使用者設定 UserId</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Tag-manager-設定流程"><span class="toc-text">Tag manager 設定流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#實際模擬-UserId-設定"><span class="toc-text">實際模擬 UserId 設定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Google-analytics-報表"><span class="toc-text">Google analytics 報表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#心得"><span class="toc-text">心得</span></a></li></ol></div></div><div class="post-content"><p>分享一個google analytics滿好用的功能，設定User Id，可以讓你直接在報表上找出這個使用者的flow，包括停留時間等等詳細數據，假設你搭配會員系統給予id的話，你也能夠跨裝置的追蹤數據。</p>
+<p>Goolge 說明: <a href="https://support.google.com/analytics/answer/3123666?hl=zh-Hant" target="_blank" rel="noopener" title="設定 User ID">設定 User ID</a></p>
+<h2 id="GA-設定-User-ID"><a href="#GA-設定-User-ID" class="headerlink" title="GA 設定 User ID"></a>GA 設定 User ID</h2><p>GA 點選左下角設定 =&gt; 點選 追蹤設定 =&gt; 點選 User Id =&gt; 點擊 同意條款 =&gt; 點選 下一步<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/gasettinguid.png" alt="gasettinguid" title="gasettinguid"><noscript><img src="/images/gasettinguid.png" alt="gasettinguid" /></noscript></p>
+<p>建立 User Id 報表<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/gasettinguid2.png" alt="gasettinguid" title="gasettinguid"><noscript><img src="/images/gasettinguid2.png" alt="gasettinguid" /></noscript></p>
+<p>打開 顯示User-id<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/gauserid3.png" alt="gasettinguid" title="gasettinguid"><noscript><img src="/images/gauserid3.png" alt="gasettinguid" /></noscript></p>
+<p>這邊千萬千萬要記得要打開UserId的設定，否則你報表看不到客製化的UserId數據。我在這邊卡了2小時，查網路還找不到如何顯示的教學…。</p>
+<h2 id="針對使用者設定-UserId"><a href="#針對使用者設定-UserId" class="headerlink" title="針對使用者設定 UserId"></a>針對使用者設定 UserId</h2><p>接下來就需要定義使用者的UserId，這邊有時候會用會員編號，不要使用敏感性個資去設定即可，能讓你在報表識別出這個人是誰就可以。</p>
+<figure class="highlight 1c"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 全域網站代碼的追蹤程式碼 (gtag.js)：</span></span><br><span class="line">gtag('set', &#123;'user_id': 'USER_ID'&#125;); <span class="comment">// 使用已登入的 user_id 設定 User ID。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 通用 Analytics (分析) 追蹤程式碼 (analytics.js)：</span></span><br><span class="line">ga('set', 'userId', 'USER_ID'); <span class="comment">// 使用已登入的 user_id 設定 User ID。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Tag-manager-設定流程"><a href="#Tag-manager-設定流程" class="headerlink" title="Tag manager 設定流程"></a>Tag manager 設定流程</h3><p>稍微提一下 tag manager 設定流程，首先我們需要建立一個變數，因為我 userId 是透過 cookie 傳遞的，所以我這邊先打開<code>變數</code>，點選使用者自定義區塊 -&gt; 點選新增。</p>
+<ul>
+<li><p>選擇自訂JavaScript<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/gtmuid.png" alt="gtm uid" title="gtm uid"><noscript><img src="/images/gtmuid.png" alt="gtm uid" /></noscript></p>
+</li>
+<li><p>function return 代表的是這個變數的值。<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/gtmuidvar.png" alt="gtm uid js" title="gtm uid js"><noscript><img src="/images/gtmuidvar.png" alt="gtm uid js" /></noscript></p>
+</li>
+<li><p>點選 <code>代碼</code> -&gt; 新增/編輯 GA pageView -&gt; 點選 覆蓋變數設定 -&gt; 點選 更多設定 -&gt; 填入 userId 還有剛剛設定的 變數名稱<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/gtmgauid.png" alt="gtm ga uid" title="gtm ga uid"><noscript><img src="/images/gtmgauid.png" alt="gtm ga uid" /></noscript></p>
+</li>
+<li><p>完成後 -&gt; 點選提交 (或是 預覽 測試後再提交)<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/gtmgauidsubmit.png" alt="gtm ga uid submit" title="gtm ga uid submit"><noscript><img src="/images/gtmgauidsubmit.png" alt="gtm ga uid submit" /></noscript></p>
+</li>
+</ul>
+<p>Tag manager非常好用，會用的話可以不透過修改線上程式碼，處理許多問題、功能。</p>
+<h2 id="實際模擬-UserId-設定"><a href="#實際模擬-UserId-設定" class="headerlink" title="實際模擬 UserId 設定"></a>實際模擬 UserId 設定</h2><p>因為blog沒有會員系統，就先麻煩到我剛剛建好的頁面，是使用串接 facebook web sdk 登入。</p>
+<p>登入設定 userId : <a href="https://iandays.com/work/getuid.html" title="登入facebook 設定 userId">登入facebook 設定 userId</a></p>
+<p>進入畫面點擊登入後，我會把 facebook uId 設定到 cookie，之後我會將 cookie 的這個值，設定到 Google analytics UserId 中。</p>
+<p>因為 cookie 沒設定時間所以關掉視窗就會自動清掉了，別怕XD。</p>
+<p>UserId google 政策小提醒:<br><code>您不會上傳任何能讓 Google 識別個人身分的資料 (例如姓名、身分證字號、電子郵件地址等任何類似資料)，或是可永久識別某裝置的資料 (例如無法重設的手機專屬裝置識別碼)。</code></p>
+<h2 id="Google-analytics-報表"><a href="#Google-analytics-報表" class="headerlink" title="Google analytics 報表"></a>Google analytics 報表</h2><p>接下來打開剛剛建立好的GA報表，點選 目標對象 -&gt; 客層管理，就可以看到剛剛設定好的UserId。點擊 UserId 即可看到詳細數據。</p>
+<ul>
+<li><p>UserId 清單<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/gauseridview.png" alt="ga userid view" title="ga userid view"><noscript><img src="/images/gauseridview.png" alt="ga userid view" /></noscript></p>
+</li>
+<li><p>使用者紀錄<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/gauseridinfo.png" alt="ga userid info" title="ga userid info"><noscript><img src="/images/gauseridinfo.png" alt="ga userid info" /></noscript></p>
+</li>
+</ul>
+<p>假設你再搭配資料庫存取會員，就可以直接的看到所有會員的使用路徑，例如說，我希望看到下單的使用者，都看過哪些頁面的路徑，那你就可以依靠這方式觀察。</p>
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p>滿詭異的，一開始報表沒出現UserId，查網路解決方法查了很久，沒想到國外都說ga不會顯示UserId…，滿臉問號。</p>
+<p>話說這功能我個人是覺得滿好用的，以前服務公司就有導入使用，可以更快理解、觀察出會員的需求，雖然聽起來滿沒有隱私，很怕被追蹤的話，記得開無痕登出瀏覽網站。</p>
+<p>感謝，有問題再歡迎留言詢問。</p>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><div class="tags"><a href="/tags/google-analytics/">google_analytics</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/2019/08/04/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/10/16/tagteach/">Google Tag Manager(gtm)教學 觸發、代碼、變數設定介紹</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/08/26/tagmanager/">Google Tag Manager tracking code 安裝追蹤碼</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/06/23/gautm/">Google analytics UTM設定參數，追蹤facebook廣告、簡訊、EDM</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/07/30/gasession/">Google Analytics 工作階段介紹、定義</a></li></ul></div><div class="post-nav"><a class="pre" href="/2019/07/28/reactcontextapi/">React Context API 跨元件傳遞資料</a><a class="next" href="/2019/06/08/firstjob/">第一份工作</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = '2019/06/15/gauserid/';
+var disqus_title = 'Google Analytics 自訂UserId 追蹤數據';
+var disqus_url = 'https://iandays.com/2019/06/15/gauserid/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://line.me/S/sticker/9091863?lang=zh-Hant&amp;ref=gnsh_stickerDetail" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/04/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/28/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/15/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/08/firstjob/">第一份工作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/01/reacthooks/">React Hooks Performance 效能處理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5999863573" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1591433368724" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li></ul></div></html>

@@ -1,0 +1,4 @@
+User-agent: * Allow: /
+Allow: /archives/
+Disallow: /vendors/
+Sitemap: https://iandays.com/sitemap.xml

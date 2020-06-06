@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/2018/12/19/seoredirect/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/2018/12/19/seoredirect/" hreflang="en"><link rel="canonical" href="https://iandays.com/2018/12/19/seoredirect/"><title>SEO 301、302轉址Redirect，canonical tag重複內容處理 | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "SEO 301、302轉址Redirect，canonical tag重複內容處理",
+  "description": "轉址的概念，大概是宣告這個頁面要搬家到另一個頁面的意思，依照不同後端語言，各有不同的轉址寫法，但邏輯上都是一樣的，大概分為 301、302、307。若是有重複性內容處理的問題，那你就需要使用canonical處理。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/2018/12/19/seoredirect/" 
+  },
+  "datePublished":  "2018-12-19T15:14:11.000Z" ,
+  "dateModified":  "2019-06-08T04:44:03.023Z" ,
+  "image": "https://iandays.com/images/google_search.png",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "marketing",
+    "item": "https://iandays.com/categories/marketing/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "SEO 301、302轉址Redirect，canonical tag重複內容處理",
+    "item": "https://iandays.com/2018/12/19/seoredirect/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="SEO 301、302轉址Redirect，canonical tag重複內容處理 | Ian Chu"><meta name="description" content="轉址的概念，大概是宣告這個頁面要搬家到另一個頁面的意思，依照不同後端語言，各有不同的轉址寫法，但邏輯上都是一樣的，大概分為 301、302、307。若是有重複性內容處理的問題，那你就需要使用canonical處理。"><meta property="og:description" content="轉址的概念，大概是宣告這個頁面要搬家到另一個頁面的意思，依照不同後端語言，各有不同的轉址寫法，但邏輯上都是一樣的，大概分為 301、302、307。若是有重複性內容處理的問題，那你就需要使用canonical處理。"><meta property="og:url" content="https://iandays.com/2018/12/19/seoredirect/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.com/images/logo.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1591433368767"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">SEO 301、302轉址Redirect，canonical tag重複內容處理</h1><div class="post-meta">Jun 8, 2019<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/marketing/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">marketing</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/2018/12/19/seoredirect/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">SEO 301、302轉址Redirect，canonical tag重複內容處理</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: a year ago</div></div><a class="disqus-comment-count" data-disqus-identifier="2018/12/19/seoredirect/" href="/2018/12/19/seoredirect/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#rediect轉址介紹"><span class="toc-text">rediect轉址介紹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#轉址方法"><span class="toc-text">轉址方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rediect轉址狀態碼"><span class="toc-text">rediect轉址狀態碼</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#哪些網址需要做redirect"><span class="toc-text">哪些網址需要做redirect</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#轉址缺點、後遺症"><span class="toc-text">轉址缺點、後遺症</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#canonical-介紹"><span class="toc-text">canonical 介紹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#結論"><span class="toc-text">結論</span></a></li></ol></div></div><div class="post-content"><p>SEO優化，是眾多細節的組成的，不光光只是設定好title而已，還有網站架構、速度、後端設定處理等等，包含非常多項目，對開發人員來說，不論是設計、前端、後端都需要注意。</p>
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/google_search.png" alt="google search" title="google search"><noscript><img src="/images/google_search.png" alt="google search" /></noscript></p>
+<p>假設一個網站改版更新，大概會有幾個需求，前端畫面修改、網址架構更新、增加欄位修改api等等。</p>
+<p>前端需要注意畫面更新方式，如果是不變化網址(SPA)，內容是經由互動產生內容，那互動產生內容同時，就要有對應的網址參數(window.history.pushState)，然後這些網址要能夠請求拿到各自對應的內容。每個對應的網址參數在列在sitemap上，讓google有辦法索引。</p>
+<h2 id="rediect轉址介紹"><a href="#rediect轉址介紹" class="headerlink" title="rediect轉址介紹"></a>rediect轉址介紹</h2><p>更換網址架構的話，假設你有個賣蘋果的頁面網址是 domain/product/apple，在google搜尋上 <code>網購蘋果</code> 是第一名，但如果改版後網址要變成 domain/product/freshapple，有個重點非常重要，千萬要記得做轉址。否則product/apple <code>網購蘋果</code> 的排名就會歸零。</p>
+<p>白話來說，轉址的概念大概是宣告這個頁面要搬家到另一個頁面的意思，也可以跨domain轉。</p>
+<h2 id="轉址方法"><a href="#轉址方法" class="headerlink" title="轉址方法"></a>轉址方法</h2><p>依照不同後端語言，各有不同的轉址寫法，但邏輯上都是一樣的，大概分為 301、302、307。</p>
+<h3 id="rediect轉址狀態碼"><a href="#rediect轉址狀態碼" class="headerlink" title="rediect轉址狀態碼"></a>rediect轉址狀態碼</h3><ul>
+<li>301 狀態碼表示網頁已永久遷移至新的位置</li>
+<li>302 狀態瑪表示網頁暫時導向新位置</li>
+<li>307 狀態瑪表示暫時導向新位置，但是保持使用者請求方式不變</li>
+</ul>
+<p>Node.js express 301語法</p>
+<figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">res</span><span class="selector-class">.redirect</span>(<span class="number">301</span>, <span class="string">'http://example.com'</span>);</span><br></pre></td></tr></table></figure>
+<p><a href="https://support.google.com/webmasters/answer/93633?hl=zh-Hant" target="_blank" rel="noopener" title="google 301 rediect 介紹">google 301 rediect 介紹</a></p>
+<h2 id="哪些網址需要做redirect"><a href="#哪些網址需要做redirect" class="headerlink" title="哪些網址需要做redirect"></a>哪些網址需要做redirect</h2><p><a href="http://www.domain.com" target="_blank" rel="noopener">www.domain.com</a> 跟 domain.com 就會被google是為兩個網站，這時候你可以用301轉址處理，避免網站同時存在各種url顯示相同網址。<br>(domain網站就有做 domain.com redirect to <a href="http://www.domain.com" target="_blank" rel="noopener">www.domain.com</a>)</p>
+<p>網站同時存在 https:// http:// 兩種可以被訪問，也需要做轉址，假設網址結尾帶有或是無 .php .jsp，也需要指定一個做 301redirect。</p>
+<p>需不需要轉址核心概念就是，這個頁面的內容，只有一個網址可以顯示。</p>
+<p>但是如果今天網址需要帶參數怎辦(utm、gdn)? 這時候就需要canonical tag。(後半段介紹)</p>
+<h2 id="轉址缺點、後遺症"><a href="#轉址缺點、後遺症" class="headerlink" title="轉址缺點、後遺症"></a>轉址缺點、後遺症</h2><p>三年前工作經驗，使用301轉址，新網址的關鍵字排名<code>一定</code>會掉落排名，大概過了一兩週後才會慢慢回升，我會用一定是因為john muller(google webmaster發言人)也確實發表過掉落些許排名這件事情。</p>
+<p>但2016年時 google’s Gary Illyes 表示 30x不在會掉落PageRank。在今年，我的blog有做過301轉址，大概一兩天之後，在搜尋結果上，新網址會取代舊網址，排名完全沒有變動。</p>
+<iframe border=0 frameborder=0 height=200 width=550 
+ src="https://twitframe.com/show?url=https://twitter.com/methode/status/757923179641839616?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E757923179641839616&ref_url=https%3A%2F%2Fmoz.com%2Fblog%2F301-redirection-rules-for-seo"></iframe>
+
+<h2 id="canonical-介紹"><a href="#canonical-介紹" class="headerlink" title="canonical 介紹"></a>canonical 介紹</h2><p>如果你網站沒辦法經由301處理，讓同個頁面有多個網址可以載入取得，或是有重複性內容處理的問題，那你就需要使用canonical處理，你可以用html的link處理。指定目前網址的搜尋權重指派到哪個網址。或是在server response header加上 rel=canonical。</p>
+<p>另外sitemap也可以指定索引的網址，但效力會被canonical 蓋過。</p>
+<ul>
+<li><p>網址為 <a href="https://example.com/apple?user=ianchuu" target="_blank" rel="noopener">https://example.com/apple?user=ianchuu</a></p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;link <span class="attribute">rel</span>=<span class="string">"canonical"</span> <span class="attribute">href</span>=<span class="string">"https://example.com/apple"</span> /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>google 重複性內容處理</p>
+<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line">如果您有某一個網頁可透過多個網址存取，或是不同網頁上存在相似的內容 <span class="comment">(例如同時有行動版和桌面版網頁)</span>，Google 會將這些網頁視為相同網頁的重複版本，從中選出一個網址做為「標準」版本並檢索該網址，其他網址則會被視為「重複」網址，檢索頻率會比較低。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><a href="https://support.google.com/webmasters/answer/139066?visit_id=636808323796527838-1214345128&rd=1" target="_blank" rel="noopener" title="google 整合重複的網址">google 整合重複的網址</a></p>
+<h2 id="結論"><a href="#結論" class="headerlink" title="結論"></a>結論</h2><p>這邊大部分觀念都圍繞在更換網址、處理重複性內容。</p>
+<p>一般網站很高機會遇到重複性內容的問題，因為前端或是後端需要網址參數來變化內容，記得，如果網址有帶參數，但是有沒有帶網頁內容都一樣，就記得加上canonical，直接指定一個網址讓google指派權重。</p>
+<p>但如果網址有帶參數，但是內容不一樣就要列在sitemap上或是產生個內部連結，如果沒有做的話，就浪費這個頁面被索引的機會了。</p>
+<p>感謝閱讀，有問題歡迎留言!</p>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><div class="tags"><a href="/tags/seo/">seo</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/2018/11/25/structuredseo/">結構化資料SEO 優化顯示搜尋結果</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2019/01/30/reactssr/">React Server-side rendering SEO處理</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/01/28/whatseo/">SEO優化 google教學guideline介紹</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/09/24/searchconsle/">Google Search Console教學 提交Sitemap網址、SEO工具</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2019/02/26/keywordselect/">SEO關鍵字分析選擇，優化工具介紹</a></li></ul></div><div class="post-nav"><a class="pre" href="/2019/01/30/reactssr/">React Server-side rendering SEO處理</a><a class="next" href="/2018/12/09/nextupdate/">Update Next.js 7、react 16 error and bug</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = '2018/12/19/seoredirect/';
+var disqus_title = 'SEO 301、302轉址Redirect，canonical tag重複內容處理';
+var disqus_url = 'https://iandays.com/2018/12/19/seoredirect/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://line.me/S/sticker/9091863?lang=zh-Hant&amp;ref=gnsh_stickerDetail" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/04/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/28/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/15/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/08/firstjob/">第一份工作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/01/reacthooks/">React Hooks Performance 效能處理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5999863573" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1591433368769" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li></ul></div></html>

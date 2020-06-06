@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/2018/08/26/tagmanager/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/2018/08/26/tagmanager/" hreflang="en"><link rel="canonical" href="https://iandays.com/2018/08/26/tagmanager/"><title>Google Tag Manager tracking code 安裝追蹤碼 | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Google Tag Manager tracking code 安裝追蹤碼",
+  "description": "Google Tag manager 是一個強大的程式碼管理容器，一個代碼管理中心的概念，涵蓋著處理各種代碼的設定。接下來就開始介紹功能，靠tag manager建立事件。我要追蹤的是click的連結。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/2018/08/26/tagmanager/" 
+  },
+  "datePublished":  "2018-08-26T06:01:35.000Z" ,
+  "dateModified":  "2019-06-08T04:44:29.503Z" ,
+  "image": "https://iandays.com/images/tagmanager.png",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "marketing",
+    "item": "https://iandays.com/categories/marketing/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Google Tag Manager tracking code 安裝追蹤碼",
+    "item": "https://iandays.com/2018/08/26/tagmanager/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="Google Tag Manager tracking code 安裝追蹤碼 | Ian Chu"><meta name="description" content="Google Tag manager 是一個強大的程式碼管理容器，一個代碼管理中心的概念，涵蓋著處理各種代碼的設定。接下來就開始介紹功能，靠tag manager建立事件。我要追蹤的是click的連結。"><meta property="og:description" content="Google Tag manager 是一個強大的程式碼管理容器，一個代碼管理中心的概念，涵蓋著處理各種代碼的設定。接下來就開始介紹功能，靠tag manager建立事件。我要追蹤的是click的連結。"><meta property="og:url" content="https://iandays.com/2018/08/26/tagmanager/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.com/images/logo.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1591433368802"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Google Tag Manager tracking code 安裝追蹤碼</h1><div class="post-meta">Jun 8, 2019<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/marketing/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">marketing</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/2018/08/26/tagmanager/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">Google Tag Manager tracking code 安裝追蹤碼</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: 2 years ago</div></div><a class="disqus-comment-count" data-disqus-identifier="2018/08/26/tagmanager/" href="/2018/08/26/tagmanager/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#建立帳戶-埋設Tag-Manager-traking-code"><span class="toc-text">建立帳戶 埋設Tag Manager traking code</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tag-manager-設定-google-analytics-tracking-code"><span class="toc-text">Tag manager 設定 google analytics tracking code</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#進入代碼區塊-點擊新增"><span class="toc-text">進入代碼區塊 點擊新增</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#選擇google-analytics"><span class="toc-text">選擇google analytics</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#點選上半部變數區塊-gt-加入你google-analytics的追蹤碼-UA-xxxxxxxx-x"><span class="toc-text">點選上半部變數區塊 &#x3D;&gt; 加入你google analytics的追蹤碼 UA-xxxxxxxx-x</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#點選下半部觸發區塊-gt-選擇-All-page-view"><span class="toc-text">點選下半部觸發區塊 &#x3D;&gt; 選擇 All page view</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#點擊右上角提交"><span class="toc-text">點擊右上角提交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#首先先點擊左邊選單的-變數，讓我們後面可以取用點擊連結的URL"><span class="toc-text">首先先點擊左邊選單的 變數，讓我們後面可以取用點擊連結的URL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#點擊左邊選單的-觸發條件-gt-新增-gt-觸發條件設定-gt-點選連結"><span class="toc-text">點擊左邊選單的 觸發條件 &#x3D;&gt; 新增 &#x3D;&gt; 觸發條件設定 &#x3D;&gt; 點選連結</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#選擇內建變數"><span class="toc-text">選擇內建變數</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#選擇-click-target-gt-儲存"><span class="toc-text">選擇 click target &#x3D;&gt; 儲存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#點擊左邊選單的-代碼-gt-選擇-google-analytics-gt-點擊上半部區塊-代碼設定"><span class="toc-text">點擊左邊選單的 代碼 &#x3D;&gt; 選擇 google analytics &#x3D;&gt; 點擊上半部區塊[代碼設定]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#點擊下半部區塊-代碼設定-gt-選擇剛剛設定好的觸發條件"><span class="toc-text">點擊下半部區塊[代碼設定] &#x3D;&gt; 選擇剛剛設定好的觸發條件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#點擊提交"><span class="toc-text">點擊提交</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#點擊預覽模式-gt-進入網頁測試"><span class="toc-text">點擊預覽模式 &#x3D;&gt; 進入網頁測試</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Tag-Manager-結論重點"><span class="toc-text">Tag Manager 結論重點</span></a></li></ol></div></div><div class="post-content"><p>Tag manager 是一個強大的程式碼管理容器，一個代碼管理中心的概念，提醒一下它並不是取代google analytics，而是涵蓋著處理各種代碼的設定，包括google analytics 以及各種tracking code、或是html等等。功能非常的強大，因此寫錯script或css就可能讓你網站出問題。</p>
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagmanager.png" alt="google tagmanager" title="google tagmanager"><noscript><img src="/images/tagmanager.png" alt="google tagmanager" /></noscript></p>
+<p>以往的埋設追蹤碼都是增加一段script，但是當你有用了tag manager，這段script可以轉由tag manager幫你引入，由tag manager來控管tracking code，假設你是行銷人員，就不用在請程式人員幫你埋碼了。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">// 傳統 google analytics tacking code</span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="actionscript">(<span class="function"><span class="keyword">function</span><span class="params">(i,s,o,g,r,a,m)</span></span>&#123;i[<span class="string">'GoogleAnalyticsObject'</span>]=r;i[r]=i[r]||<span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span></span><br><span class="line"><span class="javascript">(i[r].q=i[r].q||[]).push(<span class="built_in">arguments</span>)&#125;,i[r].l=<span class="number">1</span>*<span class="keyword">new</span> <span class="built_in">Date</span>();a=s.createElement(o),</span></span><br><span class="line">m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)</span><br><span class="line"><span class="javascript">&#125;)(<span class="built_in">window</span>,<span class="built_in">document</span>,<span class="string">'script'</span>,<span class="string">'https://www.google-analytics.com/analytics.js'</span>,<span class="string">'ga'</span>);</span></span><br><span class="line"><span class="actionscript">ga(<span class="string">'create'</span>,<span class="string">'UA-xxxxxxxxxx-1'</span>,<span class="string">'auto'</span>);ga(<span class="string">'send'</span>,<span class="string">'pageview'</span>);</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">// 以上這段code會變成你在tag manager 選擇google analytics，貼上UA-xxxxxxxxxxx-1。</span><br><span class="line">// 如果沒有支援就改成用html方式引入code</span><br></pre></td></tr></table></figure>
+<h2 id="建立帳戶-埋設Tag-Manager-traking-code"><a href="#建立帳戶-埋設Tag-Manager-traking-code" class="headerlink" title="建立帳戶 埋設Tag Manager traking code"></a>建立帳戶 埋設Tag Manager traking code</h2><p>進入 <a href="https://tagmanager.google.com/" target="_blank" rel="noopener" title="tag manager">google tag manager</a> 網站註冊登入，點選建立帳戶，接下來會彈出一段程式碼。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">// 將這段script 放到網站的<span class="tag">&lt;<span class="name">head</span>&gt;</span>前面</span><br><span class="line"><span class="comment">&lt;!-- Google Tag Manager --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="actionscript">(<span class="function"><span class="keyword">function</span><span class="params">(w,d,s,l,i)</span></span>&#123;w[l]=w[l]||[];w[l].push(&#123;<span class="string">'gtm.start'</span>:</span></span><br><span class="line"><span class="javascript"><span class="keyword">new</span> <span class="built_in">Date</span>().getTime(),<span class="attr">event</span>:<span class="string">'gtm.js'</span>&#125;);<span class="keyword">var</span> f=d.getElementsByTagName(s)[<span class="number">0</span>],</span></span><br><span class="line"><span class="actionscript">j=d.createElement(s),dl=l!=<span class="string">'dataLayer'</span>?<span class="string">'&amp;l='</span>+l:<span class="string">''</span>;j.async=<span class="literal">true</span>;j.src=</span></span><br><span class="line"><span class="actionscript"><span class="string">'https://www.googletagmanager.com/gtm.js?id='</span>+i+dl;f.parentNode.insertBefore(j,f);</span></span><br><span class="line"><span class="javascript">&#125;)(<span class="built_in">window</span>,<span class="built_in">document</span>,<span class="string">'script'</span>,<span class="string">'dataLayer'</span>,<span class="string">'GTM-你的追蹤碼'</span>);</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- End Google Tag Manager --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>恭喜你，基本上後面動作你就不需要動到html了。除非要做data layer的設定。<br><a href="https://developers.google.com/tag-manager/devguide" target="_blank" rel="noopener" title="tag manager data layer">tag manager data layer說明文件</a></p>
+<h2 id="Tag-manager-設定-google-analytics-tracking-code"><a href="#Tag-manager-設定-google-analytics-tracking-code" class="headerlink" title="Tag manager 設定 google analytics tracking code"></a>Tag manager 設定 google analytics tracking code</h2><p>tag manager有整合進google analytics的設定，</p>
+<h4 id="進入代碼區塊-點擊新增"><a href="#進入代碼區塊-點擊新增" class="headerlink" title="進入代碼區塊 點擊新增"></a>進入代碼區塊 點擊新增</h4><p><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagadd.png" alt="google tagmanager add" title="google tagmanager add"><noscript><img src="/images/tagadd.png" alt="google tagmanager add" /></noscript></p>
+<h4 id="選擇google-analytics"><a href="#選擇google-analytics" class="headerlink" title="選擇google analytics"></a>選擇google analytics</h4><p><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagsetga.png" alt="google tagmanager tag set ga" title="google tagmanager tag set ga"><noscript><img src="/images/tagsetga.png" alt="google tagmanager tag set ga" /></noscript></p>
+<h4 id="點選上半部變數區塊-gt-加入你google-analytics的追蹤碼-UA-xxxxxxxx-x"><a href="#點選上半部變數區塊-gt-加入你google-analytics的追蹤碼-UA-xxxxxxxx-x" class="headerlink" title="點選上半部變數區塊 =&gt; 加入你google analytics的追蹤碼 UA-xxxxxxxx-x"></a>點選上半部變數區塊 =&gt; 加入你google analytics的追蹤碼 UA-xxxxxxxx-x</h4><p><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagvar.png" alt="google tagmanager tag tag var" title="google tagmanager tag var"><noscript><img src="/images/tagvar.png" alt="google tagmanager tag tag var" /></noscript></p>
+<h4 id="點選下半部觸發區塊-gt-選擇-All-page-view"><a href="#點選下半部觸發區塊-gt-選擇-All-page-view" class="headerlink" title="點選下半部觸發區塊 =&gt; 選擇 All page view"></a>點選下半部觸發區塊 =&gt; 選擇 All page view</h4><p><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagtrigger.png" alt="google tagmanager tag trigger" title="google tagmanager tag trigger"><noscript><img src="/images/tagtrigger.png" alt="google tagmanager tag trigger" /></noscript></p>
+<h4 id="點擊右上角提交"><a href="#點擊右上角提交" class="headerlink" title="點擊右上角提交"></a>點擊右上角提交</h4><p><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagsubmit.png" alt="google tagmanager tag submit" title="google tagmanager tag submit"><noscript><img src="/images/tagsubmit.png" alt="google tagmanager tag submit" /></noscript></p>
+<p>記住一個重點，tag manager每個改動都需要你點擊提交，才算是真正送出修改，如果要先觀看有沒有問題，可以點擊預覽，進入有埋設tag manager的網站，下方會跳出介面，會列出有在執行項目。</p>
+<p>以上就是成功用tag manager埋好了google analytics，那接下來開始介紹一個強大的功能，直接靠tag manager建立事件。我要追蹤的是click target=”_blank”的連結(因為有處理過會把外部連結設為開新視窗)。</p>
+<h4 id="首先先點擊左邊選單的-變數，讓我們後面可以取用點擊連結的URL"><a href="#首先先點擊左邊選單的-變數，讓我們後面可以取用點擊連結的URL" class="headerlink" title="首先先點擊左邊選單的 變數，讓我們後面可以取用點擊連結的URL"></a>首先先點擊左邊選單的 變數，讓我們後面可以取用點擊連結的URL</h4><p><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagopenvar.png" alt="google tagmanager tag openvar" title="google tagmanager openvar"><noscript><img src="/images/tagopenvar.png" alt="google tagmanager tag openvar" /></noscript></p>
+<h4 id="點擊左邊選單的-觸發條件-gt-新增-gt-觸發條件設定-gt-點選連結"><a href="#點擊左邊選單的-觸發條件-gt-新增-gt-觸發條件設定-gt-點選連結" class="headerlink" title="點擊左邊選單的 觸發條件 =&gt; 新增 =&gt; 觸發條件設定 =&gt; 點選連結"></a>點擊左邊選單的 觸發條件 =&gt; 新增 =&gt; 觸發條件設定 =&gt; 點選連結</h4><p><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagtrigerset.png" alt="google tagmanager tag trigerset" title="google tagmanager trigerset"><noscript><img src="/images/tagtrigerset.png" alt="google tagmanager tag trigerset" /></noscript></p>
+<h4 id="選擇內建變數"><a href="#選擇內建變數" class="headerlink" title="選擇內建變數"></a>選擇內建變數</h4><p><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagdefault.png" alt="google tagmanager tag default" title="google tagmanager tag default"><noscript><img src="/images/tagdefault.png" alt="google tagmanager tag default" /></noscript></p>
+<h4 id="選擇-click-target-gt-儲存"><a href="#選擇-click-target-gt-儲存" class="headerlink" title="選擇 click target =&gt; 儲存"></a>選擇 click target =&gt; 儲存</h4><p><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagtarget.png" alt="google tagmanager tag target" title="google tagmanager tag target"><noscript><img src="/images/tagtarget.png" alt="google tagmanager tag target" /></noscript></p>
+<h4 id="點擊左邊選單的-代碼-gt-選擇-google-analytics-gt-點擊上半部區塊-代碼設定"><a href="#點擊左邊選單的-代碼-gt-選擇-google-analytics-gt-點擊上半部區塊-代碼設定" class="headerlink" title="點擊左邊選單的 代碼 =&gt; 選擇 google analytics =&gt; 點擊上半部區塊[代碼設定]"></a>點擊左邊選單的 代碼 =&gt; 選擇 google analytics =&gt; 點擊上半部區塊[代碼設定]</h4><p><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagevent.png" alt="google tagmanager event setting" title="google tagmanager event setting"><noscript><img src="/images/tagevent.png" alt="google tagmanager event setting" /></noscript></p>
+<h4 id="點擊下半部區塊-代碼設定-gt-選擇剛剛設定好的觸發條件"><a href="#點擊下半部區塊-代碼設定-gt-選擇剛剛設定好的觸發條件" class="headerlink" title="點擊下半部區塊[代碼設定] =&gt; 選擇剛剛設定好的觸發條件"></a>點擊下半部區塊[代碼設定] =&gt; 選擇剛剛設定好的觸發條件</h4><p><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagevent2.png" alt="google tagmanager event setting 2" title="google tagmanager event setting 2"><noscript><img src="/images/tagevent2.png" alt="google tagmanager event setting 2" /></noscript></p>
+<h4 id="點擊提交"><a href="#點擊提交" class="headerlink" title="點擊提交"></a>點擊提交</h4><h4 id="點擊預覽模式-gt-進入網頁測試"><a href="#點擊預覽模式-gt-進入網頁測試" class="headerlink" title="點擊預覽模式 =&gt; 進入網頁測試"></a>點擊預覽模式 =&gt; 進入網頁測試</h4><p>首先點擊網頁上的開新視窗連結，在觀察下方的介面有沒有fired on this page<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/tagtest.png" alt="google tagmanager tag test" title="google tagmanager tag test"><noscript><img src="/images/tagtest.png" alt="google tagmanager tag test" /></noscript></p>
+<p>woooooooo，這樣就完成了一個google analytics的事件追蹤設定。</p>
+<h2 id="Tag-Manager-結論重點"><a href="#Tag-Manager-結論重點" class="headerlink" title="Tag Manager 結論重點"></a>Tag Manager 結論重點</h2><p>tag manager核心邏輯大概是 變數、觸發條件、代碼。變數可以把它看作設定的某個數值，觸發條件則是觸發的原因，代碼則是整合觸發條件還有變數。每個代碼都必須要有觸發條件，例如google analytic就是在網頁瀏覽觸發，要讓程式碼知道你這段代碼要在什麼時候執行。至於變數則是沒有一定要加，視狀況而定。</p>
+<p>另外介紹目前公司針對不同客戶的客製化代碼，都是在tag manager設定的。例如某個客戶要客製化的html，就用代碼判斷這個客戶的網址，利用代碼引入javaScipt，動態的載入html。</p>
+<p>最後想說tag manager對於行銷人來說，似乎有點複雜，以前我擔任行銷時，其實也不太會用，用得好的話需要有html、JavaScript邏輯，有些公司甚至是前端工程師專門維運tag manager的，所以如果你覺得很難理解或使用應該是滿正常的，但如果你會用的話，恭喜你，tag manager會是非常厲害的求職技能。</p>
+<p>以上是tag manager的介紹，關於設定流程有問題歡迎留言。</p>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><div class="tags"><a href="/tags/google-analytics/">google_analytics</a><a href="/tags/tag-manager/">tag_manager</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/2018/10/16/tagteach/">Google Tag Manager(gtm)教學 觸發、代碼、變數設定介紹</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2019/08/04/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/06/23/gautm/">Google analytics UTM設定參數，追蹤facebook廣告、簡訊、EDM</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/04/25/gaevents/">Google analytics 事件追蹤、轉換目標設定教學 ga event</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/07/30/gasession/">Google Analytics 工作階段介紹、定義</a></li></ul></div><div class="post-nav"><a class="pre" href="/2018/09/23/postmessage/">HTML postMessage iframe and open window 跨視窗傳訊用法</a><a class="next" href="/2018/08/25/jsproto/">JavaScript Prototype 繼承、原型鏈 Prototype chain</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = '2018/08/26/tagmanager/';
+var disqus_title = 'Google Tag Manager tracking code 安裝追蹤碼';
+var disqus_url = 'https://iandays.com/2018/08/26/tagmanager/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://line.me/S/sticker/9091863?lang=zh-Hant&amp;ref=gnsh_stickerDetail" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/04/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/28/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/15/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/08/firstjob/">第一份工作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/01/reacthooks/">React Hooks Performance 效能處理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5999863573" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1591433368803" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li></ul></div></html>

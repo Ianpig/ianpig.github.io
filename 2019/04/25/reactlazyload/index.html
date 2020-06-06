@@ -1,0 +1,196 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/2019/04/25/reactlazyload/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/2019/04/25/reactlazyload/" hreflang="en"><link rel="canonical" href="https://iandays.com/2019/04/25/reactlazyload/"><title>lazy loading image 延後載入畫面外圖片 | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "lazy loading image 延後載入畫面外圖片",
+  "description": "分享一點最近處理lazyload心得，lazy loading image 對網站是很合理的處理優化，使用者沒看到的區塊本來就不需要浪費網路載入。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/2019/04/25/reactlazyload/" 
+  },
+  "datePublished":  "2019-04-25T15:06:08.000Z" ,
+  "dateModified":  "2019-06-08T04:42:44.793Z" ,
+  "image": "https://iandays.com/images/lazyloading.png",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "javascript",
+    "item": "https://iandays.com/categories/javascript/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "lazy loading image 延後載入畫面外圖片",
+    "item": "https://iandays.com/2019/04/25/reactlazyload/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="lazy loading image 延後載入畫面外圖片 | Ian Chu"><meta name="description" content="分享一點最近處理lazyload心得，lazy loading image 對網站是很合理的處理優化，使用者沒看到的區塊本來就不需要浪費網路載入。"><meta property="og:description" content="分享一點最近處理lazyload心得，lazy loading image 對網站是很合理的處理優化，使用者沒看到的區塊本來就不需要浪費網路載入。"><meta property="og:url" content="https://iandays.com/2019/04/25/reactlazyload/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.com/images/logo.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1591433368745"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">lazy loading image 延後載入畫面外圖片</h1><div class="post-meta">Jun 8, 2019<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/javascript/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">javascript</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/2019/04/25/reactlazyload/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">lazy loading image 延後載入畫面外圖片</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: a year ago</div></div><a class="disqus-comment-count" data-disqus-identifier="2019/04/25/reactlazyload/" href="/2019/04/25/reactlazyload/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Google-Guide-Lazyload"><span class="toc-text">Google Guide Lazyload</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#實作方法-inline-images"><span class="toc-text">實作方法 inline images</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Intersection-observer"><span class="toc-text">Intersection observer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Event-handler"><span class="toc-text">Event handler</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Chrome-原生支援"><span class="toc-text">Chrome 原生支援</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#lazyload-套件"><span class="toc-text">lazyload 套件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修飾畫面抖動問題"><span class="toc-text">修飾畫面抖動問題</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#產生圖片比例-Ratio"><span class="toc-text">產生圖片比例 Ratio</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#seo-額外處理"><span class="toc-text">seo 額外處理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#心得"><span class="toc-text">心得</span></a></li></ol></div></div><div class="post-content"><p>最近身邊朋友問到google speedtest分數優化處理，剛好處理完網頁優化專案，雖然分數尚有進步空間…，lazyload幾乎是網站必備的優化處理，分享一點處理lazyload心得。</p>
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/lazyloading.png" alt="lazyloading" title="lazyloading"><noscript><img src="/images/lazyloading.png" alt="lazyloading" /></noscript></p>
+<p>首先拿出一個網站，然後在<a href="https://developers.google.com/speed/pagespeed/insights/" target="_blank" rel="noopener" title="google speedtest">google speedtest</a>輸入送出跑分，如果沒特別處理圖片的話，就會看到精美的項目出現 <code>延後載入畫面外圖片</code>。這代表網站沒有處理延後載入圖片。假設網站有多圖片、或高畫質圖片，那lazyload image是不錯的優化處理。</p>
+<p>lazyload 範例 : <a href="https://unsplash.com/" target="_blank" rel="noopener" title="unsplash">unsplash</a></p>
+<p>上面的unsplash是知名的免費圖庫網站，它就有做了lazyload的處理，你再網頁往下滾過程，會發現區塊先有各種顏色的背景，再開始慢慢載入圖片。</p>
+<h2 id="Google-Guide-Lazyload"><a href="#Google-Guide-Lazyload" class="headerlink" title="Google Guide Lazyload"></a>Google Guide Lazyload</h2><p>google這篇文章，有非常詳盡的教學，告訴你每種處理方法之間的差異。(推薦看完)</p>
+<p>Google website Guide: <a href="https://developers.google.com/web/fundamentals/performance/lazy-loading-guidance/images-and-video/" target="_blank" rel="noopener" title="Lazy Loading Images">Lazy Loading Images</a></p>
+<h2 id="實作方法-inline-images"><a href="#實作方法-inline-images" class="headerlink" title="實作方法 inline images"></a>實作方法 inline images</h2><p>這是最常見的處理方法，直接利用javascript搭配viewport判斷，把圖片網址由data-src轉為加入src載入圖片，實際作法分為三種。Intersection observer、event handler、原生chrome支援。</p>
+<ul>
+<li>before<br><code>&lt;img data-src=&quot;https://fakeimg.pl/250x100/&quot; class=&quot;lazyload&quot;&gt;</code></li>
+<li>after<br><code>&lt;img src=&quot;https://fakeimg.pl/250x100/&quot;&gt;</code></li>
+</ul>
+<h3 id="Intersection-observer"><a href="#Intersection-observer" class="headerlink" title="Intersection observer"></a>Intersection observer</h3><p>IntersectionObserver 是新的瀏覽器api，主要處理element 與 viewport之間處理，當目標與element交會則會處理互動，效能相對於傳統做法相對好。</p>
+<p>Google article: <a href="https://developers.google.com/web/updates/2019/02/intersectionobserver-v2" target="_blank" rel="noopener" title="Trust is Good, Observation is Better—Intersection Observer v2">Trust is Good, Observation is Better—Intersection Observer v2</a></p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">var observer = <span class="keyword">new</span> <span class="constructor">IntersectionObserver(<span class="params">callback</span>[, <span class="params">options</span>])</span>;</span><br></pre></td></tr></table></figure>
+
+<p>上面的參數callback是當viewport與element交會時會觸發，options則是可以使用 <code>root</code>、<code>rootMargin</code>、<code>threshold</code>。</p>
+<p>root可以定義我們判斷這整個viewport的大外層，rootMargin則是可以給予root大外層假想的margin，讓我們可以讓外層viewport提早被觸發，進一步提早callback，threshold則是可以定義出viewport與element之間觸發的比例0~1.0，預設為 0，當我設定 [0, 0.5, 1]，代表他會在三個viewport比例callback。</p>
+<p>IntersectionObserver DOC:<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/IntersectionObserver/IntersectionObserver" target="_blank" rel="noopener" title="Intersection_Observer_API">MDN Intersection_Observer_API</a></p>
+<p>這方法有非常大的問題，就是不支援全部瀏覽器，ie全部不支援，需要引入IntersectionObserver polyfill處理，或是判斷window API有沒有 IntersectionObserver，沒有就走event handler方法，</p>
+<p>第一個方法缺點就是要載資源，背後實作也是用scroll listener，沒有說你用了polyfill就享有效能好的福利，第二種方法缺點就是要維運兩套lazyload trigger function，對開發來說成本頗高。</p>
+<p>caniuse intersectionObserver : <a href="https://caniuse.com/#feat=intersectionobserver" target="_blank" rel="noopener">悲劇的IE</a> “悲劇的IE”)</p>
+<p>頁面範例: <a href="https://codepen.io/chu1228/pen/QPXLBv?editors=0110" target="_blank" rel="noopener" title="codepen">codepen demo</a></p>
+<h3 id="Event-handler"><a href="#Event-handler" class="headerlink" title="Event handler"></a>Event handler</h3><p>這是最常見的做法，監聽瀏覽器滾動事件，利用getBoundingClientRect().top，來判斷這個element是不是在使用者的視點內，如果在視點內的話，我們就將img src轉變成真正的url，達到延後載入的效果。</p>
+<p>下面的範例是google guide的示範，基本上實作邏輯都差不多，會用到scroll listener，搭配throttle避免scroll過度觸發判斷function，當所有element完成lazyload 移除 Listener，還有監聽resize畫面拉伸、orientationchange倒換畫面。</p>
+<p>頁面範例: <a href="https://codepen.io/chu1228/pen/VNqaNQ" target="_blank" rel="noopener" title="codepen">codepen demo</a></p>
+<h3 id="Chrome-原生支援"><a href="#Chrome-原生支援" class="headerlink" title="Chrome 原生支援"></a>Chrome 原生支援</h3><p>chrome version 75才會release的功能，現在可以先手動開啟設定，chrome網址列輸入<code>chrome://flags/#enable-lazy-image-loading</code>，右邊選項改為enabled。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">&lt;img <span class="attribute">loading</span>=<span class="string">'lazy'</span> <span class="attribute">src</span>=<span class="string">'https://placekitten.com/400/400'</span> <span class="attribute">width</span>=<span class="string">'400'</span> <span class="attribute">height</span>=<span class="string">'400'</span> <span class="attribute">alt</span>=<span class="string">''</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>頁面範例: <a href="https://mathiasbynens.be/demo/img-loading-lazy" target="_blank" rel="noopener" title="chrome lazyload demo">chrome lazyload demo</a></p>
+<p>chromestatus: <a href="https://chromestatus.com/feature/5645767347798016" target="_blank" rel="noopener" title="chrome lazyload feature">chrome lazyload feature</a></p>
+<h3 id="lazyload-套件"><a href="#lazyload-套件" class="headerlink" title="lazyload 套件"></a>lazyload 套件</h3><p>隨便搜尋lazyload plugin，就會出現各種lazyload的套件，這邊就不贅述了。如果還是沒方向的話，我目前專案上有用到lazySize，config很多也是不錯用。</p>
+<h2 id="修飾畫面抖動問題"><a href="#修飾畫面抖動問題" class="headerlink" title="修飾畫面抖動問題"></a>修飾畫面抖動問題</h2><p>但你滾動會發現右邊的scroll bar會慢慢長出來，要解決的辦法就是必須模擬圖片高度，撐出lazyload的區塊。保持高度一致不抖動畫面。</p>
+<ul>
+<li>示範圖片<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/rabbit.png" alt="rabbit" title="rabbit"><noscript><img src="/images/rabbit.png" alt="rabbit" /></noscript></li>
+</ul>
+<p>上面這張圖片的寬度是2955、高度1516，比例約是 29: 15，我們可以利用圖片比例來產生接近圖片實際大小的灰階區塊。</p>
+<p>接下來使用padding-top來撐出高度，因為我們用的是比例，所以畫面寬度變化，區塊的高度也會隨之變化。直接用上面的IntersectionObserver修改，多做的動作就是img要先填上各自的比例，當載入畫面時填上padding-top，產生區塊的灰色高度。</p>
+<p>ps.codepen的範例有加上setTimeout 500ms，特意讓大家看到lazyload灰階區塊。</p>
+<ul>
+<li>Source code<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener(<span class="string">"DOMContentLoaded"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> lazyImages = [].slice.call(<span class="built_in">document</span>.querySelectorAll(<span class="string">"img.lazyload"</span>));</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (<span class="string">"IntersectionObserver"</span> <span class="keyword">in</span> <span class="built_in">window</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> lazyImageObserver = <span class="keyword">new</span> IntersectionObserver(<span class="function"><span class="keyword">function</span>(<span class="params">entries, observer</span>) </span>&#123;</span><br><span class="line">      entries.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">entry</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (entry.isIntersecting) &#123;</span><br><span class="line">          <span class="keyword">let</span> lazyImage = entry.target;</span><br><span class="line">          lazyImage.src = lazyImage.dataset.src;</span><br><span class="line">          lazyImage.classList.remove(<span class="string">"lazyload"</span>);</span><br><span class="line"></span><br><span class="line">          <span class="comment">//clear padding-top </span></span><br><span class="line">          lazyImage.style.paddingTop = <span class="string">''</span>;</span><br><span class="line">          lazyImageObserver.unobserve(lazyImage);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    lazyImages.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">lazyImage</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// get image ratio</span></span><br><span class="line">      <span class="keyword">var</span> ratio = lazyImage.dataset.ratio;</span><br><span class="line">      <span class="comment">// create padding-top</span></span><br><span class="line">      lazyImage.style.paddingTop = ratio + <span class="string">'%'</span>;</span><br><span class="line">      lazyImageObserver.observe(lazyImage);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// Possibly fall back to a more compatible method here</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>頁面範例: <a href="https://codepen.io/chu1228/pen/BEgaKZ?editors=1010" target="_blank" rel="noopener" title="codepen">codepen demo</a></p>
+<p>另外還可以加上onload listener讓載入圖片過程，保持lazyload灰色區塊。</p>
+<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line">lazyImage.src = lazyImage.dataset.src;</span><br><span class="line">lazyImage.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">    lazyImage.classList.remove(<span class="string">"lazyload"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//clear padding-top </span></span><br><span class="line">    lazyImage.style.paddingTop = <span class="string">''</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>w3c ration 教學:<a href="https://www.w3schools.com/howto/howto_css_aspect_ratio.asp" target="_blank" rel="noopener" title="Aspect Ratio / Height Equal to Width - W3Schools">Aspect Ratio / Height Equal to Width - W3Schools</a></p>
+<h2 id="產生圖片比例-Ratio"><a href="#產生圖片比例-Ratio" class="headerlink" title="產生圖片比例 Ratio"></a>產生圖片比例 Ratio</h2><p>這在實作上必須倚賴javascript，或後端用其他工具產生，例如說圖片上傳過程後端會另外call api，取得圖片的比例。</p>
+<p>這邊先只討論javascript，利用Image API也可以輕鬆做到，下面的方法就可以拿到圖片的ratio，setRatio則是可以當作儲存圖片的方法，當使用者上傳圖片，會再經過getImageRatio，再帶入save data function 利用callback，當取得圖片比例再提供ratio給後端儲存。</p>
+<p>這方法需要一個前提條件，一種是圖片寬度再container下需要寬滿版，因為padding-top推出來的高度，是相對於container寬度乘出來的。有些人會利用div container img概念處理，只要變化container寬度，一樣可以兼容lazyload，medium就是這樣處理的。</p>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> get<span class="constructor">ImageRatio(<span class="params">url</span>, <span class="params">callback</span>)</span> &#123;</span><br><span class="line">    var img = <span class="keyword">new</span> <span class="constructor">Image()</span>;</span><br><span class="line">    img.onload = <span class="keyword">function</span><span class="literal">()</span> &#123;</span><br><span class="line">        callback(this.height/this.width<span class="operator"> * </span><span class="number">100</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    img.src = url;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> set<span class="constructor">Ratio(<span class="params">ratio</span>)</span>&#123;</span><br><span class="line">    console.log(ratio)</span><br><span class="line">&#125;</span><br><span class="line">get<span class="constructor">ImageRatio('<span class="params">https</span>:<span class="operator">/</span><span class="operator">/</span><span class="params">iandays</span>.<span class="params">com</span><span class="operator">/</span><span class="params">images</span><span class="operator">/</span><span class="params">rabbit</span>.<span class="params">png</span>', <span class="params">setRatio</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="seo-額外處理"><a href="#seo-額外處理" class="headerlink" title="seo 額外處理"></a>seo 額外處理</h2><p>雖然googlebot可以執行javascript，但是其他爬蟲不一定可以，所以要特別標明出noscript的img html。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;img <span class="class"><span class="keyword">class</span></span>=<span class="string">"lazyload"</span> data-ratio=<span class="string">"51.24481327800829"</span> data-src=<span class="string">"https://iandays.com/images/rabbit.png"</span> alt=<span class="string">"rabbit"</span>&gt;</span><br><span class="line">&lt;noscript&gt;<span class="xml"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://iandays.com/images/rabbit.png"</span> <span class="attr">alt</span>=<span class="string">"rabbit"</span> /&gt;</span></span>&lt;<span class="regexp">/noscript&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p>實際上處理lazyload是比較麻煩，要做出lazyload區塊灰階，就需要知道圖片比例。至於如何產生灰階，又分為存資料前預先做好style，或載入頁面再依賴javascript產生。個人較偏向預先做好style，減少使用使用者資源。</p>
+<p>為了優化效能，目前專案部分有使用IntersectionObserver，但要支援萬惡的IE，要再額外載入polyfill，這點目前還在思考最佳解，目前是判斷window不含IntersectionObserver才會執行polyfill。</p>
+<p>結論: lazy loading image 對網站是很合理的處理優化，使用者沒看到的區塊本來就不需要浪費網路載入。</p>
+<p>感謝閱讀，以上有問題歡迎留言，或是傳訊息。</p>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><div class="tags"><a href="/tags/seo/">seo</a><a href="/tags/frontend/">frontend</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/2019/02/26/keywordselect/">SEO關鍵字分析選擇，優化工具介紹</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/09/24/searchconsle/">Google Search Console教學 提交Sitemap網址、SEO工具</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/12/19/seoredirect/">SEO 301、302轉址Redirect，canonical tag重複內容處理</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/01/28/whatseo/">SEO優化 google教學guideline介紹</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/11/25/structuredseo/">結構化資料SEO 優化顯示搜尋結果</a></li></ul></div><div class="post-nav"><a class="pre" href="/2019/05/11/googleformadv/">Google Sheet RESTful API 試算表表單</a><a class="next" href="/2019/03/28/society/">聊聊4年前，剛出社會的我</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = '2019/04/25/reactlazyload/';
+var disqus_title = 'lazy loading image 延後載入畫面外圖片';
+var disqus_url = 'https://iandays.com/2019/04/25/reactlazyload/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://line.me/S/sticker/9091863?lang=zh-Hant&amp;ref=gnsh_stickerDetail" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/04/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/28/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/15/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/08/firstjob/">第一份工作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/01/reacthooks/">React Hooks Performance 效能處理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5999863573" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1591433368747" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li></ul></div></html>

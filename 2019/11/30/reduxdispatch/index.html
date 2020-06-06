@@ -1,0 +1,180 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/2019/11/30/reduxdispatch/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/2019/11/30/reduxdispatch/" hreflang="en"><link rel="canonical" href="https://iandays.com/2019/11/30/reduxdispatch/"><title>Redux multiple dispatch，batch redux-thunk | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Redux multiple dispatch，batch redux-thunk",
+  "description": "redux 核心流程 dispatch action =&gt; reducer =&gt; store，當你用 redux 運行多個 dispatch 時，每一個 dispatch 都會獨立更新下去的，如果你的更新資料又彼此關聯，就可能會發生錯誤。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/2019/11/30/reduxdispatch/" 
+  },
+  "datePublished":  "2019-11-30T03:31:35.000Z" ,
+  "dateModified":  "2019-11-30T06:00:50.406Z" ,
+  "image": "https://iandays.com/images/redux-dispatch.png",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "javascript",
+    "item": "https://iandays.com/categories/javascript/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Redux multiple dispatch，batch redux-thunk",
+    "item": "https://iandays.com/2019/11/30/reduxdispatch/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="Redux multiple dispatch，batch redux-thunk | Ian Chu"><meta name="description" content="redux 核心流程 dispatch action =&gt; reducer =&gt; store，當你用 redux 運行多個 dispatch 時，每一個 dispatch 都會獨立更新下去的，如果你的更新資料又彼此關聯，就可能會發生錯誤。"><meta property="og:description" content="redux 核心流程 dispatch action =&gt; reducer =&gt; store，當你用 redux 運行多個 dispatch 時，每一個 dispatch 都會獨立更新下去的，如果你的更新資料又彼此關聯，就可能會發生錯誤。"><meta property="og:url" content="https://iandays.com/2019/11/30/reduxdispatch/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.com/images/logo.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1591433368690"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Redux multiple dispatch，batch redux-thunk</h1><div class="post-meta">Nov 30, 2019<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/javascript/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">javascript</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/2019/11/30/reduxdispatch/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">Redux multiple dispatch，batch redux-thunk</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: 6 months ago</div></div><a class="disqus-comment-count" data-disqus-identifier="2019/11/30/reduxdispatch/" href="/2019/11/30/reduxdispatch/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#redux-batch"><span class="toc-text">redux batch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redux-thunk"><span class="toc-text">redux thunk</span></a></li></ol></div></div><div class="post-content"><p>redux 核心更新 flow <code>dispatch action =&gt; reducer =&gt; store</code>，當你用 redux 運行多個 dispatch 時，每一個 dispatch 都會獨立更新下去的，這代表著你會 update component 多次，如果你的更新資料又彼此關聯，就可能會發生錯誤。</p>
+<p>目前執行的專案，資料都是 linked list，若沒有注意好 dispatch 更新執行順序的話，時常會遇到問題。</p>
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/redux-dispatch.png" alt="redux-dispatch" title="redux-dispatch"><noscript><img src="/images/redux-dispatch.png" alt="redux-dispatch" /></noscript></p>
+<ul>
+<li>多個 dispatch 更新 <figure class="highlight less"><table><tr><td class="code"><pre><span class="line"><span class="selector-tag">function</span> <span class="selector-tag">initINFO</span> ()&#123;</span><br><span class="line">  <span class="selector-tag">fetch</span>(<span class="built_in">`API_URL/getCommentList`</span>)</span><br><span class="line">    <span class="selector-class">.then</span>(res =&gt; res.json)</span><br><span class="line">    <span class="selector-class">.then</span>(data =&gt; </span><br><span class="line">      <span class="comment">// if ADD_USERCOMMENT update component </span></span><br><span class="line">      <span class="comment">// and it depends userInfo data </span></span><br><span class="line">      <span class="comment">// component maybe happen error</span></span><br><span class="line">      dispatch(&#123;<span class="attribute">type</span>: ADD_USERCOMMENT, <span class="attribute">payload</span>: data.list&#125;)</span><br><span class="line">      if (data.userInfo) &#123;</span><br><span class="line">        <span class="selector-tag">dispatch</span>(&#123;<span class="attribute">type</span>: INIT_INFO, <span class="attribute">payload</span>: data.userInfo&#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">    <span class="selector-class">.catch</span>(err =&gt; showError(err))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>處理的做法就是直接封裝整個 dispatch，讓每個 dispatch 都先不要往下執行 update component。</p>
+<h2 id="redux-batch"><a href="#redux-batch" class="headerlink" title="redux batch"></a>redux batch</h2><p>react redux v7 有提供 batch，讓我們能直接封裝多個 dispatch，這是依賴 react 的 unstable_batchedUpdate，讓 rerender 這件事情能夠被卡住，react 實現方法大致上就是用 shouldBatchUpdates 變數搭配 fiber schedule 來判斷更新，讓更新這件事變成同步，詳細可直接看下方 react unstable_batchedUpdates source code。</p>
+<ul>
+<li>batch 使用方法<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; batch &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myThunk</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// should only result in one combined re-render, not two</span></span><br><span class="line">    batch(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(increment())</span><br><span class="line">      dispatch(increment())</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><a href="https://github.com/reduxjs/redux/blob/a5739d9455afbed663a4ca1fcac002988c885fcb/docs/faq/Performance.md#how-can-i-reduce-the-number-of-store-update-events" target="_blank" rel="noopener" title="react redux github batch Q&amp;A">react redux github batch Q&amp;A</a></p>
+<p><a href="https://github.com/facebook/react/commit/b41883fc708cd24d77dcaa767cde814b50b457fe" target="_blank" rel="noopener" title="react unstable_batchedUpdates source code">react unstable_batchedUpdates source code</a></p>
+<h2 id="redux-thunk"><a href="#redux-thunk" class="headerlink" title="redux thunk"></a>redux thunk</h2><p>redux thunk 同樣可以幫助我們處理多個 dispatch，但是與 batch 原理不大相同，redux thunk，是將 dispatch 往後延遲到最後一次執行。</p>
+<p>乍聽之下可能覺得這有點魔幻，但我貼上 redux thunk 的介紹你一定會恍然大悟。redux thunk 就是將 dispatch 封裝起來在最後一次真正執行 store.dispatch，所以你就只會觸發一次的 redux store update，進而達到只 rerender 一次。</p>
+<ul>
+<li><p>what is thunk</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">// calculation <span class="keyword">of</span> <span class="number">1</span> + <span class="number">2</span> <span class="keyword">is</span> <span class="keyword">immediate</span></span><br><span class="line">// x === <span class="number">3</span></span><br><span class="line">let x = <span class="number">1</span> + <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">// calculation <span class="keyword">of</span> <span class="number">1</span> + <span class="number">2</span> <span class="keyword">is</span> delayed</span><br><span class="line">// foo can be <span class="keyword">called</span> later <span class="keyword">to</span> <span class="keyword">perform</span> the calculation</span><br><span class="line">// foo <span class="keyword">is</span> a thunk!</span><br><span class="line">let foo = () =&gt; <span class="number">1</span> + <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Add thunk on redux middleWare</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createStore, applyMiddleware &#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</span><br><span class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span>;</span><br><span class="line"><span class="keyword">import</span> reducers <span class="keyword">from</span> <span class="string">'../redux/reducers'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducers, applyMiddleware(thunk));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchUser</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">dispatch, getState</span>) =&gt;</span> &#123;</span><br><span class="line">      dispatch(&#123;<span class="keyword">type</span>: ADD_USERCOMMENT, payload: data.list&#125;)</span><br><span class="line">      <span class="keyword">if</span> (data.userInfo) &#123;</span><br><span class="line">        dispatch(&#123;<span class="keyword">type</span>: INIT_INFO, payload: data.userInfo&#125;)</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>extraArgument 不用理會，這是新功能讓使用者客製化增加 thunk 的參數，action 會是我們傳入的 action creator，當 action creator 是一個 function，就執行 action creator function，如果不是就執行 next 帶入 action creator，正常的執行 dispatch。</p>
+<p><a href="https://redux.js.org/api/applymiddleware" target="_blank" rel="noopener" title="redux applymiddleware">redux applymiddleware</a></p>
+<ul>
+<li>thunk source code<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createThunkMiddleware</span>(<span class="params">extraArgument</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">&#123; dispatch, getState &#125;</span>) =&gt;</span> <span class="function">(<span class="params">next</span>) =&gt;</span> <span class="function">(<span class="params">action</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> action === <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> action(dispatch, getState, extraArgument);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> next(action);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> thunk = createThunkMiddleware();</span><br><span class="line">thunk.withExtraArgument = createThunkMiddleware;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> thunk;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><a href="https://github.com/reduxjs/redux-thunk/blob/master/src/index.js" target="_blank" rel="noopener" title="redux thunk">redux thunk</a></p>
+<ul>
+<li>舊版 applyMiddleWare (github 只剩 typescript…)<figure class="highlight actionscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// middlewares argument is pass thunk</span></span><br><span class="line">export <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="params">(<span class="rest_arg">...middlewares</span>)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (createStore) =&gt; (reducers, initialState, enhancer) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> store = createStore(reducers, initialState, enhancer)</span><br><span class="line">    <span class="keyword">const</span> dispatch = store.dispatch</span><br><span class="line">    <span class="keyword">const</span> chain = []</span><br><span class="line">    <span class="keyword">const</span> middleWareAPI = &#123;</span><br><span class="line">      getState: store.getState,</span><br><span class="line">      dispatch: action =&gt; dispatch(action)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    chain = middlewares.map(middleware =&gt; middleware(middlewareAPI))</span><br><span class="line">    dispatch = compose(...chain)(store.dispatch) <span class="comment">// store.dispatch or dispatch both work</span></span><br><span class="line">    <span class="comment">// compose will do following thing:</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * a, b, c ==&gt; a(b(c())), indeed, it is just a reduce and store.dispatch will be an initial value</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      ...store,</span><br><span class="line">      dispatch</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>redux thunk code 很優美，完美的示範如何使用 redux 的 middleWare，邏輯清楚又不複雜。我一定不會說這篇文章是為了分享 redux thunk。</p>
+<p>改天再來研究、分享更優美的 redux。</p>
+<p>這兩個方法 <code>batch</code>、<code>redux thunk</code> 都是目前專案都有用到的方法，至於其他就改天再另外介紹。 batch 因為與 react fiber 更新 component 機制有關，這部分較複雜，我對這塊沒有特別研究…，無法提供太多看法。</p>
+<p>感謝閱讀，以上有錯誤再麻煩留言或私訊。</p>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><div class="tags"><a href="/tags/react-js/">react.js</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/2019/01/30/reactssr/">React Server-side rendering SEO處理</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2019/06/01/reacthooks/">React Hooks Performance 效能處理</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/12/09/nextupdate/">Update Next.js 7、react 16 error and bug</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/05/08/reacthoc/">React Higher Order Components 初探觀念</a></li></ul></div><div class="post-nav"><a class="pre" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a><a class="next" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = '2019/11/30/reduxdispatch/';
+var disqus_title = 'Redux multiple dispatch，batch redux-thunk';
+var disqus_url = 'https://iandays.com/2019/11/30/reduxdispatch/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://line.me/S/sticker/9091863?lang=zh-Hant&amp;ref=gnsh_stickerDetail" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/04/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/28/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/15/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/08/firstjob/">第一份工作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/01/reacthooks/">React Hooks Performance 效能處理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5999863573" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1591433368692" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li></ul></div></html>

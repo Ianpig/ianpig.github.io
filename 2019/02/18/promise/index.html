@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/2019/02/18/promise/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/2019/02/18/promise/" hreflang="en"><link rel="canonical" href="https://iandays.com/2019/02/18/promise/"><title>Javascript Promise example 簡易實作模擬 | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Javascript Promise example 簡易實作模擬",
+  "description": "接下來會用 promise 處理 callback hell，還有建立一個簡易的 promise，幫助我們理解promise。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/2019/02/18/promise/" 
+  },
+  "datePublished":  "2019-02-18T14:58:16.000Z" ,
+  "dateModified":  "2019-06-08T04:42:17.005Z" ,
+  "image": "https://iandays.com/images/callbackhell.png",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "javascript",
+    "item": "https://iandays.com/categories/javascript/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Javascript Promise example 簡易實作模擬",
+    "item": "https://iandays.com/2019/02/18/promise/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="Javascript Promise example 簡易實作模擬 | Ian Chu"><meta name="description" content="接下來會用 promise 處理 callback hell，還有建立一個簡易的 promise，幫助我們理解promise。"><meta property="og:description" content="接下來會用 promise 處理 callback hell，還有建立一個簡易的 promise，幫助我們理解promise。"><meta property="og:url" content="https://iandays.com/2019/02/18/promise/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.com/images/logo.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1591433368759"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Javascript Promise example 簡易實作模擬</h1><div class="post-meta">Jun 8, 2019<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/javascript/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">javascript</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/2019/02/18/promise/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">Javascript Promise example 簡易實作模擬</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: a year ago</div></div><a class="disqus-comment-count" data-disqus-identifier="2019/02/18/promise/" href="/2019/02/18/promise/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#簡易的-Promise"><span class="toc-text">簡易的 Promise</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Promise-解決-callback-hell"><span class="toc-text">Promise 解決 callback hell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#實現-promise"><span class="toc-text">實現 promise</span></a></li></ol></div></div><div class="post-content"><p>Javascript 在ES6新增了大量非常實用的功能，其中重要一項就是Promsie，讓我們可以很直覺的處理非同步，在以前如果我們需要同時發出多個非同步請求，就必須在每次調用function 時，一起在參數帶回callback的function，重複了幾次就變成了波動拳。</p>
+<p>接下來會用 promise 處理 callback hell，還有建立一個簡易的 promise，幫助我們理解promise。</p>
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/callbackhell.png" alt="javascript callback hell" title="javascript callback hell"><noscript><img src="/images/callbackhell.png" alt="javascript callback hell" /></noscript></p>
+<h2 id="簡易的-Promise"><a href="#簡易的-Promise" class="headerlink" title="簡易的 Promise"></a>簡易的 Promise</h2><p>複雜專案可能會出現的波動拳，這畫面我真實有看過…，假設換成用promise的話，就可以很輕鬆直覺處理掉，首先我們先建立一個簡單的ajax function sample code，下面會用es6來寫，希望能在整個流程中，讓你了解es6的方便。</p>
+<p>宣告一個getData arrow function，裡面包含XMLHttpRequest，我們監聽onreadystatechange，當整個成功取得資料，就調用resolve來進行callback把資料放進resolve function傳遞，當取得資料失敗就調用reject function來傳遞資料。</p>
+<p>當我們new一個promise的同時，我們callback function 是帶入 function(resolve, reject){resolve or reject}，讓內部promise function被我們用resolve或是reject調用。</p>
+<ul>
+<li>promise 三種狀態<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">擱置（pending）：初始狀態，不是 fulfilled 與 rejected。</span><br><span class="line">實現（fulfilled）：表示操作成功地完成。</span><br><span class="line">拒絕（rejected）：表示操作失敗了。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>promise 會等待佇列 pending狀態，等到被resolve觸發fulfilled，就會開始回調then，或是被reject觸發catch。</p>
+<p>then 以及 catch 都會回傳一個promise，也就是說可以<code>.then(()=&gt;{}).then(()=&gt;{}).then(()=&gt;{})</code>除非有錯誤產生，否則會往下調用下去。<code>.catch(()=&gt;{}).catch(()=&gt;{}).catch(()=&gt;{})</code>則是當javascript有錯誤發生，會開始向下catch，直到沒錯誤為止才會調用catch function，同時因為沒錯誤所以會停住。</p>
+<ul>
+<li>非同步function 範例<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// declare arrow function return Promise</span></span><br><span class="line"><span class="comment">// ** new Promise to inherit Promise instance **</span></span><br><span class="line"><span class="keyword">const</span> getData = <span class="function">(<span class="params">url</span>) =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// create http request</span></span><br><span class="line">  <span class="keyword">const</span> xhttp = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">  xhttp.onreadystatechange = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(xhttp.readyState)</span><br><span class="line">    <span class="keyword">if</span> (xhttp.readyState === <span class="number">4</span> ) &#123;</span><br><span class="line">      <span class="keyword">if</span> (xhttp.status === <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="comment">// resolve will trigger Promise then callback</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">JSON</span>.parse(xhttp.response));</span><br><span class="line">        resolve(<span class="built_in">JSON</span>.parse(xhttp.response));</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// reject will trigger Promise catch callback</span></span><br><span class="line">        reject(xhttp.statusText);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  xhttp.open(<span class="string">"GET"</span>, url, <span class="literal">true</span>);</span><br><span class="line">  xhttp.send();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">getData(<span class="string">'https://jsonplaceholder.typicode.com/todos/1'</span>)</span><br><span class="line">  .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// destructuring object</span></span><br><span class="line">    <span class="keyword">const</span> &#123; id, title, completed &#125; = res; </span><br><span class="line">    <span class="keyword">const</span> html = <span class="string">`&lt;div class="item"&gt;</span></span><br><span class="line"><span class="string">                    &lt;p&gt;Id: <span class="subst">$&#123;id&#125;</span>&lt;/p&gt;</span></span><br><span class="line"><span class="string">                    &lt;div&gt;Title: <span class="subst">$&#123;title&#125;</span>&lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;div&gt;Completed: <span class="subst">$&#123;completed&#125;</span>&lt;/div&gt;</span></span><br><span class="line"><span class="string">                  &lt;/div&gt;`</span>;</span><br><span class="line">    <span class="keyword">const</span> newNode = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);      </span><br><span class="line">    newNode.innerHTML = html;</span><br><span class="line">    <span class="built_in">document</span>.querySelector(<span class="string">'#list'</span>).appendChild(newNode);</span><br><span class="line">    &#125;</span><br><span class="line">  )</span><br><span class="line">  <span class="comment">// it will run when promise Reject or </span></span><br><span class="line">  <span class="comment">// in then function appear javascript error</span></span><br><span class="line">  .catch(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(res);</span><br><span class="line">    alert(<span class="string">`Something Error ,because <span class="subst">$&#123;res&#125;</span>`</span>);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+<iframe class="lazyload" data-src="//codepen.io/chu1228/embed/yZrVKW/?height=400&theme-id=0&default-tab=js,result" width="100%" height="400px" frameborder="0" loading="lazy" allowfullscreen></iframe>
+
+</li>
+</ul>
+<p><a href="https://codepen.io/chu1228/pen/yZrVKW?editors=1111" target="_blank" rel="noopener" title="codepen promise demo">codepen promise demo</a></p>
+<h2 id="Promise-解決-callback-hell"><a href="#Promise-解決-callback-hell" class="headerlink" title="Promise 解決 callback hell"></a>Promise 解決 callback hell</h2><p>那如果我們要繼續拉第二筆資料 /todos/2，這時候就能展現promise方便了，當拉完資料後，再回傳一個promise，再用then catch去接受回傳值，反覆下去延伸。</p>
+<p>這樣的寫法優點是比起以往依賴callback更直覺，另外每次都分同步取資料都可能會失敗。也很容易針對每個段點做不同的錯誤處理。</p>
+<ul>
+<li>add more callback<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">getData(<span class="string">'https://jsonplaceholder.typicode.com/todos/1'</span>)</span><br><span class="line">  .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    appendItem(res);</span><br><span class="line">    <span class="comment">// return getData promise</span></span><br><span class="line">    <span class="keyword">return</span> getData(<span class="string">'https://jsonplaceholder.typicode.com/todos/2'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  )</span><br><span class="line">  .catch(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'top'</span>, res);</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="comment">// it will start next promise then catch</span></span><br><span class="line">  .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    appendItem(res);</span><br><span class="line">    <span class="keyword">return</span> getData(<span class="string">'https://jsonplaceholder.typicode.com/todos/3'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  ).catch(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'middle'</span>, res);</span><br><span class="line">  &#125;)</span><br><span class="line">  .then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    appendItem(res);</span><br><span class="line">    &#125;</span><br><span class="line">  ).catch(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'bottom'</span>, res);</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// append html function</span></span><br><span class="line"><span class="keyword">const</span> appendItem = <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// prevent get null or undefined trigger .catch</span></span><br><span class="line">    <span class="keyword">if</span> (!res) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> &#123; id, title, completed &#125; = res;</span><br><span class="line">    <span class="keyword">const</span> html = <span class="string">`&lt;div class="item"&gt;</span></span><br><span class="line"><span class="string">                    &lt;div&gt;Id: <span class="subst">$&#123;id&#125;</span>&lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;div&gt;Title: <span class="subst">$&#123;title&#125;</span>&lt;/div&gt;</span></span><br><span class="line"><span class="string">                    &lt;div&gt;Completed: <span class="subst">$&#123;completed&#125;</span>&lt;/div&gt;</span></span><br><span class="line"><span class="string">                  &lt;/div&gt;`</span>;</span><br><span class="line">    <span class="keyword">const</span> newNode = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);      </span><br><span class="line">    newNode.innerHTML = html;</span><br><span class="line">    <span class="built_in">document</span>.querySelector(<span class="string">'#list'</span>).appendChild(newNode);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<iframe class="lazyload" data-src="//codepen.io/chu1228/embed/yZrMRE/?height=409&theme-id=0&default-tab=js,result,result" width="100%" height="410px" frameborder="0" loading="lazy" allowfullscreen></iframe>
+
+<p><a href="https://codepen.io/chu1228/pen/yZrMRE?editors=1111" target="_blank" rel="noopener" title="codepen promise demo">codepen promise demo</a></p>
+<h2 id="實現-promise"><a href="#實現-promise" class="headerlink" title="實現 promise"></a>實現 promise</h2><p>promise就像是個魔術，直到es6以前都很難處理好分同步處理，我們來試著做一個只單純帶有then catch簡易的promise，來幫助我們更了解promise。</p>
+<p>先來解讀一下promise，他是依賴resolve、reject function調用的，直接 <code>new Promise(()=&gt;{})</code>，可以看到promise內部的狀態，有status、value、then、catch、finally，這邊就先不理會finally。</p>
+<ul>
+<li>Promise native prototype<figure class="highlight lua"><table><tr><td class="code"><pre><span class="line">Promise &#123;&lt;pending&gt;&#125;</span><br><span class="line">  __proto__: Promise</span><br><span class="line">  catch: ƒ catch()</span><br><span class="line">  constructor: ƒ Promise()</span><br><span class="line">  finally: ƒ finally()</span><br><span class="line">  <span class="keyword">then</span>: ƒ <span class="keyword">then</span>()</span><br><span class="line">  Symbol(Symbol.toStringTag): <span class="string">"Promise"</span></span><br><span class="line">  __proto__: Object</span><br><span class="line">  <span class="string">[[PromiseStatus]]</span>: <span class="string">"pending"</span></span><br><span class="line">  <span class="string">[[PromiseValue]]</span>: undefined</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>首先先用es6 class 建立一個 promise，依照promise內部code，我們也建立內部的變數 status 以及 value，status是讓我們判斷pending 或是fullfill reject狀態，value則是用來接帶進來的值。</p>
+<p>這邊比較容易看不懂的是 constructor(callback)，這個callback指的是 new Promise( <code>(res,rej)=&gt;{ res(&#39;Hello&#39;)}</code> )，簡單講就是你帶進來的function。我們在使用promise會用到兩個function，reslove以及reject，我們也依樣畫葫蘆，依樣命名一個resolve、reject，依照(resolve,reject)順序帶入callback，帶進來讓使用者可以調用到。當我們在外部使用第一個function，就會調用到內部的reslove，如果是第二個的話則是調用到內部的reject。</p>
+<p>距離實際的promise還缺少了then、catch，接下來再繼續實作。</p>
+<ul>
+<li><p>build promise</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">promise</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(callback)&#123;</span><br><span class="line">    <span class="comment">// promise status</span></span><br><span class="line">    <span class="keyword">this</span>.status = <span class="string">'pending'</span>;</span><br><span class="line">    <span class="comment">// create variable to store resolve or reject value</span></span><br><span class="line">    <span class="keyword">this</span>.value;</span><br><span class="line">    <span class="comment">// resolve is not outside resolve </span></span><br><span class="line">    <span class="comment">// it is use to pass callback function first function</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> resolve = res =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">this</span>.status === <span class="string">'pending'</span>)&#123;</span><br><span class="line">        <span class="keyword">this</span>.status = <span class="string">'fullfilled'</span>;</span><br><span class="line">        <span class="keyword">this</span>.value = res;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// reject is not outside reject </span></span><br><span class="line">    <span class="comment">// it is use to pass callback function second function</span></span><br><span class="line">    <span class="keyword">const</span> reject = res =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">this</span>.status !== <span class="string">'pending'</span>)&#123;</span><br><span class="line">        <span class="keyword">this</span>.status = <span class="string">'rejected'</span>;</span><br><span class="line">        <span class="keyword">this</span>.value = res;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// it's keypoint to call reslove or reject function</span></span><br><span class="line">    <span class="comment">// reslove or reject just assign status and value</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// this resolve is upper resolve function</span></span><br><span class="line">      callback(resolve, reject);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      reject(err);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>加上then catch 接受回傳值</p>
+<figure class="highlight kotlin"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">  <span class="comment">// then will let user call to check status</span></span><br><span class="line">  then = (success, failed) =&gt; &#123;</span><br><span class="line">      console.log(`then`)</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">this</span>.status === <span class="string">'fulfilled'</span>)&#123;</span><br><span class="line">          <span class="keyword">return</span> success(<span class="keyword">this</span>.value);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span>(<span class="keyword">this</span>.status === <span class="string">'rejected'</span>)&#123;</span><br><span class="line">          <span class="keyword">return</span> failed(<span class="keyword">this</span>.value);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// it will call then function and callback second callback function</span></span><br><span class="line">  <span class="keyword">catch</span> = cb =&gt; &#123;</span><br><span class="line">      <span class="keyword">this</span>.then(<span class="literal">null</span>,cb);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><a href="https://codepen.io/chu1228/pen/pGmLez?editors=0011" target="_blank" rel="noopener" title="codepen promise build">codepen promise build</a></p>
+<p>到這裡只是很簡單的promise大致上執行邏輯而已，方便我們更好理解promise原理，要完整實現還有很多細節要處理，例如說要then 或是 catch 要return promise，還有all race finally沒有寫上去。你可以看一下更多完整功能要怎實現出來。</p>
+<p><a href="https://gist.github.com/vkarpov15/169d61f210c3420accf96f2081ad716d" target="_blank" rel="noopener" title="vkarpov15/promise.js">vkarpov15/promise.js</a></p>
+<p>雖然每次用promise都很理所當然，規則已經既定是如此，但如果每次使用都能了解背後原理，能夠以不同角度來看待，我自己覺得對我來說，幫助都很大，最近正在無盡的的優化網頁效能，無限感慨中…。</p>
+<p>如果有錯誤歡迎留言，感謝閱讀。</p>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><div class="tags"><a href="/tags/javascript/">javascript</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/2018/09/23/postmessage/">HTML postMessage iframe and open window 跨視窗傳訊用法</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/10/27/imgprogress/">Upload progress bar drag&drop 圖片拖拉上傳進度條</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2019/03/21/eventpass/">JavaScript Capture Bubble DOM事件獲取&冒泡</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2017/12/11/mapcluster/">Google Map marker cluster 標記使用教學</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/08/25/jsproto/">JavaScript Prototype 繼承、原型鏈 Prototype chain</a></li></ul></div><div class="post-nav"><a class="pre" href="/2019/02/26/keywordselect/">SEO關鍵字分析選擇，優化工具介紹</a><a class="next" href="/2019/01/30/reactssr/">React Server-side rendering SEO處理</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = '2019/02/18/promise/';
+var disqus_title = 'Javascript Promise example 簡易實作模擬';
+var disqus_url = 'https://iandays.com/2019/02/18/promise/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://line.me/S/sticker/9091863?lang=zh-Hant&amp;ref=gnsh_stickerDetail" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/04/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/28/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/15/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/08/firstjob/">第一份工作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/01/reacthooks/">React Hooks Performance 效能處理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5999863573" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1591433368762" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li></ul></div></html>

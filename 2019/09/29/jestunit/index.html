@@ -1,0 +1,208 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/2019/09/29/jestunit/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/2019/09/29/jestunit/" hreflang="en"><link rel="canonical" href="https://iandays.com/2019/09/29/jestunit/"><title>React Unit Test with Jest 單元測試 | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "React Unit Test with Jest 單元測試",
+  "description": "單元測試在我剛寫程式時，認為測試 case 是自己預期的，還主觀的認為沒什麼用。但我在實際寫幾個測試後，能更專注在預期判斷 input output，也有助於你思考 function 架構更清楚。接下來就來針對 react hooks 做 component testing。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/2019/09/29/jestunit/" 
+  },
+  "datePublished":  "2019-09-29T15:47:10.000Z" ,
+  "dateModified":  "2019-09-29T17:53:49.018Z" ,
+  "image": "https://iandays.com",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "javascript",
+    "item": "https://iandays.com/categories/javascript/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "React Unit Test with Jest 單元測試",
+    "item": "https://iandays.com/2019/09/29/jestunit/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="React Unit Test with Jest 單元測試 | Ian Chu"><meta name="description" content="單元測試在我剛寫程式時，認為測試 case 是自己預期的，還主觀的認為沒什麼用。但我在實際寫幾個測試後，能更專注在預期判斷 input output，也有助於你思考 function 架構更清楚。接下來就來針對 react hooks 做 component testing。"><meta property="og:description" content="單元測試在我剛寫程式時，認為測試 case 是自己預期的，還主觀的認為沒什麼用。但我在實際寫幾個測試後，能更專注在預期判斷 input output，也有助於你思考 function 架構更清楚。接下來就來針對 react hooks 做 component testing。"><meta property="og:url" content="https://iandays.com/2019/09/29/jestunit/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.comreactunittest.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1591433368693"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">React Unit Test with Jest 單元測試</h1><div class="post-meta">Sep 30, 2019<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/javascript/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">javascript</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/2019/09/29/jestunit/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">React Unit Test with Jest 單元測試</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: 8 months ago</div></div><a class="disqus-comment-count" data-disqus-identifier="2019/09/29/jestunit/" href="/2019/09/29/jestunit/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安裝測試工具-Jest"><span class="toc-text">安裝測試工具 Jest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#react-test-renderer-Snapshot-Testing"><span class="toc-text">react-test-renderer Snapshot Testing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Component-Testing-testing-library-react"><span class="toc-text">Component Testing @testing-library&#x2F;react</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#心得"><span class="toc-text">心得</span></a></li></ol></div></div><div class="post-content"><p>Unit Test(單元測試)，針對程式的最小單位，進行測試，最小單位可能是一個 function，或一個 component、class 等等，執行單元測試是為了確保每個功能都能夠正常執行，提早發現並找出問題所在。</p>
+<p>目前正在開發新專案，但又要兼顧維運另個舊專案，舊專案是公司核心產品，常常需要改動需求，因為新專案 deadline 緊迫，不大有時間詳細的測試改動，最近疊加太多功能，導致連動出現滿多 bug，因為這事件，更讓我們重視測試的重要性。</p>
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/reactunittest.png" alt="react unit test" title="react unit test"><noscript><img src="/images/reactunittest.png" alt="react unit test" /></noscript></p>
+<p>接下來就來針對 react hooks 做 component testing。</p>
+<h2 id="安裝測試工具-Jest"><a href="#安裝測試工具-Jest" class="headerlink" title="安裝測試工具 Jest"></a>安裝測試工具 Jest</h2><p>Jest 是由 facebook 開源的工具，源自於 Jasmine 延伸開發，設定少、輕巧，官方文件非常清楚，提供斷言庫、mocking data等，Jest 算是我們 test 的 runner，可以再搭配 enzyme、puppeteer 等等執行，讓 test 能更齊全。</p>
+<figure class="highlight q"><table><tr><td class="code"><pre><span class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> jest</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>編輯 package.json<figure class="highlight jboss-cli"><table><tr><td class="code"><pre><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">  <span class="string">...</span></span><br><span class="line">  <span class="string">"test"</span>: <span class="string">"jest"</span>,</span><br><span class="line">  <span class="string">...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>執行 Jest 會預設抓取 <code>__tests__</code> folder 內 js、ts 檔案，或是 fileName 有 spec、test 的 js ts 檔案 來跑測試， 假設你有用到 babel，或是其他 css 編譯工具，則需要設定 jest config。</p>
+<p>規則預設 </p>
+<figure class="highlight gcode"><table><tr><td class="code"><pre><span class="line"><span class="comment">([ "**/__tests__/**/*.[jt]s?(x)</span><span class="string">", "</span>**/?<span class="comment">(*.)</span>+<span class="comment">(spec|test)</span>.[jt]s?<span class="comment">(x)</span><span class="string">" ])</span></span><br></pre></td></tr></table></figure>
+
+<p>官方文件: <a href="https://jestjs.io/docs/en/getting-started" target="_blank" rel="noopener" title="Jest starter guide">Jest starter guide</a></p>
+<p>Jest 主要依賴幾個 function 執行測試，describe function 可以讓我們對這一個測試做命名，以便後面執行測試追蹤，test function 則是讓我們定義某個 test case，例如範例，我們用 describe 測試包覆多種狀況來測試，expect 則是讓我們丟入 function 做 return，toBe 就是預期測試結果是否符合預期。</p>
+<p>官方文件: <a href="https://jestjs.io/docs/en/using-matchers" target="_blank" rel="noopener" title="Jest 斷言方式">Jest 斷言方式</a></p>
+<ul>
+<li>Jest 使用<figure class="highlight lisp"><table><tr><td class="code"><pre><span class="line">describe('Test sum', () =&gt; &#123;</span><br><span class="line">    test('function return <span class="number">0</span>', () =&gt; &#123;</span><br><span class="line">        expect(<span class="name">sum</span>(<span class="number">0</span>)).toBe(<span class="number">0</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    test('function sum <span class="number">0</span>, <span class="number">1</span> return <span class="number">1</span>', () =&gt; &#123;</span><br><span class="line">        expect(<span class="name">sum</span>(<span class="number">0</span>,<span class="number">1</span>)).toBe(<span class="number">1</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>目前新專案是純倚賴 Jest 來測試，主要規劃會以 function test 以及 end to end 為主，主要先針對最重要的 function 做不同情境測試。</p>
+<p>安裝完成有遇到 react-script start 會有 jest error，依照提示移除 jest、node_modules、package-lock.json，並重新安裝即可解決。</p>
+<h2 id="react-test-renderer-Snapshot-Testing"><a href="#react-test-renderer-Snapshot-Testing" class="headerlink" title="react-test-renderer Snapshot Testing"></a>react-test-renderer Snapshot Testing</h2><p>剛好在 react test guide 看到，好奇順便研究一下，react-test-renderer 是 facebook 開發的工具，功能直覺簡單，是用來實現不需要依賴瀏覽器 render component 執行 test，首先會幫你 render compoent，並可讓你執行 toMatchSnapshot 匯出元件 render Snaphot，也可在依照 render component 模擬更新互動，更新後狀態也可匯出 snapshot，另外也可以純取值比較。</p>
+<p>如果你元件經常要更新，可想而知你這份 snapshot testing 會經常需要更新，但如果穩定，就可以直接測試出 component 與資料不同的更新樣貌。</p>
+<p>文件: <a href="https://reactjs.org/docs/test-renderer.html#testrenderer" target="_blank" rel="noopener" title="react-test-renderer">react-test-renderer</a></p>
+<p>下面是簡單的元件，主要測試是觸發 <code>&lt;span&gt;</code> 的 onClick 讓 state count 更新。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TodoView</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> inputEl = useRef(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> [todoList, addTodo, deleteToDo] = useTodoList([], inputEl);</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;span onClick=&#123;()=&gt;setCount(count+<span class="number">1</span>)&#125;&gt;Counter : &#123;count&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">      ...</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下方為實際使用範例，主要邏輯就是使用 create render component，再把元件資料轉格式匯出 snapshot，並可以用 act 來調用 component function，直接拉 props function 用會有 error warning，主要用起來困難點會是在 selector，還是如何整理 snapshot 匯出格式，幫助我們日後測試。</p>
+<p>目前專案尚未導入 snapshot test，因為專案還在不斷改動中，評估 component test 維運成本過高先略過。</p>
+<ul>
+<li>src/<strong>testSnap</strong>/TodoView.test.js<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; create, act &#125; <span class="keyword">from</span> <span class="string">"react-test-renderer"</span>;</span><br><span class="line"><span class="keyword">import</span> TodoView <span class="keyword">from</span> <span class="string">'/container/TodoView'</span>;</span><br><span class="line"></span><br><span class="line">describe(<span class="string">"TodoView component"</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  test(<span class="string">"it shows the expected text when clicked"</span>, <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    let component;</span><br><span class="line">    act(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      component = create(&lt;TodoView /&gt;);</span><br><span class="line">    &#125;);</span><br><span class="line">    let tree = component.toJSON();</span><br><span class="line">    expect(tree).toMatchSnapshot();</span><br><span class="line">    const instance = component.root;</span><br><span class="line"></span><br><span class="line">    const button = instance.findByType(<span class="string">"span"</span>);</span><br><span class="line">    act(<span class="function"><span class="params">()</span> =&gt;</span> button.props.onClick());</span><br><span class="line">    expect(button.props.children.join()).toBe(<span class="string">"Counter : ,1"</span>)</span><br><span class="line">    expect(button.props.children).toMatchSnapshot();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="Component-Testing-testing-library-react"><a href="#Component-Testing-testing-library-react" class="headerlink" title="Component Testing @testing-library/react"></a>Component Testing @testing-library/react</h2><p>React 官方範例是可以依賴內部 function act 去 render component，並依賴 dispatch event 去觸發事件，但若是複雜，官方更推薦使用 @testing-library/react，這是一套專注於測試 user interactive 的工具，可以讓我們模擬 select component -&gt; click，有別於 enzyme 依賴執行 function trigger 更新 component。</p>
+<p>這套工具是同事推薦的，react testing library 專注的方向符合我們的需要，更能貼近使用者實際的互動。</p>
+<ul>
+<li>React 官方 test note<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">We recommend using React Testing Library which is designed <span class="keyword">to</span></span><br><span class="line"><span class="builtin-name">enable</span> <span class="keyword">and</span> encourage writing tests that use your components </span><br><span class="line">as the end<span class="built_in"> users </span><span class="keyword">do</span>.</span><br><span class="line"></span><br><span class="line">Alternatively, Airbnb has released a testing utility called Enzyme,</span><br><span class="line">which makes it easy <span class="keyword">to</span> assert, manipulate, <span class="keyword">and</span> traverse your</span><br><span class="line">React Components’ output.</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>下方為 TypeInInput 的元件，預期當我們 pass text 會 render 出字串，並觸發 onChange event 傳遞 value，再來比較 input 內的 value 是否符合，接下來就來測試這個情境。</p>
+<p>@testing-library/react 主要依賴 render 來 render component，fireEvent 則讓我們可以觸發事件(click、change、dispatch Event)。</p>
+<p>主要流程大致為 render component，並接受返回的 function，各種 selector 都會在這時候取得，目前寫起來最順手是利用 getByTestId 搭配 data-testid，以往再寫 react component，會比較少寫 class or id，利用 tag 或是 string 來做選擇，難度更是麻煩，這些更常會因為需求更新。</p>
+<ul>
+<li>TypeInInput Component<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; render, fireEvent &#125; <span class="keyword">from</span> <span class="string">"@testing-library/react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TypeInInput</span>(<span class="params">&#123;text&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [value, setValue] = useState(<span class="string">''</span>);</span><br><span class="line">  <span class="keyword">const</span> onChangeValue = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    setValue(e.target.value);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;label&gt;&#123;text&#125;&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">      &lt;input data-testid="typeIn" value=&#123;value&#125; onChange=&#123;onChangeValue&#125; /</span>&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">describe("Test TypeInInput", () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  const text = "email";</span></span><br><span class="line"><span class="regexp">  test("change event", () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">    const &#123; getByText &#125; = render(&lt;TypeInInput text=&#123;text&#125; /</span>&gt;); </span><br><span class="line">    <span class="keyword">const</span> title = getByText(<span class="regexp">/email/</span>);</span><br><span class="line">    expect(title.textContent).toEqual(text);</span><br><span class="line">  &#125;);</span><br><span class="line">  test(<span class="string">"change event"</span>, () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; getByTestId &#125; = render(<span class="xml"><span class="tag">&lt;<span class="name">TypeInInput</span> <span class="attr">text</span>=<span class="string">&#123;text&#125;</span> /&gt;</span></span>); </span><br><span class="line">    <span class="keyword">const</span> typeInElem = getByTestId(<span class="string">"typeIn"</span>);</span><br><span class="line">    <span class="keyword">const</span> test = <span class="string">"emample@gmail.com"</span>;</span><br><span class="line">    fireEvent.change(typeInElem, &#123; <span class="attr">target</span>: &#123; <span class="attr">value</span>: test &#125; &#125;);</span><br><span class="line">    expect(typeInElem.value).toEqual(test);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>至於比較複雜的 async function api 的操作，記得要修改 babel config 執行非同步，以及安裝 @testing-library/jest-dom 執行 toHaveTextContent，讓斷言能更靈活。</p>
+<ul>
+<li>babel.config.js<figure class="highlight clojure"><table><tr><td class="code"><pre><span class="line">[</span><br><span class="line">  <span class="string">"@babel/preset-env"</span>,</span><br><span class="line">  &#123;</span><br><span class="line">    targets: &#123;</span><br><span class="line">      node: <span class="string">"current"</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>Fetch 接受 url、axios (模擬 api call) 兩個 prop。Component 內用到 state、useCallback、建立 function fetchData，</p>
+<p>Component 預期狀態</p>
+<p>useEffect 會在元件 render 傳入 url 以及 apiCall function，並執行 click element 觸發 fetchData 調用 apiCall 更新 state。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState, useCallback &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">"axios"</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; render, fireEvent, waitForElement &#125; <span class="keyword">from</span> <span class="string">"@testing-library/react"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">'@testing-library/jest-dom/extend-expect'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fetch</span>(<span class="params">&#123; url, apiCall &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [data, setDate] = useState();</span><br><span class="line">  <span class="keyword">const</span> fetchData = useCallback(<span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> response = <span class="keyword">await</span> apiCall.get(url);</span><br><span class="line">    setDate(response.data);</span><br><span class="line">  &#125;, [apiCall, url]);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;button onClick=&#123;fetchData&#125;&gt;Fetch&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      &#123;data ? &lt;span data-testid="fetch"&gt;&#123;data.test&#125;&lt;/</span>span&gt; : <span class="literal">null</span>&#125;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">test("Fetch makes an API call and displays the greeting", async () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  const fakeAxios = &#123;</span></span><br><span class="line"><span class="regexp">    get: jest.fn(() =&gt; Promise.resolve(&#123; data: &#123; test: "hello world" &#125; &#125;))</span></span><br><span class="line"><span class="regexp">  &#125;;</span></span><br><span class="line"><span class="regexp">  const url = "https:/</span><span class="regexp">/example.com/g</span>et-hello-there<span class="string">";</span></span><br><span class="line"><span class="string">  const &#123; getByText, getByTestId &#125; = render(</span></span><br><span class="line"><span class="string">    &lt;Fetch url=&#123;url&#125; apiCall=&#123;fakeAxios&#125; /&gt;</span></span><br><span class="line"><span class="string">  );</span></span><br><span class="line"><span class="string">  fireEvent.click(getByText(/fetch/i));</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  const fetchNode = await waitForElement(() =&gt; getByTestId("</span>fetch<span class="string">"));</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">  expect(fetchNode).toHaveTextContent("</span>hello world<span class="string">");</span></span><br><span class="line"><span class="string">&#125;);</span></span><br></pre></td></tr></table></figure>
+
+<p>更複雜例子也可以查閱作者在 codesandbox 寫的各種 sample code，</p>
+<p>作者範例: <a href="https://codesandbox.io/s/github/kentcdodds/react-testing-library-examples" target="_blank" rel="noopener" title="kentcdodds codesandbox">kentcdodds codesandbox</a></p>
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p>單元測試在我剛寫程式時，認為測試 case 是自己預期的，還主觀的認為沒什麼用，因為開發者所預期的測試一定充滿盲點，沒太大用處。但我在實際寫幾個測試後，發現最大的功用在於程式的 clear，當你在寫某個功能時，能更專注在預期判斷 input output，也有助於你思考 function 架構更清楚。</p>
+<p>你可能會說每次測試都沒抓到真實發生的 bug，這時就要換個角度思考，為什麼測試 case 沒測試到，是不是情境 case 太過簡單、理想，是不是需要再擴展更多 case。</p>
+<p>新專案不幸的重構了大概兩次左右…，還是最重要的資料更新，運氣很好的在改動中有在測試階段發現問題，我大概被抓到兩次問題，當時心想這個 testing case 的時間成本回本了XDD，不斷讓我佩服 unit test 發揮做用。</p>
+<p>內文這些實際範例，寫起來最卡的部分在環境設定，非同步測試…、編譯錯誤等等，還有熟悉 selector 與斷言方式，不像是 enzyme 有 cherrio 支援類似 jquery 的語法，剩下就是各種使用測試技巧，這個寫更多案例後會更熟悉。後續有 react-testing-library 實際導入專案會再多寫相關內容。</p>
+<p>以上若有錯誤，歡迎留言提醒，</p>
+<p>感謝閱讀。</p>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><div class="tags"><a href="/tags/react-js/">react.js</a><a href="/tags/testing/">testing</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/12/09/nextupdate/">Update Next.js 7、react 16 error and bug</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/05/08/reacthoc/">React Higher Order Components 初探觀念</a></li><li class="related-posts-item"><a class="related-posts-link" href="/2018/11/19/reactportal/">React Portals render component anywhere example</a></li></ul></div><div class="post-nav"><a class="pre" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a><a class="next" href="/2019/08/04/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = '2019/09/29/jestunit/';
+var disqus_title = 'React Unit Test with Jest 單元測試';
+var disqus_url = 'https://iandays.com/2019/09/29/jestunit/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://line.me/S/sticker/9091863?lang=zh-Hant&amp;ref=gnsh_stickerDetail" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/04/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/28/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/15/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/08/firstjob/">第一份工作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/01/reacthooks/">React Hooks Performance 效能處理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5999863573" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1591433368701" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li></ul></div></html>

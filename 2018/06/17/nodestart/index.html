@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/2018/06/17/nodestart/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/2018/06/17/nodestart/" hreflang="en"><link rel="canonical" href="https://iandays.com/2018/06/17/nodestart/"><title>Node.js、Express、MySQL串接資料庫，Heroku部署環境 | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Node.js、Express、MySQL串接資料庫，Heroku部署環境",
+  "description": "在這個前後端分離的時代，多半會再開一台Node.js的server給前端處理router，這邊就要來使用Node.js搭配express以及MySQL來建立簡單的網站router。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/2018/06/17/nodestart/" 
+  },
+  "datePublished":  "2018-06-17T03:37:49.000Z" ,
+  "dateModified":  "2019-06-08T04:41:57.861Z" ,
+  "image": "https://iandays.com/images/expressdata.png",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "javascript",
+    "item": "https://iandays.com/categories/javascript/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Node.js、Express、MySQL串接資料庫，Heroku部署環境",
+    "item": "https://iandays.com/2018/06/17/nodestart/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="Node.js、Express、MySQL串接資料庫，Heroku部署環境 | Ian Chu"><meta name="description" content="在這個前後端分離的時代，多半會再開一台Node.js的server給前端處理router，這邊就要來使用Node.js搭配express以及MySQL來建立簡單的網站router。"><meta property="og:description" content="在這個前後端分離的時代，多半會再開一台Node.js的server給前端處理router，這邊就要來使用Node.js搭配express以及MySQL來建立簡單的網站router。"><meta property="og:url" content="https://iandays.com/2018/06/17/nodestart/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.com/images/logo.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1591433368813"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><script src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Node.js、Express、MySQL串接資料庫，Heroku部署環境</h1><div class="post-meta">Jun 8, 2019<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/javascript/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">javascript</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/2018/06/17/nodestart/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">Node.js、Express、MySQL串接資料庫，Heroku部署環境</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: 2 years ago</div></div><a class="disqus-comment-count" data-disqus-identifier="2018/06/17/nodestart/" href="/2018/06/17/nodestart/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#express-建立-router"><span class="toc-text">express 建立 router</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#串接-MySQL"><span class="toc-text">串接 MySQL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#部署-Heroku"><span class="toc-text">部署 Heroku</span></a></li></ol></div></div><div class="post-content"><p>一個網站組成主要會是前端加後端，簡單來說，前端主要是畫面加上操作介面，包含了html、css、javascript，後端則是處理使用者請求控制回應，例如登入註冊，會員後台等等，其中後端有各種語言例如PHP、Java、ASP.NET、Node.js、Python、Ruby…等等。</p>
+<p>在這個前後端分離的時代，多半會再開一台Node.js的server給前端處理router，如果有使用到javascript framework(react、vue、angular)，就會需要server side render，在這邊一同處理畫面跟資料的渲染，而原本的後端則單純負責api建立。</p>
+<p>這邊就要來使用Node.js搭配express以及MySQL來建立簡單的網站router。</p>
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/node.png" alt="node.js" title="node.js"><noscript><img src="/images/node.png" alt="node.js" /></noscript></p>
+<h2 id="express-建立-router"><a href="#express-建立-router" class="headerlink" title="express 建立 router"></a>express 建立 router</h2><p>1.首先建立資料夾、建立package.json</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line">// create folder <span class="keyword">and</span> movein create package.json</span><br><span class="line">mkdir <span class="keyword">node</span><span class="title">-express</span></span><br><span class="line">cd <span class="keyword">node</span><span class="title">-express</span></span><br><span class="line">npm init -y</span><br><span class="line"></span><br><span class="line">//install express</span><br><span class="line">npm install express --save</span><br></pre></td></tr></table></figure>
+
+<p>2.建立app.js</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// use express method</span></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">// use express get method </span></span><br><span class="line"><span class="comment">// create root router and print hello world</span></span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>)</span>&#123;</span><br><span class="line">  res.send(<span class="string">'hello world'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// check running enviroment</span></span><br><span class="line"><span class="keyword">var</span> port = process.env.PORT || <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// create</span></span><br><span class="line">app.listen(port);</span><br><span class="line"></span><br><span class="line"><span class="comment">// only print hint link for local enviroment </span></span><br><span class="line"><span class="keyword">if</span>(port === <span class="number">3000</span>)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'RUN http://localhost:3000/'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://expressjs.com/zh-tw/4x/api.html#app.get.method" target="_blank" rel="noopener" title="express get">express get</a><br><a href="http://expressjs.com/zh-tw/4x/api.html#app.listen" target="_blank" rel="noopener" title="express listen">express listen</a><br><a href="http://expressjs.com/zh-tw/4x/api.html#app.METHOD" target="_blank" rel="noopener" title="express METHOD">express METHOD</a></p>
+<p>3.執行app.js、打開 <a href="http://localhost:3000/" target="_blank" rel="noopener">http://localhost:3000/</a><br>打開command 輸入 node app.js執行檔案</p>
+<figure class="highlight crmsh"><table><tr><td class="code"><pre><span class="line"><span class="keyword">node</span> <span class="title">app</span>.js</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/nodehello.png" alt="node hello world" title="node hello world"><noscript><img src="/images/nodehello.png" alt="node hello world" /></noscript><br>成功看到了Hello world，這樣就建立了一個很簡易的node server。但這邊印出來的hello world，只是純粹字串，不具備html架構。</p>
+<p>4.建立對應html檔案搭配動態router</p>
+<p>這邊用到的是ejs template，方便我們之後取用node.js傳遞的資料。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">// <span class="keyword">install</span> ejs</span><br><span class="line">npm <span class="keyword">install</span> ejs-locals <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<p>建立ejs相對應的檔案。<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/filestru.png" alt="file structure" title="file structure"><noscript><img src="/images/filestru.png" alt="file structure" /></noscript></p>
+<figure class="highlight haxe"><table><tr><td class="code"><pre><span class="line"><span class="comment">// create ejs</span></span><br><span class="line"><span class="keyword">var</span> engine = require(<span class="string">'ejs-locals'</span>);</span><br><span class="line">app.engine(<span class="string">'ejs'</span>,engine);</span><br><span class="line">app.<span class="keyword">set</span>(<span class="string">'files'</span>,<span class="string">'./files'</span>);</span><br><span class="line">app.<span class="keyword">set</span>(<span class="string">'view engine'</span>,<span class="string">'ejs'</span>);</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment">// modify router use file name</span></span><br><span class="line">app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span></span>(req, res)&#123;</span><br><span class="line">  res.render(<span class="string">'index'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="keyword">get</span>(<span class="string">'/about'</span>, <span class="function"><span class="keyword">function</span></span>(req, res)&#123;</span><br><span class="line">  res.render(<span class="string">'about'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>輸入完成一樣執行node app.js，就完成有對應檔案的router。<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/nodedemo.png" alt="nodedemo" title="nodedemo"><noscript><img src="/images/nodedemo.png" alt="nodedemo" /></noscript></p>
+<p><a href="http://expressjs.com/zh-tw/starter/static-files.html" target="_blank" rel="noopener" title="express static">express static</a></p>
+<h2 id="串接-MySQL"><a href="#串接-MySQL" class="headerlink" title="串接 MySQL"></a>串接 MySQL</h2><p>再來讓我們試著串接MySQL，做一個完整的後端服務。如果你的電腦沒有安裝MySQL，要記得先安裝好，<a href="https://dev.mysql.com/doc/refman/5.7/en/osx-installation-pkg.html" target="_blank" rel="noopener" title="mac 安裝 mysql 教學">mac 安裝 mysql 教學</a>、<a href="https://jerrynest.io/windows-mysql-installer/" target="_blank" rel="noopener" title="windwos 安裝 mysql 教學">windwos 安裝 mysql 教學</a>。<br>ps.mysql記得安裝5.7以下版本，剛剛跑一遍下載到8.0.x版本的，sequel pro連接出一堆問題，也許是不支援新版的。</p>
+<p>1.安裝 MySQL for node.js</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">// <span class="keyword">install</span> MySQL tool</span><br><span class="line">npm <span class="keyword">install</span> mysql <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+
+<p><a href="http://expressjs.com/zh-tw/guide/database-integration.html#mysql" target="_blank" rel="noopener" title="express with mysql">express with mysql</a><br><a href="https://github.com/mysqljs/mysql" target="_blank" rel="noopener" title="node.js mysql">node.js mysql</a></p>
+<p>2.在MySQL建立資料、透過express連接sql<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/sqldata.png" alt="sqldata" title="sqldata"><noscript><img src="/images/sqldata.png" alt="sqldata" /></noscript><br>在剛剛建立的app.js上面建立</p>
+<figure class="highlight qml"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">var</span> mysql      = <span class="built_in">require</span>(<span class="string">'mysql'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// connect MySQL</span></span><br><span class="line"><span class="keyword">var</span> connection = mysql.createConnection(&#123;</span><br><span class="line">  <span class="attribute">host</span>     : <span class="string">'localhost'</span>,</span><br><span class="line">  <span class="attribute">user</span>     : <span class="string">'root'</span>,</span><br><span class="line">  <span class="attribute">password</span> : <span class="string">''</span>,</span><br><span class="line">  <span class="attribute">database</span>: <span class="string">'test'</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// select MyGuests table and print all colums</span></span><br><span class="line">connection.query(<span class="string">'select * from MyGuests'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, rows, fields</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'The solution is: '</span>, rows);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>執行node app.js 會看到印出資料，這樣就成功地在express連接到MySQL了，接下來就要把這個資料加到express的router中，讓我們在頁面中可以使用資料</p>
+<p>3.把剛剛sql的資料設定到about page</p>
+<figure class="highlight pgsql"><table><tr><td class="code"><pre><span class="line">// <span class="keyword">create</span> <span class="keyword">object</span></span><br><span class="line">var data = &#123;&#125;;</span><br><span class="line"><span class="keyword">connection</span>.query(<span class="string">'select * from MyGuests'</span>, <span class="keyword">function</span>(err, <span class="keyword">rows</span>, fields) &#123;</span><br><span class="line">  <span class="keyword">if</span> (err) throw err;</span><br><span class="line">  // <span class="keyword">set data</span> <span class="keyword">to</span> <span class="keyword">object</span></span><br><span class="line">  data.<span class="keyword">user</span> = <span class="keyword">rows</span>[<span class="number">0</span>];</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="keyword">get</span>(<span class="string">'/'</span>, <span class="keyword">function</span>(req, res)&#123;</span><br><span class="line">  res.render(<span class="string">'index'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.<span class="keyword">get</span>(<span class="string">'/about'</span>, <span class="keyword">function</span>(req, res)&#123;</span><br><span class="line">  // <span class="keyword">add</span> data property <span class="keyword">to</span> about page</span><br><span class="line">  res.render(<span class="string">'about'</span>,&#123;data: data.<span class="keyword">user</span>&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>4.修改about.ejs 使用設定的data</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Name:<span class="tag">&lt;<span class="name">%-</span> <span class="attr">data.id</span> %&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>firstname:<span class="tag">&lt;<span class="name">%-</span> <span class="attr">data.firstname</span> %&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>lastname:<span class="tag">&lt;<span class="name">%-</span> <span class="attr">data.lastname</span> %&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>email:<span class="tag">&lt;<span class="name">%-</span> <span class="attr">data.email</span> %&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>registert date:<span class="tag">&lt;<span class="name">%-</span> <span class="attr">data.reg_date</span> %&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>5.執行檔案<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/expressdata.png" alt="expressdata" title="expressdata"><noscript><img src="/images/expressdata.png" alt="expressdata" /></noscript></p>
+<p>會發現到頁面拿到了MySQL的資料，這樣就完成了很基本的一個後端架構。</p>
+<p><a href="https://github.com/Ianpig/work/tree/nodeexpre" target="_blank" rel="noopener" title="source code">source code</a></p>
+<h2 id="部署-Heroku"><a href="#部署-Heroku" class="headerlink" title="部署 Heroku"></a>部署 Heroku</h2><p>再來把剛剛寫好的node.js部署到網路上面，heroku有免費使用的方案，所以這邊使用的是heroku。</p>
+<p>首先要安裝heroku cli，再來註冊帳號，在專案內的package.json加入”start”: “node app.js”，新增檔案Procfile。</p>
+<p><a href="https://devcenter.heroku.com/articles/getting-started-with-nodejs#introduction" target="_blank" rel="noopener" title="heroku node deploy 教學">heroku node deploy 教學</a></p>
+<figure class="highlight stata"><table><tr><td class="code"><pre><span class="line"><span class="comment">// file package.json</span></span><br><span class="line"></span><br><span class="line">  <span class="string">"engines"</span>: &#123;</span><br><span class="line">    <span class="string">"node"</span>: <span class="string">"6.2.2"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"start"</span>: <span class="string">"node app.js"</span>,</span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"echo \"</span><span class="keyword">Error</span>: <span class="keyword">no</span> <span class="keyword">test</span> specified\<span class="string">" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// file Procfile </span></span><br><span class="line">web: node <span class="keyword">app</span>.js</span><br></pre></td></tr></table></figure>
+
+<p>開始準備部署作業</p>
+<figure class="highlight gauss"><table><tr><td class="code"><pre><span class="line"><span class="comment">//login account</span></span><br><span class="line">heroku login</span><br><span class="line"></span><br><span class="line"><span class="comment">//use git</span></span><br><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">"init node"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// create heroku repo</span></span><br><span class="line">heroku <span class="keyword">create</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// push remote</span></span><br><span class="line">git <span class="keyword">push</span> heroku master</span><br><span class="line"></span><br><span class="line">heroku ps:<span class="built_in">scale</span> web=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">heroku <span class="keyword">open</span></span><br></pre></td></tr></table></figure>
+
+<p>完成部署之後就可以看到剛剛的內容了。</p>
+<p>實際上檔案架構應該要分離，這邊為了快速demo以及簡單化，所以全部操作都寫在一個檔案，應該要分離router、MySQL的邏輯，然後引入其他工具方便我們操作。讓架構比較清楚也比較好管理。日後再好好的處理一版。</p>
+<p>之後應該會考慮用mongoDB，不用人人本地端要安裝MySQL。然後寫api做出CRUD，再搭配node.js或是next做Server side render。</p>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><div class="tags"><a href="/tags/node-js/">node.js</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/2018/10/11/nodejsapi/">Node.js Express MongoDB RESTful Api 留言板實作教學</a></li></ul></div><div class="post-nav"><a class="pre" href="/2018/06/23/gautm/">Google analytics UTM設定參數，追蹤facebook廣告、簡訊、EDM</a><a class="next" href="/2018/05/09/fbvotify/">Facebook 粉絲團網域驗證教學</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = '2018/06/17/nodestart/';
+var disqus_title = 'Node.js、Express、MySQL串接資料庫，Heroku部署環境';
+var disqus_url = 'https://iandays.com/2018/06/17/nodestart/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://line.me/S/sticker/9091863?lang=zh-Hant&amp;ref=gnsh_stickerDetail" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/04/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/28/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/15/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/08/firstjob/">第一份工作</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/01/reacthooks/">React Hooks Performance 效能處理</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5999863573" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1591433368821" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/04/29/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/02/28/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/11/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/29/jestunit/">React Unit Test with Jest 單元測試</a></li></ul></div></html>
