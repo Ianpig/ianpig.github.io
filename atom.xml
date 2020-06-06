@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://iandays.com/"/>
-  <updated>2020-06-06T08:33:15.338Z</updated>
+  <updated>2020-06-06T08:58:12.758Z</updated>
   <id>https://iandays.com/</id>
   
   <author>
@@ -21,16 +21,13 @@
     <link href="https://iandays.com/2020/04/29/immutable/"/>
     <id>https://iandays.com/2020/04/29/immutable/</id>
     <published>2020-04-29T04:39:42.000Z</published>
-    <updated>2020-06-06T08:33:15.338Z</updated>
+    <updated>2020-06-06T08:58:12.758Z</updated>
     
     <content type="html"><![CDATA[<p>Immutable 是我想寫很久的主題，前一份工作時，就大大的踩到關於 immutable 的雷，那時候依靠 google靠解掉這問題，但總該還債的，面試時候也被這個關內給卡到。現代網頁前端不只是要處理畫面更新，更多時間更會處理大量資料處理，不論是重複封裝、更新等等。React 更是把 Imutable 視為重要的開發準則。</p><p><img src="/images/immutable.png" alt="react immutable" title="react immutable"></p><h2 id="Immutable-mutable-data"><a href="#Immutable-mutable-data" class="headerlink" title="Immutable mutable data"></a>Immutable mutable data</h2><p>什麼是 Immutable、mutable，Immutable 稱之不可改變的，mutable 則相反是可以改變的。string、number 都是 immutable 的，簡單講就是不可更改的，舉個例子來說</p><ul><li>string immutable<figure class="highlight openscad"><table><tr><td class="code"><pre><span class="line"><span class="built_in">let</span> <span class="built_in">str</span> = 'Hello, you!!';</span><br><span class="line"><span class="built_in">let</span> ianHello = <span class="built_in">str</span>;</span><br><span class="line">ianHello += 'ian';</span><br><span class="line"></span><br><span class="line"><span class="comment">// not changed</span></span><br><span class="line">console.<span class="built_in">log</span>(<span class="built_in">str</span>); <span class="comment">// Hello, you!!</span></span><br><span class="line">console.<span class="built_in">log</span>(ianHello); <span class="comment">// Hello, you!!ian</span></span><br></pre></td></tr></table></figure></li></ul><p>建立 ianHello 並使用 str 賦值，之後 ianHello 再重新賦值，並不會更動到 str，但 array 就不是這樣了。array 以及 object 使用 call by reference，淺拷貝的做法實現，白話一點講，就是會指導同一個記憶體位置，當你改動資料的時間，是針對指向的那一個記憶體去改，所以才會有連動的狀況。</p><ul><li>array mutable<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> names = [<span class="string">'ian'</span>];</span><br><span class="line"><span class="keyword">let</span> copyName = names;</span><br><span class="line">copyName.push(<span class="string">'peter'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// changed</span></span><br><span class="line"><span class="built_in">console</span>.log(names); <span class="comment">// [ian, peter]</span></span><br><span class="line"><span class="built_in">console</span>.log(copyName); <span class="comment">// [ian, peter]</span></span><br></pre></td></tr></table></figure></li></ul><p>舉下方的例子來說，大致邏輯是依賴兩個陣列資料，驅使更新畫面更新的，呈現問題的使用方法是，點擊<code>複製按鈕</code>，同步兩邊的資料，再點擊任意一個清單的刪除，會發現兩邊畫面居然會連動。</p><iframe src="//codepen.io/chu1228/embed/wvMaKYw/?height=265&theme-id=light&default-tab=result" width="100%" height="350px" frameborder="0" loading="lazy" allowfullscreen></iframe><p>會產生問題的原因是，第一我複製資料的時候，讓兩個陣列變成指向同一個，所以才會兩邊連動畫面更新。</p><p>這大致上就是簡單的介紹 immutable 跟 mutable。</p><h2 id="React-Immutable"><a href="#React-Immutable" class="headerlink" title="React Immutable"></a>React Immutable</h2><p>React 有提到 state 的更新，都必須要是 immutable，當你有使用到 useState 或是 pureComponent、shouldComponentUpdate，你就會發現問題。下面範例就是 mutable 的更新 state。</p><iframe src="https://codesandbox.io/embed/elastic-flower-hlxd6?fontsize=14&hidenavigation=1&theme=dark" width="100%" height="350px" frameborder="0" loading="lazy" allowfullscreen></iframe><ul><li>mutable setState<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">value</span> = <span class="keyword">ref</span>.current.<span class="keyword">value</span>;</span><br><span class="line">names.push(<span class="keyword">value</span>);</span><br><span class="line">setNames(names);</span><br></pre></td></tr></table></figure></li></ul><p>結果就是沒辦法觸發 update component，因為 useState 就有自帶了 shallowEqual，同一個記憶體位置去比較有無更新，當然恆等於，所以這個案例，你怎們加入都無法更新畫面。</p><ul><li>immutable setState<figure class="highlight reasonml"><table><tr><td class="code"><pre><span class="line">set<span class="constructor">Names(<span class="params">names</span> =&gt; [<span class="operator">...</span><span class="params">names</span>, <span class="params">value</span>])</span></span><br></pre></td></tr></table></figure></li></ul><p><a href="https://reactjs.org/docs/optimizing-performance.html#the-power-of-not-mutating-data" target="_blank" rel="noopener" title="react optimizing-performance">react optimizing-performance</a></p><p><a href="https://redux.js.org/recipes/structuring-reducers/beyond-combinereducers#using-slice-reducers-with-immutablejs-objects" target="_blank" rel="noopener" title="redux reducers immutablejs">redux reducers immutablejs</a></p><h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p>記得剛轉前端工作的時候，被這問題卡了一下午，最後是靠 stackoverflow <code>slice</code>，來解決問題。以前遇到問題都是找到解法就結束了，但說實在沒搞懂原因，這樣遲早還是得回頭還債的。</p><p>勉勵一下自己，要求慎解啊！</p><p>一樣有問題、或是錯誤，歡迎留言，感謝閱讀。</p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;Immutable 是我想寫很久的主題，前一份工作時，就大大的踩到關於 immutable 的雷，那時候依靠 google靠解掉這問題，但總該還債的，面試時候也被這個關內給卡到。現代網頁前端不只是要處理畫面更新，更多時間更會處理大量資料處理，不論是重複封裝、更新等等。Re
-      
+      React 有提到 state 的更新，都必須要是 immutable，當你有使用到 useState 或是 pureComponent、shouldComponentUpdate，你就會發現問題。
     
     </summary>
     
