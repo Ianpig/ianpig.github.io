@@ -74,8 +74,9 @@ body {
 
 .dark .post .post-meta {
   color: #bbc5cc; }
-  .dark .post .post-meta .update-date {
-    padding: 15px 0; }
+
+.dark .post .update-date {
+  margin: 8px 0; }
 
 .dark .post .post-content {
   color: #e6e6e6; }
