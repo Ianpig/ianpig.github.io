@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://iandays.com/2020/06/27/closure/</loc>
+    
+    <lastmod>2020-07-05T12:30:08.998Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://iandays.com/2019/12/11/iframeblockcookie/</loc>
+    
+    <lastmod>2020-07-05T05:57:46.158Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://iandays.com/2020/04/29/immutable/</loc>
     
     <lastmod>2020-06-06T08:58:12.758Z</lastmod>
@@ -12,13 +26,6 @@
     <loc>https://iandays.com/2020/02/28/reactpuppeteer/</loc>
     
     <lastmod>2020-04-03T02:46:49.652Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://iandays.com/2019/12/11/iframeblockcookie/</loc>
-    
-    <lastmod>2020-01-23T07:01:03.840Z</lastmod>
     
   </url>
   
