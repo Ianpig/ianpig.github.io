@@ -25,10 +25,12 @@ document.addEventListener('scroll',function(e){
     }else {
       document.querySelector('.btn-menu').classList.remove('active');  
     }
-    if(window.pageYOffset > navHeight+navTop + 100){
-      document.querySelector('#toc').classList.add('active');
-    } else {
-      document.querySelector('#toc').classList.remove('active');  
+    if(document.querySelector('#toc')){
+        if(window.pageYOffset > navHeight+navTop + 100){
+        document.querySelector('#toc').classList.add('active');
+        } else {
+        document.querySelector('#toc').classList.remove('active');  
+        }
     }
 });
 
