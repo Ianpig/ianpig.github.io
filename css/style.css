@@ -75,9 +75,6 @@ body {
 .dark .post .post-meta {
   color: #bbc5cc; }
 
-.dark .post .update-date {
-  margin: 8px 0; }
-
 .dark .post .post-content {
   color: #e6e6e6; }
   .dark .post .post-content p a {
@@ -165,6 +162,9 @@ a:focus {
 
 div {
   box-sizing: border-box; }
+
+.post .update-date {
+  margin: 8px 0; }
 
 #header {
   padding: 58px 0 0;
