@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://iandays.com/about/index.html</loc>
+    
+    <lastmod>2020-07-09T12:47:30.039Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://iandays.com/2020/06/27/closure/</loc>
     
     <lastmod>2020-07-05T12:47:56.435Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>https://iandays.com/2019/09/29/jestunit/</loc>
     
     <lastmod>2019-09-29T17:53:49.018Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://iandays.com/about/index.html</loc>
-    
-    <lastmod>2019-08-24T14:20:35.962Z</lastmod>
     
   </url>
   

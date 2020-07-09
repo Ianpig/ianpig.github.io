@@ -519,6 +519,30 @@ div {
     cursor: pointer;
     overflow: hidden; }
 
+.switch-container {
+  display: flex;
+  align-items: center; }
+  .switch-container .facebook-icon {
+    min-width: 52.44px;
+    padding-left: 25px; }
+    .switch-container .facebook-icon i.fa-facebook-square {
+      font-size: 32px;
+      color: #0982df;
+      position: relative; }
+    .switch-container .facebook-icon i.fa-facebook-square:after {
+      content: '';
+      display: block;
+      background: #fff;
+      width: 5px;
+      height: 5px;
+      position: absolute;
+      bottom: 3px;
+      z-index: -1;
+      width: 50%;
+      height: 74%;
+      right: 4px;
+      border-radius: 15%; }
+
 #toggle_checkbox {
   display: none; }
 
