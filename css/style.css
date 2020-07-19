@@ -125,6 +125,9 @@ body {
 .dark .page-navigator a:hover, .dark .page-navigator span:hover {
   color: #000; }
 
+.dark .page-navigator .space {
+  color: #fff; }
+
 .dark .dsq-widget-comment p {
   color: #b1a7a7; }
 
