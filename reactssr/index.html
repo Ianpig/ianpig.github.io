@@ -1,0 +1,193 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/reactssr/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/reactssr/" hreflang="en"><link rel="canonical" href="https://iandays.com/reactssr/"><title>React Server-side rendering SEO處理 | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "React Server-side rendering SEO處理",
+  "description": "不使用next.js，來試著依靠原生方法，架構出React server-side render，會使用到react官方的cli create-react-app，以及node.js作為server。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/reactssr/" 
+  },
+  "datePublished":  "2019-01-29T16:39:25.000Z" ,
+  "dateModified":  "2019-06-08T04:43:46.346Z" ,
+  "image": "https://iandays.com/images/react.png",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "javascript",
+    "item": "https://iandays.com/categories/javascript/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "React Server-side rendering SEO處理",
+    "item": "https://iandays.com/reactssr/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="React Server-side rendering SEO處理 | Ian Chu"><meta name="description" content="不使用next.js，來試著依靠原生方法，架構出React server-side render，會使用到react官方的cli create-react-app，以及node.js作為server。"><meta property="og:description" content="不使用next.js，來試著依靠原生方法，架構出React server-side render，會使用到react官方的cli create-react-app，以及node.js作為server。"><meta property="og:url" content="https://iandays.com/reactssr/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.com/images/logo.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1601741154779"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-container"><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div><div><div class="facebook-icon"><a target="_blank" href="https://www.facebook.com/chu1228" targer="_blank" alt="ian"><i class="fa fa-facebook-square"> </i></a></div></div></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">React Server-side rendering SEO處理</h1><div class="post-meta">Jun 8, 2019<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/javascript/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">javascript</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/reactssr/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">React Server-side rendering SEO處理</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: 2 years ago</div></div><a class="disqus-comment-count" data-disqus-identifier="reactssr/" href="/reactssr/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Server-side-rendering-SEO"><span class="toc-text">Server-side rendering SEO</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#React-server-side-render"><span class="toc-text">React server-side render</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-create-react-app-cli"><span class="toc-text">使用 create-react-app cli</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安裝使用-express"><span class="toc-text">安裝使用 express</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#express-render-REACT"><span class="toc-text">express render REACT</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#建立-server-js、render-js"><span class="toc-text">建立 server.js、render.js</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#index-js-功能"><span class="toc-text">index.js 功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#server-js-功能"><span class="toc-text">server.js 功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#render-js-功能"><span class="toc-text">render.js 功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#心得"><span class="toc-text">心得</span></a></li></ol></div></div><div class="post-content"><p>先來稍微介紹一下為什麼要做server side render，另外這邊不會使用next.js，雖然公司目前專案有用到，但我滿推薦用next.js的，很好導入並且解決很多需要處理的問題。(雖然有一些bug、還會頻繁更新，兩年內version 3 -&gt; 7…)</p>
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/react.png" alt="react lifecycle" title="react lifecycle"><noscript><img src="/images/react.png" alt="react lifecycle" /></noscript></p>
+<h2 id="Server-side-rendering-SEO"><a href="#Server-side-rendering-SEO" class="headerlink" title="Server-side rendering SEO"></a>Server-side rendering SEO</h2><p>傳統網站內容是依靠後端php、jsp等產生html內容，稱之為Server-side rendering，但隨著前端技術演進，所有動態內容不再是連接資料庫取資料，轉變為使用非同步請求，依照不同需要依靠JavaScript直接請求API，然後更新需要改動的html，雖然說這樣處理很方便，使用者不用換網址發請求，整個畫面重新閃動。</p>
+<p>但這方法背後也產生SEO的缺點，動態內容的核心是執行JavaScript，而網頁爬蟲卻不一定會載入執行網頁上的JavaScript，雖然google官方表示爬蟲會<code>盡可能</code>的執行script，但實務上當你要優化SEO，就可能會避免用非同步拉資料，或是處理其他細節。這方式又稱為Client-side rendering。</p>
+<p>PS.google官方表示爬蟲邏輯大概是 索引 -&gt; (有資源後) -&gt; 執行 JavaScript，核心價值在於URL，不同內容必須要有對應的URL，才有可能幫你每個分頁分開索引。</p>
+<p>影片推薦觀看，能更了解JavaScript與爬蟲之間關係。<br><a href="https://www.youtube.com/watch?v=PFwUbgvpdaQ" target="_blank" rel="noopener" title="Google I/O &#39;18 javascript website">Google I/O ‘18 javascript website</a></p>
+<h2 id="React-server-side-render"><a href="#React-server-side-render" class="headerlink" title="React server-side render"></a>React server-side render</h2><p>使用React框架，但又需要讓爬蟲能索引得到html，就需要轉為使用server-side render，核心概念就是，原本JavaScript是用戶端執行產生內容，轉向依靠server來產生內容，請求API的部分也交由server端處理，直接在server端拿到畫面相關的資料，這樣爬蟲來索引的同時，就已經拿到了內容了。</p>
+<p>接下來來試著架構出React server-side render的架構，會使用到react官方的cli create-react-app，以及node.js作為server。</p>
+<h3 id="使用-create-react-app-cli"><a href="#使用-create-react-app-cli" class="headerlink" title="使用 create-react-app cli"></a>使用 create-react-app cli</h3><figure class="highlight dsconfig"><table><tr><td class="code"><pre><span class="line"><span class="string">npx </span><span class="built_in">create-react-app</span> <span class="string">react-ssr</span></span><br><span class="line"><span class="string">cd </span><span class="string">react-ssr</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="安裝使用-express"><a href="#安裝使用-express" class="headerlink" title="安裝使用 express"></a>安裝使用 express</h3><p>server side render 需要後端執行javascript，因此這邊使用node來處理，npm i express，再來建立server folder，在建立一個index.js，作為我們server執行的root。</p>
+<ul>
+<li>src</li>
+<li>server<ul>
+<li>index.js</li>
+</ul>
+</li>
+</ul>
+<p>純粹只是client side render，就只要執行 npm run build，再來我們針對build出來的資源，用express來控制。</p>
+<figure class="highlight cs"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> express = require(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"><span class="keyword">const</span> path = require(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// host build foler resource</span></span><br><span class="line">app.use(express.<span class="keyword">static</span>(path.<span class="keyword">join</span>(__dirname, <span class="string">'../build'</span>)));</span><br><span class="line"></span><br><span class="line"><span class="comment">// settting router</span></span><br><span class="line">app.<span class="keyword">get</span>(<span class="string">'*'</span>, (req,res) =&gt;&#123;</span><br><span class="line">    res.sendFile(path.<span class="keyword">join</span>(__dirname+<span class="string">'../build/index.html'</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">8080</span>);</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/csr.png" alt="react csr" title="react csr"><noscript><img src="/images/csr.png" alt="react csr" /></noscript></p>
+<h2 id="express-render-REACT"><a href="#express-render-REACT" class="headerlink" title="express render REACT"></a>express render REACT</h2><p>先談談用node 執行javascript會遇到哪些難解問題。</p>
+<ul>
+<li><p>首先node 無法執行 import。<br>依靠 @babel/register 搭配 @babel/plugin-syntax-dynamic-import、@babel-plugin-dynamic-import-node，讓express執行轉譯過的i<br>mport。</p>
+</li>
+<li><p>node 無法讀取 css、image 會出現 object<br>利用style-ignore，避開執行css內容，並在這邊處理好image hash name。</p>
+</li>
+<li><p>render react<br>透過react-dom/server 的 renderToString 或 renderToStaticMarkup 執行react。</p>
+</li>
+</ul>
+<p>剩下react-router、redux、檔案加入hash name、hot reload等等，就先不在這邊討論。<br>(置底medium文章有用到 redux、react-router)</p>
+<h2 id="建立-server-js、render-js"><a href="#建立-server-js、render-js" class="headerlink" title="建立 server.js、render.js"></a>建立 server.js、render.js</h2><p>再建立 server.js loader.js兩個檔案，<code>server.js</code> 主要負責 express，<code>index.js</code>則是處理server 設定 babel、各種預處理修正，<code>render.js</code> 負責 render 內容。</p>
+<h2 id="index-js-功能"><a href="#index-js-功能" class="headerlink" title="index.js 功能"></a>index.js 功能</h2><p>md5File 是為了讀取image file name，搭配ignoreStyles使用，讓server讀取到 npm build出來的file name。這邊最黑魔法的是babel/register，也是第一次看過這個用法，很輕鬆不需要eject就導入babel到create react app內。</p>
+<p><code>npm install md5-file ignore-styles</code></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> md5File = <span class="built_in">require</span>(<span class="string">'md5-file'</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ignoreStyles = <span class="built_in">require</span>(<span class="string">'ignore-styles'</span>);</span><br><span class="line"><span class="keyword">const</span> register = ignoreStyles.default;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> extensions = [<span class="string">'.gif'</span>, <span class="string">'.jpeg'</span>, <span class="string">'.jpg'</span>, <span class="string">'.png'</span>, <span class="string">'.svg'</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// ignore image and style request</span></span><br><span class="line">register(ignoreStyles.DEFAULT_EXTENSIONS, <span class="function">(<span class="params"><span class="built_in">module</span>, filename</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!extensions.find(<span class="function"><span class="params">f</span> =&gt;</span> filename.endsWith(f))) &#123;</span><br><span class="line">    <span class="comment">// use for style</span></span><br><span class="line">    <span class="keyword">return</span> ignoreStyles.noOp();</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// use for image and add hash follow react cli </span></span><br><span class="line">    <span class="keyword">const</span> hash = md5File.sync(filename).slice(<span class="number">0</span>, <span class="number">8</span>);</span><br><span class="line">    <span class="keyword">const</span> bn = path.basename(filename).replace(<span class="regexp">/(\.\w&#123;3&#125;)$/</span>, <span class="string">`.<span class="subst">$&#123;hash&#125;</span>$1`</span>);</span><br><span class="line">    <span class="built_in">module</span>.exports = <span class="string">`/static/media/<span class="subst">$&#123;bn&#125;</span>`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'@babel/polyfill'</span>);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'@babel/register'</span>)(&#123;</span><br><span class="line">  ignore: [<span class="regexp">/\/(build|node_modules)\//</span>],</span><br><span class="line">  presets: [<span class="string">'@babel/preset-env'</span>, <span class="string">'@babel/preset-react'</span>],</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="string">'@babel/plugin-syntax-dynamic-import'</span>,</span><br><span class="line">    <span class="string">'dynamic-import-node'</span>,</span><br><span class="line">    <span class="string">'react-loadable/babel'</span></span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// it will run express</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">'./server'</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="server-js-功能"><a href="#server-js-功能" class="headerlink" title="server.js 功能"></a>server.js 功能</h2><p>這邊主要就是處理express 路由，static file路徑，非常簡單的基本設定，比較特別的是用到Loadable 來確保有render component有執行完成。</p>
+<p><code>npm install react-loadable express</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">'express'</span>;</span><br><span class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">'path'</span>;</span><br><span class="line"><span class="keyword">import</span> Loadable <span class="keyword">from</span> <span class="string">'react-loadable'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> render <span class="keyword">from</span> <span class="string">'./render'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = express();</span><br><span class="line"><span class="keyword">const</span> PORT = process.env.PORT || <span class="number">4000</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.use(express.Router().get(<span class="string">'/'</span>, render));</span><br><span class="line">app.use(express.static(path.resolve(__dirname, <span class="string">'../build'</span>)));</span><br><span class="line">app.use(render);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Loadable listener to make sure that all of your loadable components are already loaded</span></span><br><span class="line"><span class="comment">// https://github.com/jamiebuilds/react-loadable#preloading-all-your-loadable-components-on-the-server</span></span><br><span class="line">Loadable.preloadAll().then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  app.listen(PORT, <span class="built_in">console</span>.log(<span class="string">`App listening on port <span class="subst">$&#123;PORT&#125;</span>!`</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="render-js-功能"><a href="#render-js-功能" class="headerlink" title="render.js 功能"></a>render.js 功能</h2><p>這邊就是實際render react，主要依賴renderToString來取得react執行後的html，之後再將react的html組裝成完整頁面的資料。</p>
+<p>這邊我有傳遞資料給App wording，假設直接看 view-source:<a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a> 會看到 THIS IS Server Side Render ，但是client side init會瞬間不見，這邊可以讓你做一些call api後的資料傳遞，但這邊要記得要設定成某個變數名，讓client抓取這個變數。</p>
+<p>ps.client指的是使用者載入時。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">'path'</span>;</span><br><span class="line"><span class="keyword">import</span> fs <span class="keyword">from</span> <span class="string">'fs'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; renderToString &#125; <span class="keyword">from</span> <span class="string">'react-dom/server'</span>;</span><br><span class="line"><span class="keyword">import</span> Helmet <span class="keyword">from</span> <span class="string">'react-helmet'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'../src/app'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (req, res) =&gt; &#123;</span><br><span class="line">    fs.readFile(path.resolve(__dirname, <span class="string">'../build/index.html'</span>), <span class="string">'utf8'</span>, <span class="function">(<span class="params">err, htmlData</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="built_in">console</span>.error(<span class="string">`Error page <span class="subst">$&#123;err&#125;</span>`</span>);</span><br><span class="line">            <span class="keyword">return</span> res.status(<span class="number">404</span>).end();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> helmet = Helmet.renderStatic();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> html = injectHTML(htmlData, &#123;</span><br><span class="line">            html: helmet.htmlAttributes.toString(),</span><br><span class="line">            title: helmet.title.toString(),</span><br><span class="line">            meta: helmet.meta.toString(),</span><br><span class="line">            body: renderToString(&lt;App wording=<span class="string">"THIS IS Server Side Render"</span>/&gt;)</span><br><span class="line">        &#125;);</span><br><span class="line">        res.send(html);</span><br><span class="line">        &#125;</span><br><span class="line">    );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> injectHTML = <span class="function">(<span class="params">data, &#123; html, title, meta, body, state &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    data = data.replace(<span class="string">'&lt;html&gt;'</span>, <span class="string">`&lt;html <span class="subst">$&#123;html&#125;</span>&gt;`</span>);</span><br><span class="line">    data = data.replace(<span class="regexp">/&lt;title&gt;.*?&lt;\/title&gt;/g</span>, title);</span><br><span class="line">    data = data.replace(<span class="string">'&lt;/head&gt;'</span>, <span class="string">`<span class="subst">$&#123;meta&#125;</span>&lt;/head&gt;`</span>);</span><br><span class="line">    data = data.replace(</span><br><span class="line">        <span class="string">'&lt;div id="root"&gt;&lt;/div&gt;'</span>,</span><br><span class="line">        <span class="string">`&lt;div id="root"&gt;<span class="subst">$&#123;body&#125;</span>&lt;/div&gt;`</span></span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>package.json<figure class="highlight perl"><table><tr><td class="code"><pre><span class="line"><span class="string">"dependencies"</span>: &#123;</span><br><span class="line">  <span class="string">"@babel/core"</span>: <span class="string">"^7.1.2"</span>,</span><br><span class="line">  <span class="string">"@babel/plugin-syntax-dynamic-import"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">  <span class="string">"@babel/polyfill"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">  <span class="string">"@babel/register"</span>: <span class="string">"^7.0.0"</span>,</span><br><span class="line">  <span class="string">"babel-plugin-dynamic-import-node"</span>: <span class="string">"^2.1.0"</span>,</span><br><span class="line">  <span class="string">"ignore-styles"</span>: <span class="string">"^5.0.1"</span>,</span><br><span class="line">  <span class="string">"md5-file"</span>: <span class="string">"^4.0.0"</span>,</span><br><span class="line">  <span class="string">"react-frontload"</span>: <span class="string">"^1.0.3"</span>,</span><br><span class="line">  <span class="string">"react-helmet"</span>: <span class="string">"^5.2.0"</span>,</span><br><span class="line">  <span class="string">"react-loadable"</span>: <span class="string">"^5.5.0"</span>,</span><br><span class="line">  <span class="string">"react"</span>: <span class="string">"^16.7.0"</span>,</span><br><span class="line">  <span class="string">"react-dom"</span>: <span class="string">"^16.7.0"</span>,</span><br><span class="line">  <span class="string">"react-scripts"</span>: <span class="string">"2.1.3"</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">  <span class="string">"start"</span>: <span class="string">"react-scripts start"</span>,</span><br><span class="line">  <span class="string">"build"</span>: <span class="string">"react-scripts build"</span>,</span><br><span class="line">  <span class="string">"test"</span>: <span class="string">"react-scripts test"</span>,</span><br><span class="line">  <span class="string">"eject"</span>: <span class="string">"react-scripts eject"</span>,</span><br><span class="line">  <span class="string">"dev"</span>: <span class="string">"NODE_ENV=development node ./server/index.js"</span>,</span><br><span class="line">  <span class="string">"prod"</span>: <span class="string">"NODE_ENV=production node ./server/index.js"</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><a href="https://github.com/Ianpig/react-sample-ssr" target="_blank" rel="noopener" title="Source Code Github">Source Code Github</a></p>
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p>整個寫完只需要三個檔案，看似簡單，但其實還有非常多部分還未處理，例如router，要能夠在server處理各種路徑render。開發時需要hot reload，否則每次更新都要 build。這邊有看到有人有使用nodeman處理。各種檔案資源的壓縮優化，這就要依靠webpack。</p>
+<p>以上問題 next.js 都有提供方法處理，官方還有各種工具整合的sample code，雖然我自己不太愛next.js，但它真的解決不少問題。(但是safari back存在各種bug…)</p>
+<p>如果有錯誤的地方，還麻煩提出，感謝閱讀。</p>
+<ul>
+<li><a href="https://medium.com/@cereallarceny/server-side-rendering-in-create-react-app-with-all-the-goodies-without-ejecting-4c889d7db25e" target="_blank" rel="noopener" title="參考資料 medium cereallarceny">參考資料 medium cereallarceny</a></li>
+</ul>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5563177745" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script><div class="tags"><a href="/tags/seo/">seo</a><a href="/tags/react-js/">react.js</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/keywordselect/">SEO關鍵字分析選擇，優化工具介紹</a></li><li class="related-posts-item"><a class="related-posts-link" href="/structuredseo/">結構化資料SEO 優化顯示搜尋結果</a></li><li class="related-posts-item"><a class="related-posts-link" href="/reactportal/">React Portals render component anywhere example</a></li><li class="related-posts-item"><a class="related-posts-link" href="/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="related-posts-item"><a class="related-posts-link" href="/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li></ul></div><div class="post-nav"><a class="pre" href="/promise/">Javascript Promise example 簡易實作模擬</a><a class="next" href="/seoredirect/">SEO 301、302轉址Redirect，canonical tag重複內容處理</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = 'reactssr/';
+var disqus_title = 'React Server-side rendering SEO處理';
+var disqus_url = 'https://iandays.com/reactssr/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://store.line.me/stickershop/author/1019955/zh-Hant" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async="async"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="3619826098" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/closure/">JavaScript Closure 你一定有用過的閉包</a></li><li class="post-list-item"><a class="post-list-link" href="/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/firstjob/">第一份工作</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1601741154783" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/closure/">JavaScript Closure 你一定有用過的閉包</a></li><li class="post-list-item"><a class="post-list-link" href="/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li></ul></div></html>

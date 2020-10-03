@@ -1,0 +1,183 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/postmessage/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/postmessage/" hreflang="en"><link rel="canonical" href="https://iandays.com/postmessage/"><title>HTML postMessage iframe and open window 跨視窗傳訊用法 | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "HTML postMessage iframe and open window 跨視窗傳訊用法",
+  "description": "當今天使用到跨視窗iframe或是openWindow，原本parent頁面需要傳遞訊息給內頁iframe或是tab頁，就可以利用postMessage來傳遞資料。接下來會建立demo頁面，介紹一下iframe跟window open的使用方法。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/postmessage/" 
+  },
+  "datePublished":  "2018-09-23T08:02:44.000Z" ,
+  "dateModified":  "2019-06-08T04:42:07.630Z" ,
+  "image": "https://iandays.com/images/post_message.png",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "javascript",
+    "item": "https://iandays.com/categories/javascript/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "HTML postMessage iframe and open window 跨視窗傳訊用法",
+    "item": "https://iandays.com/postmessage/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="HTML postMessage iframe and open window 跨視窗傳訊用法 | Ian Chu"><meta name="description" content="當今天使用到跨視窗iframe或是openWindow，原本parent頁面需要傳遞訊息給內頁iframe或是tab頁，就可以利用postMessage來傳遞資料。接下來會建立demo頁面，介紹一下iframe跟window open的使用方法。"><meta property="og:description" content="當今天使用到跨視窗iframe或是openWindow，原本parent頁面需要傳遞訊息給內頁iframe或是tab頁，就可以利用postMessage來傳遞資料。接下來會建立demo頁面，介紹一下iframe跟window open的使用方法。"><meta property="og:url" content="https://iandays.com/postmessage/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.com/images/logo.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1601741154827"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-container"><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div><div><div class="facebook-icon"><a target="_blank" href="https://www.facebook.com/chu1228" targer="_blank" alt="ian"><i class="fa fa-facebook-square"> </i></a></div></div></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">HTML postMessage iframe and open window 跨視窗傳訊用法</h1><div class="post-meta">Jun 8, 2019<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/javascript/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">javascript</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/postmessage/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">HTML postMessage iframe and open window 跨視窗傳訊用法</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: 2 years ago</div></div><a class="disqus-comment-count" data-disqus-identifier="postmessage/" href="/postmessage/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#window-postMessage-介紹"><span class="toc-text">window postMessage 介紹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#window-open-demo-page"><span class="toc-text">window open demo page</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#iframe-demo-page"><span class="toc-text">iframe demo page</span></a></li></ol></div></div><div class="post-content"><p>最近在公司專案學到了滿好用的功能 postMessage，當今天使用到跨視窗iframe或是openWindow，原本parent頁面需要傳遞訊息給內頁iframe或是tab頁，就可以利用postMessage來傳遞資料。接下來會建立demo頁面，介紹一下iframe跟window open的使用方法。</p>
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/post_message.png" alt="JavaScript" title="JavaScript"><noscript><img src="/images/post_message.png" alt="JavaScript" /></noscript></p>
+<figure class="highlight sas"><table><tr><td class="code"><pre><span class="line"><span class="meta">window</span>.postMessage() 方法被調用時，會在所有頁面腳本執行完畢之後</span><br><span class="line">（e.g., 在該方法之後設置的事件、之前設置的timeout 事件,etc.）</span><br><span class="line">向目標窗口派發一個  MessageEvent 消息。 </span><br><span class="line"></span><br><span class="line">該MessageEvent消息有四個屬性需要注意： </span><br><span class="line"><span class="meta">message</span> 屬性表示該<span class="meta">message</span> 的類型；</span><br><span class="line"><span class="keyword">data </span>屬性為 <span class="meta">window</span>.postMessage 的第一個參數；</span><br><span class="line">origin 屬性表示調用 <span class="meta">window</span>.postMessage() 方法時調用頁面的當前狀態；</span><br><span class="line">source 屬性記錄調用 <span class="meta">window</span>.postMessage() 方法的窗口信息。</span><br></pre></td></tr></table></figure>
+
+<h2 id="window-postMessage-介紹"><a href="#window-postMessage-介紹" class="headerlink" title="window postMessage 介紹"></a>window postMessage 介紹</h2><p>postMessage的調用方式 =&gt; targetWindow.postMessage(message, targetOrigin, [transfer])，targetWindow會是某個窗口，targetOrigin則是指定可傳遞的端口網域，transfer是一串和message 同時傳遞的 Transferable 對象。</p>
+<p>targetWindow 可設定目標 :</p>
+<ul>
+<li>Window.open</li>
+<li>Window.opener</li>
+<li>HTMLIFrameElement.contentWindow (embedded iframe ),</li>
+<li>Window.parent ( parent window embedded iframe)</li>
+<li>Window.frames + an index value (named or numeric).</li>
+</ul>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#Syntax" target="_blank" rel="noopener" title="window postMessage MDN">window postMessage MDN </a></p>
+<h2 id="window-open-demo-page"><a href="#window-open-demo-page" class="headerlink" title="window open demo page"></a>window open demo page</h2><p>首先要建立送出訊息跟接受訊息的頁面，送出訊息頁面主要做兩件事情，開啟視窗並指定為變數、向剛剛開啟視窗頁面送出訊息。javascript沒有特別難度，所以就直接看我建立好的頁面，底下是處理的html還有javascript。</p>
+<p>範例 :</p>
+<ul>
+<li>使用步驟 先點選開啟視窗</li>
+<li>輸入隨意字串</li>
+<li>點選送出按鈕</li>
+</ul>
+<p>ps.分頁切換需要用瀏覽器app safari、chrome</p>
+<iframe class="lazyload" data-src="https://iandays.com/work/postmessage/send.html" width="100%" height="300px" frameborder="0" scrolling="no"></iframe>
+
+<p>Source : <a href="https://iandays.com/work/postmessage/send.html" target="_blank">Open Window Demo Page</a></p>
+<p>send.html</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">  <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"cover-heading"</span>&gt;</span>HTML send Post Message demo sample.<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"lead"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"openWindow"</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">class</span>=<span class="string">"btn btn-info"</span>&gt;</span>開啟視窗<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span> </span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"input-group"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">id</span>=<span class="string">"messageText"</span> <span class="attr">class</span>=<span class="string">"form-control"</span> <span class="attr">placeholder</span>=<span class="string">"輸入訊息"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"input-group-append"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">"postWindow"</span> <span class="attr">class</span>=<span class="string">"btn btn-info btn-outline-secondary"</span> <span class="attr">type</span>=<span class="string">"button"</span>&gt;</span>送出訊息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">    <span class="comment">// 建立變數</span></span></span><br><span class="line"><span class="actionscript">    <span class="keyword">var</span> createWindow;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.getElementById(<span class="string">'openWindow'</span>).addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span></span><br><span class="line"><span class="actionscript">    <span class="comment">// 將變數 assign window open 物件</span></span></span><br><span class="line"><span class="javascript">      createWindow = <span class="built_in">window</span>.open(<span class="string">"./receive.html"</span>);</span></span><br><span class="line">    &#125;);</span><br><span class="line"><span class="javascript">    <span class="built_in">document</span>.getElementById(<span class="string">'postWindow'</span>).addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span></span><br><span class="line">      sendMsg();</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="actionscript">    <span class="function"><span class="keyword">function</span> <span class="title">sendMsg</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> message = <span class="built_in">document</span>.getElementById(<span class="string">"messageText"</span>).value;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> domain = <span class="built_in">window</span>.location.origin;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// post message</span></span></span><br><span class="line">      createWindow.postMessage(message, domain);</span><br><span class="line"><span class="actionscript">      <span class="comment">// focus windowOpen</span></span></span><br><span class="line">      createWindow.focus();</span><br><span class="line"><span class="javascript">      <span class="built_in">document</span>.getElementById(<span class="string">"messageText"</span>).value = <span class="string">''</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>recevie.html</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"lead"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h2</span> <span class="attr">id</span>=<span class="string">"response"</span>&gt;</span><span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.addEventListener(<span class="string">"message"</span>, getMessage, <span class="literal">false</span>);</span></span><br><span class="line"><span class="actionscript">      <span class="function"><span class="keyword">function</span> <span class="title">getMessage</span><span class="params">(e)</span> </span>&#123;</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> content = <span class="string">''</span>;</span></span><br><span class="line"><span class="actionscript">        <span class="comment">// e.data 接受傳遞訊息</span></span></span><br><span class="line"><span class="actionscript">        content += <span class="string">"Get Message =&gt;"</span> + e.data + <span class="string">'&lt;br&gt;'</span>;</span></span><br><span class="line"><span class="actionscript">        <span class="comment">// e.origin 接受訊息domain</span></span></span><br><span class="line"><span class="actionscript">        content += <span class="string">"Url from "</span> + e.origin;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">"response"</span>).innerHTML = <span class="string">"&lt;p&gt;"</span> + content + <span class="string">"&lt;/p&gt;"</span>;</span></span><br><span class="line">      &#125;;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="iframe-demo-page"><a href="#iframe-demo-page" class="headerlink" title="iframe demo page"></a>iframe demo page</h2><p>這個會比較特別，window open是原本頁面傳給開啟頁面，iframe則會使用iframe embed內部的網站傳遞資料給外部parent，範例情境大概是修正iframe的高度，</p>
+<p>範例 : (白色區塊是使用iframe)</p>
+<ul>
+<li>點選iframe 內 伸縮高度按鈕</li>
+<li>點擊按鈕後，會變化body高度，並傳值到parent window</li>
+<li>parent window接受到值後，變化iframe style height</li>
+</ul>
+<iframe id="addIframe" class="lazyload" data-src="https://iandays.com/work/postmessage/embed.html" width="100%" height="200px"></iframe>
+
+<p>Source : <a href="https://iandays.com/work/postmessage/iframe.html" target="_blank">Iframe Demo Page</a></p>
+<p>iframe.html</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="actionscript">      <span class="comment">// 接受傳遞訊息 變化iframe height</span></span></span><br><span class="line"><span class="javascript">      <span class="built_in">window</span>.addEventListener(<span class="string">"message"</span>, getMessage, <span class="literal">false</span>);</span></span><br><span class="line"><span class="actionscript">      <span class="function"><span class="keyword">function</span> <span class="title">getMessage</span><span class="params">(e)</span> </span>&#123;</span></span><br><span class="line">        if(e.data.event_id) &#123;</span><br><span class="line"><span class="javascript">          <span class="built_in">document</span>.getElementById(<span class="string">'addIframe'</span>).style.height = e.data.data + <span class="string">'px'</span>;</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>embed.html</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="built_in">document</span>.getElementById(<span class="string">'postWindow'</span>).addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span></span><br><span class="line">          sendMsg();</span><br><span class="line">        &#125;);</span><br><span class="line"><span class="actionscript">        <span class="function"><span class="keyword">function</span> <span class="title">sendMsg</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">          <span class="keyword">var</span> height = <span class="built_in">document</span>.body.scrollHeight;</span></span><br><span class="line"><span class="actionscript">          <span class="comment">// 向parent window 送出訊息</span></span></span><br><span class="line"><span class="javascript">          <span class="built_in">window</span>.parent.postMessage(</span></span><br><span class="line">              &#123;</span><br><span class="line"><span class="actionscript">                  event_id: <span class="string">'my_cors_message'</span>,</span></span><br><span class="line">                  data: height</span><br><span class="line">              &#125;, </span><br><span class="line"><span class="actionscript">              <span class="string">"*"</span> <span class="comment">// or "www.parentpage.com"</span></span></span><br><span class="line">          ); </span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>以上就是簡單的demo，還有更多延伸的運用，例如做出開視窗會員註冊，送出後傳遞資料回原本頁面渲染畫面。另外當你今天不得不用iframe的話，postMessage會非常好用，賦予iframe更有彈性。另外提醒一下，實際運用要記得判斷post Message的網址，避免外部可能的攻擊。</p>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5563177745" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script><div class="tags"><a href="/tags/javascript/">javascript</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/interview/">前端工程師面試心得 | Frontend Engineer interview</a></li><li class="related-posts-item"><a class="related-posts-link" href="/promise/">Javascript Promise example 簡易實作模擬</a></li><li class="related-posts-item"><a class="related-posts-link" href="/immutable/">Immutable 對於 React 重要性</a></li><li class="related-posts-item"><a class="related-posts-link" href="/closure/">JavaScript Closure 你一定有用過的閉包</a></li><li class="related-posts-item"><a class="related-posts-link" href="/eventpass/">JavaScript Capture Bubble DOM事件獲取&冒泡</a></li></ul></div><div class="post-nav"><a class="pre" href="/searchconsle/">Google Search Console教學 提交Sitemap網址、SEO工具</a><a class="next" href="/tagmanager/">Google Tag Manager tracking code 安裝追蹤碼</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = 'postmessage/';
+var disqus_title = 'HTML postMessage iframe and open window 跨視窗傳訊用法';
+var disqus_url = 'https://iandays.com/postmessage/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://store.line.me/stickershop/author/1019955/zh-Hant" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async="async"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="3619826098" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/closure/">JavaScript Closure 你一定有用過的閉包</a></li><li class="post-list-item"><a class="post-list-link" href="/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/firstjob/">第一份工作</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1601741154829" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/closure/">JavaScript Closure 你一定有用過的閉包</a></li><li class="post-list-item"><a class="post-list-link" href="/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li></ul></div></html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/iframeblockcookie/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/iframeblockcookie/" hreflang="en"><link rel="canonical" href="https://iandays.com/iframeblockcookie/"><title>阻擋第三方(Block third-party) Cookie，各瀏覽器狀態 | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "阻擋第三方(Block third-party) Cookie，各瀏覽器狀態",
+  "description": "IOS 11 開始預設開啟 prevent cross-site tracking 的設定，這會導致第三方 cookie 無法設置，若要完美處理 Block third-party Cookie 唯一解法就是改用 local Storage 或是 Session Storage。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/iframeblockcookie/" 
+  },
+  "datePublished":  "2019-12-11T15:34:01.000Z" ,
+  "dateModified":  "2020-07-05T05:57:46.158Z" ,
+  "image": "https://iandays.com",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "javascript",
+    "item": "https://iandays.com/categories/javascript/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "阻擋第三方(Block third-party) Cookie，各瀏覽器狀態",
+    "item": "https://iandays.com/iframeblockcookie/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="阻擋第三方(Block third-party) Cookie，各瀏覽器狀態 | Ian Chu"><meta name="description" content="IOS 11 開始預設開啟 prevent cross-site tracking 的設定，這會導致第三方 cookie 無法設置，若要完美處理 Block third-party Cookie 唯一解法就是改用 local Storage 或是 Session Storage。"><meta property="og:description" content="IOS 11 開始預設開啟 prevent cross-site tracking 的設定，這會導致第三方 cookie 無法設置，若要完美處理 Block third-party Cookie 唯一解法就是改用 local Storage 或是 Session Storage。"><meta property="og:url" content="https://iandays.com/iframeblockcookie/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.com/images/blockcookie.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1601741154726"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-container"><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div><div><div class="facebook-icon"><a target="_blank" href="https://www.facebook.com/chu1228" targer="_blank" alt="ian"><i class="fa fa-facebook-square"> </i></a></div></div></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</h1><div class="post-meta">Jul 5, 2020<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/javascript/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">javascript</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/iframeblockcookie/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: 10 months ago</div></div><a class="disqus-comment-count" data-disqus-identifier="iframeblockcookie/" href="/iframeblockcookie/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#桌機、手機版-登入流程"><span class="toc-text">桌機、手機版 登入流程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Block-third-party-cookie"><span class="toc-text">Block third-party cookie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解決-Block-third-party-Cookie"><span class="toc-text">解決 Block third-party Cookie</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#頁面無法倒轉情況"><span class="toc-text">頁面無法倒轉情況</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#心得"><span class="toc-text">心得</span></a></div></div><div class="post-content"><p>來分享個 cookie 相關的內容，是前陣子合作專案測試階段遇到的問題，發生情境是，合作廠商的手機瀏覽器會無法登入會員，主要都是 IOS 用戶。</p>
+<p>提一下目前頁面會放置在對方網站上以 iframe 使用，用戶會點擊 iframe 內登入按鈕，轉導頁面，載入對應的登入 line、facebook 網頁等等，完成登入。</p>
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/blockcookie.png" alt="block cookie" title="block cookie"><noscript><img src="/images/blockcookie.png" alt="block cookie" /></noscript></p>
+<h3 id="桌機、手機版-登入流程"><a href="#桌機、手機版-登入流程" class="headerlink" title="桌機、手機版 登入流程"></a>桌機、手機版 登入流程</h3><figure class="highlight excel"><table><tr><td class="code"><pre><span class="line">Deskt<span class="symbol">op:</span> </span><br><span class="line">website (parent) =&gt; click Login =&gt; open window (child)</span><br><span class="line">=&gt; login success =&gt; postMessage to parent ( child close )</span><br><span class="line">=&gt; parent reload =&gt; done</span><br><span class="line"></span><br><span class="line">Mobi<span class="symbol">le:</span></span><br><span class="line">website (parent) =&gt; click Login</span><br><span class="line">=&gt; redirect =&gt; login success =&gt; done</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>登入流程 (簡易版)<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/loginflow.png" alt="login flow" title="login flow"><noscript><img src="/images/loginflow.png" alt="login flow" /></noscript></li>
+</ul>
+<p>登入是依賴 cookie，cookie 再交由後端驗證登入與否。經由測試後發現這些驗證請求都不會帶有 cookie，也就是說經由登入流程過後，cookie 沒有正確的存取到用戶的瀏覽器上。</p>
+<p>但合作方希望能跳過以上這些步驟，載入頁面時，直接 call 後端取得 token，直接塞入頁面。</p>
+<p>實際測試發現後端有正確建立這個 token，但就是前端 save cookie 那步驟有問題，於是開始轉向思考前端問題。</p>
+<h2 id="Block-third-party-cookie"><a href="#Block-third-party-cookie" class="headerlink" title="Block third-party cookie"></a>Block third-party cookie</h2><p>IOS 11 開始預設開啟 prevent cross-site tracking 的設定，這會導致第三方 cookie 無法設置，例如 google analytics、facebook pixel 等等，另外也包括了 iframe 內部網頁，這符合我們的情境。</p>
+<p>android 也同樣有這個設定，但目前沒有預設開啟。</p>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line">Privacy by default</span><br><span class="line">Safari’s key privacy features are enabled by default.</span><br><span class="line"><span class="keyword">For</span> example, <span class="keyword">in</span> iOS, Intelligent<span class="built_in"> Tracking </span>Prevention</span><br><span class="line">(shown <span class="keyword">in</span><span class="built_in"> Settings </span>as Prevent Cross-Site Tracking)</span><br><span class="line">is turned on by default. Camera, microphone,</span><br><span class="line"><span class="keyword">and</span> location are <span class="builtin-name">set</span> <span class="keyword">to</span> ask <span class="keyword">for</span> permission before granting access.</span><br></pre></td></tr></table></figure>
+
+<p>官方文件: <a href="https://www.apple.com/safari/docs/Safari_White_Paper_Nov_2019.pdf" target="_blank" rel="noopener" title="Safari Privacy Overview ">Safari Privacy Overview </a></p>
+<h2 id="解決-Block-third-party-Cookie"><a href="#解決-Block-third-party-Cookie" class="headerlink" title="解決 Block third-party Cookie"></a>解決 Block third-party Cookie</h2><p>查了網路後，發現有個方法可以繞過 safari 阻擋 cookie，<code>就是要載入該 domain 並且設定一個 cookie 在該網域上</code>，之後 iframe 就可以設定 cookie 了。</p>
+<p>ps.最新的 safari 13.1 擋掉了這個方法，ooxx…。</p>
+<p>但是在 chrome，就無法這樣處理了，android 實現阻擋的方法不一樣，它是讓 third-party 可以存 cookie，但是無法取出 cookie。</p>
+<p>若要完美處理 Block third-party Cookie 唯一解法就是改用 local Storage 或是 Session Storage，前幾天在 Line Liff 上看到也是用 Session Storage 來處理 token。</p>
+<h2 id="頁面無法倒轉情況"><a href="#頁面無法倒轉情況" class="headerlink" title="頁面無法倒轉情況"></a>頁面無法倒轉情況</h2><p>最近桌機 safari 的某個與 cookie 相關功能失效，就是因為 block third-party cookie 導致，那時同事 hotfix 做法非常簡單暴力，就是判斷 safari，直接轉導頁面過去 set cookie，再轉導回來。</p>
+<h2 id="心得"><a href="#心得" class="headerlink" title="心得"></a>心得</h2><p>寫這篇是希望有人遇到 cookie 無法設定的問題，提供一些解決的方法。</p>
+<p>另外還有 Web in app 時，也有很多狀態需要確認，每個 app 可能都有不一樣的設定，推薦大家一個 debug 工具，這工具可以會顯示 element、console、network、web storage，可以大量減少手機裝置 debug 的痛苦，web in app 無法連線桌機的 devTool 極高痛苦度。</p>
+<p>工具: <a href="https://github.com/Tencent/vConsole" target="_blank" rel="noopener" title="Tencent vConsole">Tencent vConsole</a></p>
+<p>前幾天 google 公告兩年後要全面阻擋第三方 cookie，這對於前端又是很大的考驗，看來未來要開發上，要多思考無法避免成為第三方狀況下，轉而使用 Session Storage、Local Storage。</p>
+<p>感謝閱讀!!</p>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5563177745" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script><div class="tags"><a href="/tags/javascript/">javascript</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/interview/">前端工程師面試心得 | Frontend Engineer interview</a></li><li class="related-posts-item"><a class="related-posts-link" href="/jsproto/">JavaScript Prototype 繼承、原型鏈 Prototype chain</a></li><li class="related-posts-item"><a class="related-posts-link" href="/imgprogress/">Upload progress bar drag&drop 圖片拖拉上傳進度條</a></li><li class="related-posts-item"><a class="related-posts-link" href="/mapcluster/">Google Map marker cluster 標記使用教學</a></li><li class="related-posts-item"><a class="related-posts-link" href="/closure/">JavaScript Closure 你一定有用過的閉包</a></li></ul></div><div class="post-nav"><a class="pre" href="/reactpuppeteer/">Puppeteer End-to-End Test React</a><a class="next" href="/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = 'iframeblockcookie/';
+var disqus_title = '阻擋第三方(Block third-party) Cookie，各瀏覽器狀態';
+var disqus_url = 'https://iandays.com/iframeblockcookie/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://store.line.me/stickershop/author/1019955/zh-Hant" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async="async"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="3619826098" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/closure/">JavaScript Closure 你一定有用過的閉包</a></li><li class="post-list-item"><a class="post-list-link" href="/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/firstjob/">第一份工作</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1601741154727" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/closure/">JavaScript Closure 你一定有用過的閉包</a></li><li class="post-list-item"><a class="post-list-link" href="/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li></ul></div></html>

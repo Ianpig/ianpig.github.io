@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/gautm/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/gautm/" hreflang="en"><link rel="canonical" href="https://iandays.com/gautm/"><title>Google analytics UTM設定參數，追蹤facebook廣告、簡訊、EDM | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Google analytics UTM設定參數，追蹤facebook廣告、簡訊、EDM",
+  "description": "ga的utm非常好用，用途在於歸類流量管道，可以幫你你精準的分析數據，facebook廣告、電子報，簡訊、或社群曝光分享，提供精準數據幫助你優化廣告操作。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/gautm/" 
+  },
+  "datePublished":  "2018-06-23T07:13:59.000Z" ,
+  "dateModified":  "2019-06-08T04:40:52.777Z" ,
+  "image": "https://iandays.com/images/ga_utm.png",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "marketing",
+    "item": "https://iandays.com/categories/marketing/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Google analytics UTM設定參數，追蹤facebook廣告、簡訊、EDM",
+    "item": "https://iandays.com/gautm/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="Google analytics UTM設定參數，追蹤facebook廣告、簡訊、EDM | Ian Chu"><meta name="description" content="ga的utm非常好用，用途在於歸類流量管道，可以幫你你精準的分析數據，facebook廣告、電子報，簡訊、或社群曝光分享，提供精準數據幫助你優化廣告操作。"><meta property="og:description" content="ga的utm非常好用，用途在於歸類流量管道，可以幫你你精準的分析數據，facebook廣告、電子報，簡訊、或社群曝光分享，提供精準數據幫助你優化廣告操作。"><meta property="og:url" content="https://iandays.com/gautm/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.com/images/logo.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1601741154836"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-container"><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div><div><div class="facebook-icon"><a target="_blank" href="https://www.facebook.com/chu1228" targer="_blank" alt="ian"><i class="fa fa-facebook-square"> </i></a></div></div></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Google analytics UTM設定參數，追蹤facebook廣告、簡訊、EDM</h1><div class="post-meta">Jun 8, 2019<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/marketing/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">marketing</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/gautm/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">Google analytics UTM設定參數，追蹤facebook廣告、簡訊、EDM</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: 2 years ago</div></div><a class="disqus-comment-count" data-disqus-identifier="gautm/" href="/gautm/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#google-analytics-utm-使用介紹"><span class="toc-text">google analytics utm 使用介紹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看數據方法"><span class="toc-text">查看數據方法</span></a></li></ol></div></div><div class="post-content"><p>如果你有在操作facebook廣告、電子報，簡訊、或社群曝光分享，你可能會使用某些短網址服務，來分析點擊率、開信率，但是要從google analytics查看每個管道的跳出率、轉換率、停留時間等等，可能技術上會有些複雜。就只能透過網址下參數一些參數來讓ga分開網址，例如(<a href="http://www.iandays.com/?from=fbads&amp;type=video)，但這可能會造成網址參數過多，報表的數據難以整理、分析。這時候使用utm，就能解決上面全部問題。" target="_blank" rel="noopener">www.iandays.com/?from=fbads&amp;type=video)，但這可能會造成網址參數過多，報表的數據難以整理、分析。這時候使用utm，就能解決上面全部問題。</a></p>
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/ga_utm.png" alt="google ga_utm" title="google ga_utm"><noscript><img src="/images/ga_utm.png" alt="google ga_utm" /></noscript></p>
+<h2 id="google-analytics-utm-使用介紹"><a href="#google-analytics-utm-使用介紹" class="headerlink" title="google analytics utm 使用介紹"></a>google analytics utm 使用介紹</h2><p>utm能精準追蹤各管道追蹤數據，這是google官方提供給ga搭配使用的功能，使用方法非常簡單，就只要在網址加上google analytics看得懂的參數即可。另外ga在報表上會自動去除這些utm參數，所以你不用擔心報表網址會有一堆參數。</p>
+<p>utm 參數介紹:</p>
+<ol>
+<li>utm_source (來源)：用來辨識為您的資源帶來流量的廣告客戶、網站和出版物等等，例如 Google、newsletter4、billboard。</li>
+<li>utm_medium (媒介)：代表廣告或行銷媒介，例如單次點擊出價、橫幅廣告或電子報。</li>
+<li>utm_campaign (廣告活動)：產品的個別廣告活動名稱、廣告標語和促銷代碼等。</li>
+<li>utm_term (關鍵字)：辨識付費搜尋關鍵字。如果您打算手動為付費關鍵字廣告活動添加代碼，建議您一併使用 utm_term 來指定關鍵字。</li>
+<li>utm_content (廣告內容)：用來區分同一個廣告中的相似內容或連結。舉例來說，要是同一封電子郵件中包含兩個行動號召文字連結，只要使用 utm_content 並為這兩個連結分別設定不同的值，您就能判斷哪個版本的行動號召文字效果較好。</li>
+</ol>
+<p><a href="https://support.google.com/analytics/answer/1033863" target="_blank" rel="noopener" title="google官方說明utm">google官方 utm說明 </a></p>
+<p>假設今天是與網紅叫做mypost 合作(隨便取)，讓她在臉書推廣，那就在utm_source 使用facebook，因為是使用貼文，所以utm_medium 使用post，utm_campaign 就使用標籤名稱 mypost，再來使用google的utm產生器，輸入我們分類好的參數進去，產生網址。接下來載入剛剛產生的網址。</p>
+<p><a href="https://ga-dev-tools.appspot.com/campaign-url-builder/" target="_blank" rel="noopener" title="google utm 產生器">google utm 產生器 </a></p>
+<p>Sample: <a href="https://iandays.com/?utm_source=facebook&utm_medium=post&utm_campaign=mypost" title="ianchuu urlutm">https://iandays.com/?utm_source=facebook&amp;utm_medium=post&amp;utm_campaign=mypost</a></p>
+<h2 id="查看數據方法"><a href="#查看數據方法" class="headerlink" title="查看數據方法"></a>查看數據方法</h2><p>點擊google analytics =&gt; 客戶開發 =&gt; 廣告活動<br><img src="/images/loading-image.png"class="lazyload" data-src="/images/utmdemo.png" alt="google utmdemo" title="google utmdemo"><noscript><img src="/images/utmdemo.png" alt="google utmdemo" /></noscript></p>
+<p>會發現我們剛剛定義的 utm_campaign 的參數mypost會歸類在廣告活動，媒介則是utm_medium 參數 post，來源就是utm_source facebook，至於utm_term、utm_content 則會在主要維度 右邊的其他 =&gt; 客戶開發的欄位內。</p>
+<p>ps.提醒整個網站的utm架構，是需要討論的，最好要有一致化的命名風格，才方便日後整理數據、分析。還有盡量要能重複使用。<br>假設是操作ig貼文還有打即時影片廣告，需要兩個網址，<br>就可以類似這樣設計:<br>?utm_source=ig&amp;utm_medium=ig_post&amp;utm_campaign=summer_170623<br>?utm_source=ig&amp;utm_medium=ig_ad_instant&amp;utm_campaign=summer_170625</p>
+<p>之後報表上，就可以看媒介ig整體的轉換率如何，接下來在查看是一般貼文高，還是即時影片廣告高，最後在針對每個廣告活動細看相關數據，看是否跳出率過高或是搭配事件追蹤查看使用者有沒有看完內容等等，這樣就可以有更細節的追蹤方法。</p>
+<p>我以前擔任行銷時，還沒有使用到ga utm，團隊打facebook廣告就只能瞎子摸象，只能看出是facebook流量進來，然後發生轉換，可是看不出來是粉絲團，還是臉書廣告的功勞，更重要還有直接流量，假設不依靠網址參數分流的話，根本看不出來是line@還是mail的流量。</p>
+<p>總之如果你還沒使用utm的話，強烈推薦你開始試試看!<br><a href="https://ga-dev-tools.appspot.com/campaign-url-builder/" target="_blank" rel="noopener" title="google utm 產生器">google utm 產生器 </a></p>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5563177745" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script><div class="tags"><a href="/tags/google-analytics/">google_analytics</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/gasession/">Google Analytics 工作階段介紹、定義</a></li><li class="related-posts-item"><a class="related-posts-link" href="/tagmanager/">Google Tag Manager tracking code 安裝追蹤碼</a></li><li class="related-posts-item"><a class="related-posts-link" href="/gaevents/">Google analytics 事件追蹤、轉換目標設定教學 ga event</a></li><li class="related-posts-item"><a class="related-posts-link" href="/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="related-posts-item"><a class="related-posts-link" href="/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li></ul></div><div class="post-nav"><a class="pre" href="/reactlife/">React Life Cycle 生命週期更新版，父子元件執行順序</a><a class="next" href="/nodestart/">Node.js、Express、MySQL串接資料庫，Heroku部署環境</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = 'gautm/';
+var disqus_title = 'Google analytics UTM設定參數，追蹤facebook廣告、簡訊、EDM';
+var disqus_url = 'https://iandays.com/gautm/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://store.line.me/stickershop/author/1019955/zh-Hant" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async="async"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="3619826098" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/closure/">JavaScript Closure 你一定有用過的閉包</a></li><li class="post-list-item"><a class="post-list-link" href="/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/firstjob/">第一份工作</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1601741154838" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/closure/">JavaScript Closure 你一定有用過的閉包</a></li><li class="post-list-item"><a class="post-list-link" href="/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li></ul></div></html>

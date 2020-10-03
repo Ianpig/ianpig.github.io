@@ -18,8 +18,8 @@
   
   <entry>
     <title>JavaScript Closure 你一定有用過的閉包</title>
-    <link href="https://iandays.com/2020/06/27/closure/"/>
-    <id>https://iandays.com/2020/06/27/closure/</id>
+    <link href="https://iandays.com/closure/"/>
+    <id>https://iandays.com/closure/</id>
     <published>2020-06-27T04:20:35.000Z</published>
     <updated>2020-07-05T12:47:56.435Z</updated>
     
@@ -40,8 +40,8 @@
   
   <entry>
     <title>Immutable 對於 React 重要性</title>
-    <link href="https://iandays.com/2020/04/29/immutable/"/>
-    <id>https://iandays.com/2020/04/29/immutable/</id>
+    <link href="https://iandays.com/immutable/"/>
+    <id>https://iandays.com/immutable/</id>
     <published>2020-04-29T04:39:42.000Z</published>
     <updated>2020-06-06T08:58:12.758Z</updated>
     
@@ -64,8 +64,8 @@
   
   <entry>
     <title>Puppeteer End-to-End Test React</title>
-    <link href="https://iandays.com/2020/02/28/reactpuppeteer/"/>
-    <id>https://iandays.com/2020/02/28/reactpuppeteer/</id>
+    <link href="https://iandays.com/reactpuppeteer/"/>
+    <id>https://iandays.com/reactpuppeteer/</id>
     <published>2020-02-28T07:01:40.000Z</published>
     <updated>2020-04-03T02:46:49.652Z</updated>
     
@@ -86,8 +86,8 @@
   
   <entry>
     <title>阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</title>
-    <link href="https://iandays.com/2019/12/11/iframeblockcookie/"/>
-    <id>https://iandays.com/2019/12/11/iframeblockcookie/</id>
+    <link href="https://iandays.com/iframeblockcookie/"/>
+    <id>https://iandays.com/iframeblockcookie/</id>
     <published>2019-12-11T15:34:01.000Z</published>
     <updated>2020-07-05T05:57:46.158Z</updated>
     
@@ -108,8 +108,8 @@
   
   <entry>
     <title>Redux multiple dispatch，batch redux-thunk</title>
-    <link href="https://iandays.com/2019/11/30/reduxdispatch/"/>
-    <id>https://iandays.com/2019/11/30/reduxdispatch/</id>
+    <link href="https://iandays.com/reduxdispatch/"/>
+    <id>https://iandays.com/reduxdispatch/</id>
     <published>2019-11-30T03:31:35.000Z</published>
     <updated>2019-11-30T06:00:50.406Z</updated>
     
@@ -130,8 +130,8 @@
   
   <entry>
     <title>React Unit Test with Jest 單元測試</title>
-    <link href="https://iandays.com/2019/09/29/jestunit/"/>
-    <id>https://iandays.com/2019/09/29/jestunit/</id>
+    <link href="https://iandays.com/jestunit/"/>
+    <id>https://iandays.com/jestunit/</id>
     <published>2019-09-29T15:47:10.000Z</published>
     <updated>2019-09-29T17:53:49.018Z</updated>
     
@@ -154,8 +154,8 @@
   
   <entry>
     <title>GA跨網域追蹤 google analytics cross-domain tracking</title>
-    <link href="https://iandays.com/2019/08/04/gacrossdomain/"/>
-    <id>https://iandays.com/2019/08/04/gacrossdomain/</id>
+    <link href="https://iandays.com/gacrossdomain/"/>
+    <id>https://iandays.com/gacrossdomain/</id>
     <published>2019-08-04T06:28:23.000Z</published>
     <updated>2019-08-04T14:22:16.821Z</updated>
     
@@ -176,8 +176,8 @@
   
   <entry>
     <title>React Context API 跨元件傳遞資料</title>
-    <link href="https://iandays.com/2019/07/28/reactcontextapi/"/>
-    <id>https://iandays.com/2019/07/28/reactcontextapi/</id>
+    <link href="https://iandays.com/reactcontextapi/"/>
+    <id>https://iandays.com/reactcontextapi/</id>
     <published>2019-07-28T14:40:54.000Z</published>
     <updated>2019-07-30T17:46:15.951Z</updated>
     
@@ -198,8 +198,8 @@
   
   <entry>
     <title>Google Analytics 自訂UserId 追蹤數據</title>
-    <link href="https://iandays.com/2019/06/15/gauserid/"/>
-    <id>https://iandays.com/2019/06/15/gauserid/</id>
+    <link href="https://iandays.com/gauserid/"/>
+    <id>https://iandays.com/gauserid/</id>
     <published>2019-06-15T08:29:52.000Z</published>
     <updated>2019-06-15T17:41:34.472Z</updated>
     
@@ -220,8 +220,8 @@
   
   <entry>
     <title>第一份工作</title>
-    <link href="https://iandays.com/2019/06/08/firstjob/"/>
-    <id>https://iandays.com/2019/06/08/firstjob/</id>
+    <link href="https://iandays.com/firstjob/"/>
+    <id>https://iandays.com/firstjob/</id>
     <published>2019-06-07T17:04:48.000Z</published>
     <updated>2019-06-08T15:30:51.630Z</updated>
     
@@ -240,8 +240,8 @@
   
   <entry>
     <title>React Hooks Performance 效能處理</title>
-    <link href="https://iandays.com/2019/06/01/reacthooks/"/>
-    <id>https://iandays.com/2019/06/01/reacthooks/</id>
+    <link href="https://iandays.com/reacthooks/"/>
+    <id>https://iandays.com/reacthooks/</id>
     <published>2019-06-01T05:46:57.000Z</published>
     <updated>2019-06-09T04:48:17.300Z</updated>
     
@@ -262,8 +262,8 @@
   
   <entry>
     <title>Google Sheet RESTful API 試算表表單</title>
-    <link href="https://iandays.com/2019/05/11/googleformadv/"/>
-    <id>https://iandays.com/2019/05/11/googleformadv/</id>
+    <link href="https://iandays.com/googleformadv/"/>
+    <id>https://iandays.com/googleformadv/</id>
     <published>2019-05-11T04:51:14.000Z</published>
     <updated>2020-09-19T13:34:20.937Z</updated>
     
@@ -284,8 +284,8 @@
   
   <entry>
     <title>lazy loading image 延後載入畫面外圖片</title>
-    <link href="https://iandays.com/2019/04/25/reactlazyload/"/>
-    <id>https://iandays.com/2019/04/25/reactlazyload/</id>
+    <link href="https://iandays.com/reactlazyload/"/>
+    <id>https://iandays.com/reactlazyload/</id>
     <published>2019-04-25T15:06:08.000Z</published>
     <updated>2019-06-08T04:42:44.793Z</updated>
     
@@ -300,16 +300,16 @@
       <category term="javascript" scheme="https://iandays.com/categories/javascript/"/>
     
     
-      <category term="frontend" scheme="https://iandays.com/tags/frontend/"/>
-    
       <category term="seo" scheme="https://iandays.com/tags/seo/"/>
+    
+      <category term="frontend" scheme="https://iandays.com/tags/frontend/"/>
     
   </entry>
   
   <entry>
     <title>聊聊4年前，剛出社會的我</title>
-    <link href="https://iandays.com/2019/03/28/society/"/>
-    <id>https://iandays.com/2019/03/28/society/</id>
+    <link href="https://iandays.com/society/"/>
+    <id>https://iandays.com/society/</id>
     <published>2019-03-28T14:42:03.000Z</published>
     <updated>2019-06-08T04:44:12.340Z</updated>
     
@@ -328,8 +328,8 @@
   
   <entry>
     <title>JavaScript Capture Bubble DOM事件獲取&amp;冒泡</title>
-    <link href="https://iandays.com/2019/03/21/eventpass/"/>
-    <id>https://iandays.com/2019/03/21/eventpass/</id>
+    <link href="https://iandays.com/eventpass/"/>
+    <id>https://iandays.com/eventpass/</id>
     <published>2019-03-20T19:03:37.000Z</published>
     <updated>2019-06-08T04:41:28.901Z</updated>
     
@@ -350,8 +350,8 @@
   
   <entry>
     <title>SEO關鍵字分析選擇，優化工具介紹</title>
-    <link href="https://iandays.com/2019/02/26/keywordselect/"/>
-    <id>https://iandays.com/2019/02/26/keywordselect/</id>
+    <link href="https://iandays.com/keywordselect/"/>
+    <id>https://iandays.com/keywordselect/</id>
     <published>2019-02-26T14:15:08.000Z</published>
     <updated>2019-06-08T04:41:24.005Z</updated>
     
@@ -372,8 +372,8 @@
   
   <entry>
     <title>Javascript Promise example 簡易實作模擬</title>
-    <link href="https://iandays.com/2019/02/18/promise/"/>
-    <id>https://iandays.com/2019/02/18/promise/</id>
+    <link href="https://iandays.com/promise/"/>
+    <id>https://iandays.com/promise/</id>
     <published>2019-02-18T14:58:16.000Z</published>
     <updated>2019-06-08T04:42:17.005Z</updated>
     
@@ -394,8 +394,8 @@
   
   <entry>
     <title>React Server-side rendering SEO處理</title>
-    <link href="https://iandays.com/2019/01/30/reactssr/"/>
-    <id>https://iandays.com/2019/01/30/reactssr/</id>
+    <link href="https://iandays.com/reactssr/"/>
+    <id>https://iandays.com/reactssr/</id>
     <published>2019-01-29T16:39:25.000Z</published>
     <updated>2019-06-08T04:43:46.346Z</updated>
     
@@ -418,8 +418,8 @@
   
   <entry>
     <title>SEO 301、302轉址Redirect，canonical tag重複內容處理</title>
-    <link href="https://iandays.com/2018/12/19/seoredirect/"/>
-    <id>https://iandays.com/2018/12/19/seoredirect/</id>
+    <link href="https://iandays.com/seoredirect/"/>
+    <id>https://iandays.com/seoredirect/</id>
     <published>2018-12-19T15:14:11.000Z</published>
     <updated>2019-06-08T04:44:03.023Z</updated>
     
@@ -440,8 +440,8 @@
   
   <entry>
     <title>Update Next.js 7、react 16 error and bug</title>
-    <link href="https://iandays.com/2018/12/09/nextupdate/"/>
-    <id>https://iandays.com/2018/12/09/nextupdate/</id>
+    <link href="https://iandays.com/nextupdate/"/>
+    <id>https://iandays.com/nextupdate/</id>
     <published>2018-12-09T14:00:19.000Z</published>
     <updated>2019-06-08T04:41:19.033Z</updated>
     

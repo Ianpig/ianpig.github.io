@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="zh-TW"><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><link rel="alternate" href="https://iandays.com/mapcluster/" hreflang="zh-tw"><link rel="alternate" href="https://en.iandays.com/mapcluster/" hreflang="en"><link rel="canonical" href="https://iandays.com/mapcluster/"><title>Google Map marker cluster 標記使用教學 | Ian Chu</title><script type="application/ld+json">[{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Google Map marker cluster 標記使用教學",
+  "description": "google map下多個marker，再搭配marker的event來互動，以下是打開infowindow的運用。markerwithlabel讓我們更簡單設計不同的marker，例如讓他帶自訂的image，再來是重點 markercluster，它讓我們可以解決marker過多，同時重疊的問題。",
+  "mainEntityOfPage":{
+      "@type":"WebPage",
+      "@id": "https://iandays.com/mapcluster/" 
+  },
+  "datePublished":  "2017-12-11T15:53:19.000Z" ,
+  "dateModified":  "2019-07-14T15:47:41.244Z" ,
+  "image": "https://iandays.com/images/markerconsole.png",
+  "author": {
+      "@type": "Person",
+      "name":  "Ian Chu"
+  },
+  "publisher": {
+      "@type": "Organization",
+      "name":  "Ian Chu",
+      "logo": {
+        "@type": "ImageObject",
+        "url":  "https://iandays.com/amp-dist/sample/logo.png",
+        "width":  600 ,
+        "height":  60 
+      }
+  }
+},
+{
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "javascript",
+    "item": "https://iandays.com/categories/javascript/"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Google Map marker cluster 標記使用教學",
+    "item": "https://iandays.com/mapcluster/"
+  }]
+}]</script><noscript><style>img.lazyload { display: none !important; }</style></noscript><meta property="og:title" content="Google Map marker cluster 標記使用教學 | Ian Chu"><meta name="description" content="google map下多個marker，再搭配marker的event來互動，以下是打開infowindow的運用。markerwithlabel讓我們更簡單設計不同的marker，例如讓他帶自訂的image，再來是重點 markercluster，它讓我們可以解決marker過多，同時重疊的問題。"><meta property="og:description" content="google map下多個marker，再搭配marker的event來互動，以下是打開infowindow的運用。markerwithlabel讓我們更簡單設計不同的marker，例如讓他帶自訂的image，再來是重點 markercluster，它讓我們可以解決marker過多，同時重疊的問題。"><meta property="og:url" content="https://iandays.com/mapcluster/"><meta property="og:type" content="article"><meta property="og:site_name" content="Ian Chu"><meta content="https://www.facebook.com/chu1228/" property="article:author"><meta property="og:image" content="https://iandays.com/images/logo.png"><meta name="google-site-verification" content="HAL8spli6FtFuOqxBit5nRU1vXuqhUXrRm9tyS2IEfw"><link rel="stylesheet" type="text/css" href="/css/style.css?1601741154863"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/pure/1.0.0/grids-responsive-min.css"><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WGLRPVD'); </script><script>var host = "iandays.com";
+if ((host == window.location.host) && (window.location.protocol != "https:")){
+  window.location.protocol = "https";
+}</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><a id="logo" href="/.">Ian Chu</a><p class="description"></p><div class="switch-container"><div class="switch-theme"><input id="toggle_checkbox" type="checkbox" value="on"><label for="toggle_checkbox"><div id="star"><div class="star" id="star-1">★</div><div class="star" id="star-2">★</div></div><div id="moon"></div></label></div><div><div class="facebook-icon"><a target="_blank" href="https://www.facebook.com/chu1228" targer="_blank" alt="ian"><i class="fa fa-facebook-square"> </i></a></div></div></div></div><script>chooseTheme(true);
+function chooseTheme(needSwitch){
+    var toggle_checkbox = document.getElementById('toggle_checkbox');
+    var browserDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var value = localStorage.getItem('theme');
+    if(value === 'night' || ( !value && browserDarkMode )){
+        document.body.classList.add("dark");
+        if(needSwitch){
+            toggle_checkbox.checked = true
+        }
+    } else {
+        document.body.classList.remove("dark"); 
+    }
+}</script><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Google Map marker cluster 標記使用教學</h1><div class="post-meta">Jul 14, 2019<span> | </span><ol class="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList"><li class="category" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/categories/javascript/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">javascript</span></a><meta itemprop="position" content="1"></li><li class="article" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a href="/mapcluster/" itemtype="http://schema.org/Thing" itemprop="item"><span itemprop="name">Google Map marker cluster 標記使用教學</span></a><meta itemprop="position" content="2"></li></ol><div class="update-date">Update: 3 years ago</div></div><a class="disqus-comment-count" data-disqus-identifier="mapcluster/" href="/mapcluster/#disqus_thread"></a><div class="clear"><div class="toc-article" id="toc"><div class="toc-title">文章目錄</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#google-map-搭配內建marker-infowindow"><span class="toc-text">google map 搭配內建marker infowindow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#實際運作範例-infowindow"><span class="toc-text">實際運作範例 infowindow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#google-map-運用library"><span class="toc-text">google map 運用library</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#實際範例-markerwithlabel"><span class="toc-text">實際範例 markerwithlabel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#實際範例-markercluster"><span class="toc-text">實際範例 markercluster</span></a></li></ol></div></div><div class="post-content"><p>大家好我是Ian，目前是負責網頁前端，每天工作都在處理各種問題<del>(pm奇形需求)</del>，順便分享一些相關的解法。<br>最近剛好專注在google map工具的使用，需要將大量的資料撒上google map，資料也帶滿多資訊，讓user點擊marker在拉開infowindow，又嫌太慢。於是開始研究marker group概念的工具，也發現關於marker library中文的文件比較少一點，所以就順手寫了marker延伸使用範例，也可以直接點開範例看code。</p>
+<p>分為內建google map工具操作，還有運用google map團隊所開發的工具，達到更多的功能。<br><br></p>
+<h2 id="google-map-搭配內建marker-infowindow"><a href="#google-map-搭配內建marker-infowindow" class="headerlink" title="google map 搭配內建marker infowindow"></a>google map 搭配內建marker infowindow</h2><p>首先先運用比較常用到的功能，google map下多個marker，再搭配marker的event來互動，以下是打開infowindow的運用。</p>
+<p>簡單創建多筆經緯度資料，呈現的是搭計程車到地點的價格。</p>
+<figure class="highlight armasm"><table><tr><td class="code"><pre><span class="line">//我只標出比較重要部分，其他就codepen點開來看唄</span><br><span class="line">  var <span class="keyword">marker </span>= new google.maps.<span class="keyword">Marker(&#123; </span> </span><br><span class="line"><span class="symbol">    position:</span> &#123;lat: <span class="keyword">item.lat, </span>lng: <span class="keyword">item.lng&#125;, </span> </span><br><span class="line"><span class="symbol">    map:</span> <span class="meta">map</span>,  </span><br><span class="line"><span class="symbol">    title:</span> <span class="keyword">item.name, </span> </span><br><span class="line"><span class="symbol">    icon:</span>image,  </span><br><span class="line"><span class="symbol">    data:</span><span class="string">'Go to '</span>+<span class="keyword">item.name </span>+ <span class="string">'&lt;br/&gt; Taxi price: '</span> +<span class="keyword">item.price </span> </span><br><span class="line">  &#125;)<span class="comment">;  </span></span><br><span class="line">  <span class="keyword">marker.addListener('click', </span><span class="meta">function</span>() &#123;  </span><br><span class="line">    infowindow.setContent( this<span class="meta">.data</span> )<span class="comment">;  </span></span><br><span class="line">    infowindow.open(<span class="meta">map</span>, this)<span class="comment">;  </span></span><br><span class="line">  &#125;)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>比較特別的是這個寫法，在每個marker 加入 data 物件，讓marker延伸操作性。<br>以下圖片實際呼叫marker 所印出來的資料，可以看到畫線處，出現我們剛剛加入的data，這樣你就可以利用marker來帶一些資料，例如說點擊marker可以call function 然後帶互動，這方法變得方便又輕巧。<br>ps.可以利用指定某個marker markerArr[i].setOptions({data=”/change/image”})變換marker資料。</p>
+<p><img src="/images/loading-image.png"class="lazyload" data-src="/images/markerconsole.png" alt="google map marker console" title="google map marker console"><noscript><img src="/images/markerconsole.png" alt="google map marker console" /></noscript></p>
+<h2 id="實際運作範例-infowindow"><a href="#實際運作範例-infowindow" class="headerlink" title="實際運作範例 infowindow"></a>實際運作範例 infowindow</h2><iframe height='360' scrolling='no' title='Multipel google map marker with info (basic)' class="lazyload" data-src='//codepen.io/chu1228/embed/rpNzBb/?height=360&theme-id=light&default-tab=result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/chu1228/pen/rpNzBb/' target="_blank" rel="noopener">Multipel google map marker with info (basic)</a> by ianchu (<a href='https://codepen.io/chu1228' target="_blank" rel="noopener">@chu1228</a>) on <a href='https://codepen.io' target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+<br>
+
+<h2 id="google-map-運用library"><a href="#google-map-運用library" class="headerlink" title="google map 運用library"></a>google map 運用library</h2><p>感謝google大大，其實googlemap官方github有整理滿多library <a href="https://github.com/googlemaps/v3-utility-library" target="_blank" rel="noopener" title="google map library">google map library</a>，建議下載使用，因為滿多工具demo頁面都呈現404…。  </p>
+<p>這邊要用的是<a href="https://github.com/googlemaps/v3-utility-library/tree/master/markerwithlabel" target="_blank" rel="noopener" title="google map library">markerwithlabel</a> 還有 <a href="https://github.com/googlemaps/v3-utility-library/tree/master/markerclusterer" target="_blank" rel="noopener" title="google map library">markercluster</a>這兩個library，markerwithlabel讓我們更簡單設計不同的marker，例如讓他帶自訂的image，再來是重點 markercluster，它讓我們可以解決marker過多，同時重疊的問題。  </p>
+<p>首先處理單一個marker用的是MarkerWithLabel，原本呼叫 google.maps.Marker 改成 MarkerWithLabel，然後就搞定了，非常快速簡單，他可以用的event滿多的，基本上都可以處理marker的互動，甚至也可以像一般的marker設定物件上去。</p>
+<figure class="highlight lasso"><table><tr><td class="code"><pre><span class="line"><span class="comment">//更多變數請點選說明文件，基本上可以用class 搭配 css操作，或是labelStyle 處理icon style</span></span><br><span class="line">  <span class="built_in">var</span> marker = <span class="literal">new</span> MarkerWithLabel(&#123;</span><br><span class="line">    draggable: <span class="literal">false</span>,</span><br><span class="line">        raiseOnDrag: <span class="literal">false</span>,</span><br><span class="line">        <span class="built_in">map</span>: <span class="built_in">map</span>,</span><br><span class="line">        labelContent: <span class="string">'&lt;span&gt;'</span>+ item.name +<span class="string">'&lt;br/&gt;'</span>+ item.price +<span class="string">'&lt;/span&gt;'</span>,</span><br><span class="line">        labelAnchor: <span class="literal">new</span> google.maps.Point(<span class="number">40</span>,<span class="number">32</span>),</span><br><span class="line">        labelClass: <span class="string">"labels"</span>, <span class="comment">// the CSS class for the label</span></span><br><span class="line">        labelStyle: &#123;opacity: <span class="number">1</span>&#125;,</span><br><span class="line">        position: &#123;lat: item.lat, lng: item.lng&#125;,</span><br><span class="line">        <span class="built_in">data</span>:<span class="string">'Go to '</span>+item.name + <span class="string">'&lt;br/&gt; Taxi price: '</span> +item.price</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="實際範例-markerwithlabel"><a href="#實際範例-markerwithlabel" class="headerlink" title="實際範例 markerwithlabel"></a>實際範例 markerwithlabel</h2><p data-height="259" data-theme-id="light" data-slug-hash="eyYVJz" data-default-tab="result" data-user="chu1228" data-embed-version="2" data-pen-title="google map marker cluster (markercluster & markerlabel)" class="codepen">See the Pen <a href="https://codepen.io/chu1228/pen/eyYVJz/" target="_blank" rel="noopener">google map marker cluster (markercluster & markerlabel)</a> by ianchu (<a href="https://codepen.io/chu1228" target="_blank" rel="noopener">@chu1228</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>最後是使用markercluster工具，這工具目前還有另一版markerclusterplus，這邊就只用來一般版來操作。</p>
+<p>markercluster主要是處理marker下完後，call function渲染畫面，快速的判斷每個marker之間是否接近到某個程度，在創造出屬性這區塊的聚合marker，簡單的就是</p>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line">下 <span class="selector-tag">marker</span> <span class="selector-tag">-</span>&gt; <span class="selector-tag">markerArr</span><span class="selector-class">.markercluster</span>(&#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>建立Cluster的方法，這個版本無法帶入className，需要打開.js檔案，直接在style.push 區塊修改，我這邊有修改background-repeat:no-repeat。</p>
+<figure class="highlight smali"><table><tr><td class="code"><pre><span class="line">//arr 是剛剛marker的<span class="built_in"> array </span>需要建立帶入 其餘是內建option</span><br><span class="line">  markerCluster =<span class="built_in"> new </span>MarkerClusterer(map, arr, &#123;</span><br><span class="line">    gridSize: 50, </span><br><span class="line">    maxZoom: 15,</span><br><span class="line">    zoomOnClick: true,</span><br><span class="line">    styles: imgArr,</span><br><span class="line">    imagePath: 'https://googlemaps.github.io/js-marker-clusterer/images/m'</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>這邊是客製化Cluster icon的方法，這個function會抓到這個建立中的cluster內包含的marker，會用陣列帶進來，這時候我們就跑迴圈，將marker內的資料帶出來，在看你想呈現的方式處理，我這邊是計算裡面的平均價格（這範例下方有click event寫法，不過我直接寫進codepen導致跑不動)。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 稍微修改 cluster.js的檔案  讓聚合變得更客製化</span></span><br><span class="line">MarkerClusterer.prototype.calculator_ = <span class="function"><span class="keyword">function</span>(<span class="params">markers, numStyles</span>) </span>&#123; </span><br><span class="line">    <span class="comment">//省略</span></span><br><span class="line">    <span class="keyword">var</span> price = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; markers.length; i++) &#123;</span><br><span class="line">        price += <span class="built_in">Number</span>(markers[i].dataPrice);</span><br><span class="line">    &#125;</span><br><span class="line">    price = <span class="built_in">Math</span>.floor(price/count);</span><br><span class="line">    <span class="comment">//省略</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        text: count + <span class="string">' 筆&lt;br/&gt;A. NT'</span> + price,</span><br><span class="line">        index: index</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="實際範例-markercluster"><a href="#實際範例-markercluster" class="headerlink" title="實際範例 markercluster"></a>實際範例 markercluster</h2><iframe height='350' scrolling='no' title='google map marker cluster (markercluster & markerlabel)' class="lazyload" data-src='//codepen.io/chu1228/embed/opgwQK/?height=313&theme-id=light&default-tab=result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/chu1228/pen/opgwQK/' target="_blank" rel="noopener">google map marker cluster (markercluster & markerlabel)</a> by ianchu (<a href='https://codepen.io/chu1228' target="_blank" rel="noopener">@chu1228</a>) on <a href='https://codepen.io' target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+
+<p>上面簡單講解一下google map marker過多的處理方法，沒想到最麻煩的是寫範例＋建立假資料最耗時間，快寫完剛好看到更新版的…<a href="https://gmaps-marker-clusterer.github.io/gmaps-marker-clusterer/index.html" target="_blank" rel="noopener">最新版更新</a>（os:…，為啥跟github版本差那麼多…)，<br>大家可以直接試用看看，看介紹貌似支援call option直接修改icon 還有增加className，能直接略過我上面硬改cluster.js這段是最好，畢竟改plugin缺乏前端最重要的沿用性。</p>
+<p>感謝大家閱讀！！希望能解決google map 麻煩的 marker問題，<br>一起來讓google map好用一點點點點點點點XD。</p>
+<script>document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".lazyload"));
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target;
+          lazyImage.src = lazyImage.dataset.src;
+          lazyImage.onload = function(){
+            lazyImage.classList.remove("lazyload");
+          }
+          lazyImageObserver.unobserve(lazyImage);
+        }
+      });
+    }, {
+        rootMargin: '100px'
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage);
+    });
+  } else {
+    lazyImages.forEach(function(lazyImage) {
+      lazyImage.src = lazyImage.dataset.src;
+      lazyImage.classList.remove("lazyload");
+    });
+  }
+});</script></div><script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="5563177745" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script><div class="tags"><a href="/tags/google-map/">google_map</a><a href="/tags/javascript/">javascript</a></div><div class="post__related"><span class="category-title"> Related : </span><span class="category"><category class="name"></category><category class="name"></category></span><ul class="related-posts"><li class="related-posts-item"><a class="related-posts-link" href="/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="related-posts-item"><a class="related-posts-link" href="/eventpass/">JavaScript Capture Bubble DOM事件獲取&冒泡</a></li><li class="related-posts-item"><a class="related-posts-link" href="/promise/">Javascript Promise example 簡易實作模擬</a></li><li class="related-posts-item"><a class="related-posts-link" href="/immutable/">Immutable 對於 React 重要性</a></li><li class="related-posts-item"><a class="related-posts-link" href="/postmessage/">HTML postMessage iframe and open window 跨視窗傳訊用法</a></li></ul></div><div class="post-nav"><a class="pre" href="/arrayhandle/">Javascript Array sort 陣列排序分類處理</a></div><div id="disqus_thread"><div class="btn_click_load"><button class="disqus_click_btn">阅读评论 「请确保 disqus.com 可以正常加载」</button></div><script>var disqus_shortname = 'ianchuu';
+var disqus_identifier = 'mapcluster/';
+var disqus_title = 'Google Map marker cluster 標記使用教學';
+var disqus_url = 'https://iandays.com/mapcluster/';
+$('.btn_click_load').click(function() {
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+  $('.btn_click_load').css('display','none');
+});
+document.addEventListener("DOMContentLoaded", function() {
+  var disqusElement = document.getElementById("disqus_thread");
+  if ("IntersectionObserver" in window) {
+    let lazyLoadObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          loadDisqus();
+          lazyLoadObserver.unobserve(disqusElement);
+        }
+      });
+    }, {
+        rootMargin: '300px'
+    });
+    lazyLoadObserver.observe(disqusElement);
+  } else {
+    loadDisqus();
+  }
+});
+function loadDisqus(){
+  $.ajax({
+    url: 'https://disqus.com/next/config.json',
+    timeout: 3000,
+    type: 'GET',
+    success: (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      $('.btn_click_load').css('display','none');
+    })(),
+    error: function() {
+      $('.btn_click_load').css('display','block');
+    }
+  });
+}
+</script><script id="dsq-count-scr" src="//ianchuu.disqus.com/count.js" async></script></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"/><input type="hidden" name="sitesearch" value="https://iandays.com"/></form></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 贊助創作</i></div><a target="_blank" href="https://store.line.me/stickershop/author/1019955/zh-Hant" targer="_blank" alt="小河馬與牠的快樂夥伴"><div style="    width: 100%;    text-align: center;    padding: 10px;    "><img class="nofancybox" src="/images/hippo.png" alt="貼圖"/><div>Line 貼圖</div></div></a></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分類</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 標籤</i></div><div class="tagcloud"><a href="/tags/array/" style="font-size: 15px;">array</a> <a href="/tags/seo/" style="font-size: 15px;">seo</a> <a href="/tags/google-map/" style="font-size: 15px;">google_map</a> <a href="/tags/javascript/" style="font-size: 15px;">javascript</a> <a href="/tags/frontend/" style="font-size: 15px;">frontend</a> <a href="/tags/google-form/" style="font-size: 15px;">google_form</a> <a href="/tags/google-analytics/" style="font-size: 15px;">google_analytics</a> <a href="/tags/facebook/" style="font-size: 15px;">facebook</a> <a href="/tags/react-js/" style="font-size: 15px;">react.js</a> <a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/prototype/" style="font-size: 15px;">prototype</a> <a href="/tags/tag-manager/" style="font-size: 15px;">tag_manager</a> <a href="/tags/testing/" style="font-size: 15px;">testing</a></div></div><script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" async="async"></script><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8378986291968146" data-ad-slot="3619826098" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/closure/">JavaScript Closure 你一定有用過的閉包</a></li><li class="post-list-item"><a class="post-list-link" href="/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li><li class="post-list-item"><a class="post-list-link" href="/jestunit/">React Unit Test with Jest 單元測試</a></li><li class="post-list-item"><a class="post-list-link" href="/gacrossdomain/">GA跨網域追蹤 google analytics cross-domain tracking</a></li><li class="post-list-item"><a class="post-list-link" href="/reactcontextapi/">React Context API 跨元件傳遞資料</a></li><li class="post-list-item"><a class="post-list-link" href="/gauserid/">Google Analytics 自訂UserId 追蹤數據</a></li><li class="post-list-item"><a class="post-list-link" href="/firstjob/">第一份工作</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 家裡招牌</i></div><ul></ul><a href="https://www.hoyasign.com/" title="弘揚廣告招牌" target="_blank">弘揚廣告招牌</a></div><div class="widget"><div class="widget-title"><i class="fa fa-comment-o"> 最近評論</i></div><script type="text/javascript" src="//ianchuu.disqus.com/recent_comments_widget.js?num_items=5&amp;hide_avatars=1&amp;avatar_size=32&amp;excerpt_length=20&amp;hide_mods=1"></script></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2020 <a href="/." rel="nofollow">Ian Chu. 時間飛逝如砲彈</a> | by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"></a> <a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script>function loadCSS(e, t, n) { "use strict"; var i = window.document.createElement("link"); var o = t || window.document.getElementsByTagName("script")[0]; i.rel = "stylesheet"; i.href = e; i.media = "only x"; o.parentNode.insertBefore(i, o); setTimeout(function () { i.media = n || "all" }) }loadCSS("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+</script><script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script><script type="text/javascript" src="/js/all.js?1601741154865" async></script></div></body><div class="btn-menu"><span class="bar"></span><span class="text">Menu </span></div><div class="overlay"><ul><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input class="search-input pure-u-2-5" type="text" name="q" maxlength="20" placeholder="輸入關鍵字"><input type="hidden" name="sitesearch" value="https://iandays.com"><button class="search-button pure-button pure-u-1-3">Search</button></form></ul><ul><a class="current" href="/."><i class="fa fa-home"> 首頁</i></a><a href="/archives/"><i class="fa fa-archive"> 所有文章</i></a><a href="/about/"><i class="fa fa-user"> 關於</i></a><a href="/atom.xml"><i class="fa fa-rss"> 訂閱</i></a></ul><ul class="list-title"><i class="fa fa-folder-o"> 分類</i></ul><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/javascript/">javascript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/life/">life</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/marketing/">marketing</a></li></ul><ul class="list-title"><i class="fa fa-file-o"> 最近文章</i></ul><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/closure/">JavaScript Closure 你一定有用過的閉包</a></li><li class="post-list-item"><a class="post-list-link" href="/immutable/">Immutable 對於 React 重要性</a></li><li class="post-list-item"><a class="post-list-link" href="/reactpuppeteer/">Puppeteer End-to-End Test React</a></li><li class="post-list-item"><a class="post-list-link" href="/iframeblockcookie/">阻擋第三方(Block third-party) Cookie，各瀏覽器狀態</a></li><li class="post-list-item"><a class="post-list-link" href="/reduxdispatch/">Redux multiple dispatch，batch redux-thunk</a></li></ul></div></html>
